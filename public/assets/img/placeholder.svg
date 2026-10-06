@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Gambar belum tersedia">
+  <rect width="800" height="600" fill="#F2EEE6"/>
+  <rect x="24" y="24" width="752" height="552" fill="none" stroke="#DCD5C9" stroke-width="2" stroke-dasharray="10 8"/>
+  <g fill="none" stroke="#1F5C56" stroke-width="3">
+    <path d="M400 210 L437 250 L487 250 L447 280 L465 330 L400 298 L335 330 L353 280 L313 250 L363 250 Z"/>
+    <path d="M250 400 H550"/>
+  </g>
+  <circle cx="400" cy="270" r="9" fill="#B8923F"/>
+  <text x="400" y="450" text-anchor="middle" font-family="Georgia, 'Playfair Display', serif" font-size="30" fill="#5C524A">Gambar belum tersedia</text>
+  <text x="400" y="486" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#707977">Sakinah Journeys</text>
+</svg>

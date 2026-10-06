@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style>
+<script src="https://cdn.tailwindcss.com">
+</script>
+<script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"tertiary-container":"#5b5149","tertiary-fixed-dim":"#d2c4ba","error":"#ba1a1a","on-error-container":"#93000a","on-tertiary-fixed":"#211a14","inverse-on-surface":"#fbeee6","primary":"#00443f","inverse-primary":"#97d2ca","outline-variant":"#bfc8c6","tertiary":"#433a33","on-surface-variant":"#404947","on-surface":"#201b16","on-secondary":"#ffffff","inverse-surface":"#362f2a","surface-container-lowest":"#ffffff","on-secondary-container":"#785804","surface-tint":"#2d6861","on-tertiary-fixed-variant":"#4e453d","on-error":"#ffffff","background":"#fff8f5","on-background":"#201b16","primary-container":"#1f5c56","surface-container-low":"#fef1e9","error-container":"#ffdad6","surface-container":"#f8ece3","secondary-fixed":"#ffdea0","on-secondary-fixed-variant":"#5c4300","on-primary-fixed":"#00201d","tertiary-fixed":"#efe0d5","on-primary":"#ffffff","on-primary-fixed-variant":"#0d4f4a","surface-bright":"#fff8f5","surface-container-highest":"#ece0d8","surface-dim":"#e4d8d0","surface-variant":"#ece0d8","on-tertiary-container":"#d2c4ba","primary-fixed":"#b2eee6","outline":"#707977","secondary-container":"#fdd177","surface":"#fff8f5","secondary":"#795905","primary-fixed-dim":"#97d2ca","on-secondary-fixed":"#261900","secondary-fixed-dim":"#ebc168","surface-container-high":"#f2e6de","on-tertiary":"#ffffff","on-primary-container":"#97d2ca"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"margin":"1.5rem","gutter":"1.5rem","space-lg":"2.25rem","space-xs":"0.375rem","gutter-desktop":"2.5rem","margin-desktop":"4.5rem","space-sm":"0.75rem","space-md":"1.25rem","space-xl":"4rem"},"fontFamily":{"display-md-mobile":["Playfair Display"],"display-lg":["Playfair Display"],"headline-lg":["Playfair Display"],"display-lg-mobile":["Playfair Display"],"body-md":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"headline-md":["Playfair Display"],"display-md":["Playfair Display"],"body-lg":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"headline-sm":["Playfair Display"]},"fontSize":{"display-md-mobile":["30px",{"lineHeight":"38px","letterSpacing":"0em","fontWeight":"400"}],"display-lg":["56px",{"lineHeight":"68px","letterSpacing":"-0.015em","fontWeight":"400"}],"headline-lg":["32px",{"lineHeight":"42px","letterSpacing":"0em","fontWeight":"500"}],"display-lg-mobile":["38px",{"lineHeight":"48px","letterSpacing":"-0.01em","fontWeight":"400"}],"body-md":["16px",{"lineHeight":"26px","letterSpacing":"0.01em","fontWeight":"400"}],"label-md":["13px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"500"}],"body-sm":["14px",{"lineHeight":"22px","letterSpacing":"0.015em","fontWeight":"400"}],"headline-md":["24px",{"lineHeight":"34px","letterSpacing":"0.005em","fontWeight":"500"}],"display-md":["42px",{"lineHeight":"52px","letterSpacing":"-0.01em","fontWeight":"400"}],"body-lg":["18px",{"lineHeight":"30px","letterSpacing":"0.01em","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"16px","letterSpacing":"0.06em","fontWeight":"600"}],"headline-sm":["20px",{"lineHeight":"28px","letterSpacing":"0.01em","fontWeight":"600"}]}}}};</script>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<header class="fixed top-0 left-0 w-full z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(43,37,32,0.04)]">
+<div class="h-20 w-full max-w-7xl mx-auto px-margin lg:px-gutter-desktop flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md shrink-0">
+<img alt="Sakinah Journeys Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VuQGvU91PHDFmDbauU2iB8_oENqMhMtEa9DDjtdHRPg3GHxWkjNefN1YZ31VuksocXlaino-yhBhj1N5ISWzYEUBv5DWGAfRXsGT9Z3pl8mwiYlcYF24IH92_nrXvI65XkBG2qEA9UrKFz-Zk5AkN9QfgzUX8i364qto55vpNgoH8IMrulQZ3rCYOWWCR5BgRK14IbB5J3IuWXqrrN6qTkHIe8C_at4rHSxIASu4szz4y8C8bE_ZndgbQ"/>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary tracking-normal">Sakinah Journeys</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Perjalanan Spiritual yang Teduh</span>
+</div>
+</div>
+<nav class="hidden xl:flex items-center gap-space-lg" data-active-classes="text-primary font-semibold">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1" data-path="beranda" href="#">Beranda</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1" data-path="paket-ibadah" href="#">Paket Ibadah</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1" data-path="bimbingan-dan-manasik" href="#">Bimbingan &amp; Manasik</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1" data-path="cerita-jamaah" href="#">Cerita Jamaah</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1" data-path="tentang-kami" href="#">Tentang Kami</a>
+</nav>
+<div class="flex items-center gap-space-md shrink-0">
+<div class="hidden md:flex flex-col text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Layanan Concierge</span>
+<span class="font-body-sm text-body-sm font-medium text-tertiary">+62 21 7892 0110</span>
+</div>
+<a class="hidden sm:inline-flex items-center justify-center px-space-md py-space-sm bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md rounded hover:bg-secondary-fixed-dim transition-colors" data-path="jadwalkan-konsultasi" href="#">Jadwalkan Konsultasi</a>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<main class="w-full pt-20 bg-surface min-h-[calc(100vh-5rem)]">
+<div class="flex flex-col w-full">
+<!-- Section 1: Editorial Header / Page Intro -->
+<section class="w-full bg-surface py-space-lg lg:py-space-xl">
+<div class="max-w-7xl mx-auto px-margin lg:px-gutter-desktop">
+<nav aria-label="Breadcrumb" class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md mb-space-sm">
+<a class="hover:text-primary transition-colors" href="#">Beranda</a>
+<span class="text-outline-variant text-[11px]">/</span>
+<span class="text-primary font-medium">Paket Ibadah</span>
+</nav>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-end">
+<div class="lg:col-span-8">
+<p class="font-label-md text-label-md text-secondary tracking-wide mb-space-xs font-semibold">Kurasi Khidmat &amp; Kenyamanan Jamaah</p>
+<h1 class="font-headline-lg lg:font-display-md text-headline-lg lg:text-display-md text-primary leading-tight font-normal">
+            Pilihan Perjalanan Ibadah yang Teduh dan Terencana
+          </h1>
+</div>
+<div class="lg:col-span-4 lg:pb-1">
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Menghadirkan ketenangan dalam setiap rukun melalui rombongan intim 16–20 jamaah, bimbingan asatidzah berjiwa asuh, serta hotel pelataran utama tanpa ketergesaan langkah.
+          </p>
+</div>
+</div>
+<div class="w-full h-px bg-outline-variant/30 mt-space-lg">
+</div>
+</div>
+</section>
+<!-- Section 2: Main Layout (Sidebar Filter & Dynamic Packages Grid) -->
+<section class="w-full pb-space-xl">
+<div class="max-w-7xl mx-auto px-margin lg:px-gutter-desktop">
+<div class="flex flex-col lg:flex-row gap-gutter-desktop items-start">
+<!-- Left Column: Curated Tactile Filter Panel (~280px) -->
+<aside class="w-full lg:w-72 shrink-0 lg:sticky lg:top-28 space-y-space-md">
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-sm space-y-space-md">
+<div class="flex items-center justify-between pb-space-xs border-b border-outline-variant/20">
+<span class="font-headline-sm text-headline-sm text-primary font-medium">Saring Perjalanan</span>
+<button class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer" id="reset-filter-btn" type="button">
+                Atur Ulang
+              </button>
+</div>
+<!-- Filter: Durasi Perjalanan -->
+<div class="space-y-space-xs">
+<label class="font-label-md text-label-md text-tertiary font-semibold block">Durasi Manasik &amp; Ibadah</label>
+<div aria-label="Filter Durasi" class="space-y-1.5" role="radiogroup">
+<label class="duration-option group flex items-start gap-space-xs p-2.5 rounded-lg cursor-pointer transition-colors bg-surface hover:bg-surface-container">
+<input checked="" class="mt-1 text-primary focus:ring-0 accent-[#1f5c56] cursor-pointer" name="filter-duration" type="radio" value="all"/>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium leading-tight">Semua Durasi</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Koleksi lengkap musim ini</span>
+</div>
+</label>
+<label class="duration-option group flex items-start gap-space-xs p-2.5 rounded-lg cursor-pointer transition-colors bg-surface-container-lowest hover:bg-surface-container">
+<input class="mt-1 text-primary focus:ring-0 accent-[#1f5c56] cursor-pointer" name="filter-duration" type="radio" value="9"/>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium leading-tight">9 Hari</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Fokus ibadah &amp; itikaf mandiri</span>
+</div>
+</label>
+<label class="duration-option group flex items-start gap-space-xs p-2.5 rounded-lg cursor-pointer transition-colors bg-surface-container-lowest hover:bg-surface-container">
+<input class="mt-1 text-primary focus:ring-0 accent-[#1f5c56] cursor-pointer" name="filter-duration" type="radio" value="12"/>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium leading-tight">12 Hari</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Keluarga &amp; jamaah sepuh</span>
+</div>
+</label>
+<label class="duration-option group flex items-start gap-space-xs p-2.5 rounded-lg cursor-pointer transition-colors bg-surface-container-lowest hover:bg-surface-container">
+<input class="mt-1 text-primary focus:ring-0 accent-[#1f5c56] cursor-pointer" name="filter-duration" type="radio" value="16"/>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium leading-tight">16 Hari</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Napak tilas sirah &amp; ziarah luas</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Filter: Rentang Biaya Terkurasi -->
+<div class="space-y-space-xs pt-space-xs border-t border-outline-variant/20">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-tertiary font-semibold">Kisaran Kontribusi</label>
+<span class="font-label-sm text-label-sm text-secondary font-medium" id="tier-indicator">Semua Tier</span>
+</div>
+<div aria-label="Rentang Biaya" class="grid grid-cols-1 gap-1.5" role="radiogroup">
+<button class="tier-chip w-full text-left px-3 py-2 rounded-lg bg-surface text-primary text-body-sm font-body-sm font-medium transition-all shadow-sm" data-tier="all" type="button">
+                  Seluruh Program
+                </button>
+<button class="tier-chip w-full text-left px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:text-on-surface text-body-sm font-body-sm transition-all" data-tier="under-40" type="button">
+                  Di bawah Rp 40 Jt
+                </button>
+<button class="tier-chip w-full text-left px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:text-on-surface text-body-sm font-body-sm transition-all" data-tier="40-50" type="button">
+                  Rp 40 Jt – Rp 50 Jt
+                </button>
+<button class="tier-chip w-full text-left px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:text-on-surface text-body-sm font-body-sm transition-all" data-tier="above-50" type="button">
+                  Di atas Rp 50 Jt
+                </button>
+</div>
+</div>
+<!-- Filter: Musim Keberangkatan -->
+<div class="space-y-space-xs pt-space-xs border-t border-outline-variant/20">
+<label class="font-label-md text-label-md text-tertiary font-semibold block">Musim Pelaksanaan</label>
+<div class="flex flex-wrap gap-1.5">
+<button class="season-pill px-2.5 py-1.5 rounded text-label-md font-label-md bg-surface text-primary font-medium transition-colors" type="button">
+                  Semua Musim
+                </button>
+<button class="season-pill px-2.5 py-1.5 rounded text-label-md font-label-md bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+                  Awal Musim (Muharram - Safar)
+                </button>
+<button class="season-pill px-2.5 py-1.5 rounded text-label-md font-label-md bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+                  Musim Sejuk (Nov - Jan)
+                </button>
+<button class="season-pill px-2.5 py-1.5 rounded text-label-md font-label-md bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+                  Ramadhan &amp; Syawal
+                </button>
+</div>
+</div>
+<!-- Small Callout Box for Special Request -->
+<div class="p-space-sm rounded-lg bg-surface-container-highest/60 space-y-2">
+<div class="flex items-center gap-1.5 text-primary">
+<span class="material-symbols-outlined text-[18px]">family_restroom</span>
+<span class="font-label-md text-label-md font-semibold">Penyesuaian Keluarga?</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                Kami menyediakan konfigurasi kamar terhubung, jadwal khusus anak, serta asisten lansia privat.
+              </p>
+<a class="inline-block font-label-md text-label-md text-primary font-medium underline underline-offset-4 hover:text-primary-container transition-colors" href="#">
+                Konsultasikan Bersama Tim Ahli
+              </a>
+</div>
+</div>
+</aside>
+<!-- Right Column: Asymmetric Packages Display -->
+<main class="flex-1 w-full min-w-0 flex flex-col gap-space-lg">
+<!-- FEATURED / SIGNATURE PACKAGE: Rawdha Khidmat 12 Hari -->
+<article class="package-card group w-full bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md" data-duration="12" data-price="43500000" data-tier="40-50">
+<div class="grid grid-cols-1 lg:grid-cols-12">
+<!-- Card Image & Atmosphere -->
+<div class="lg:col-span-5 relative min-h-[300px] lg:min-h-full">
+<img class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-700" data-alt="Quiet golden morning view of the Prophet's Mosque courtyard in Madinah with delicate marble patterns, soft desert sunrise mist, cinematic warm lighting, peaceful pilgrims walking calmly in white garments, tactile archways and timeless architectural dignity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjWP_bzwQFeOYARv2U-n24MaMF0pWZhI5o47Gu8PKpnY5W5EF2ugtNqEvxTW1eFXlSgLuaOHpkcvTKapNsD8Z6Od1CtZX4F663lPFplHKPSP6BksfNwwFrbuK00ZuSoA6Hag_uUTqvx0wOXV-pkKZNxLZyXgHu0FgLsi8y6piozd87x4DXBkkMuM2AeFHJTF_-ehPSUMRKcGlbZQTQMtfZ9EpVC_Trae3SDYPD472JuIBAxZpSPXEt"/>
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/60 via-transparent to-transparent lg:hidden">
+</div>
+<div class="absolute top-4 left-4">
+<span class="inline-flex items-center px-3 py-1 rounded bg-surface/95 backdrop-blur text-primary font-label-sm text-label-sm font-semibold tracking-wide shadow-sm">
+                    Rekomendasi Keluarga &amp; Orang Tua
+                  </span>
+</div>
+</div>
+<!-- Card Content Details -->
+<div class="lg:col-span-7 p-space-md lg:p-space-lg flex flex-col justify-between space-y-space-md">
+<div>
+<div class="flex flex-wrap items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm mb-1.5">
+<span class="inline-flex items-center gap-1 font-medium text-primary">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span> 12 Hari 11 Malam
+                    </span>
+<span>•</span>
+<span class="inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">groups</span> Maksimal 20 Jamaah
+                    </span>
+<span>•</span>
+<span class="text-tertiary">Keberangkatan: Nov 2025 &amp; Jan 2026</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-space-xs font-normal">
+                    Rawdha Khidmat — 12 Hari
+                  </h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-space-md">
+                    Dirancang khusus dengan ritme yang teduh dan manusiawi. Akomodasi berada tepat di pelataran tanpa tanjakan curam, disertai asisten tawaf personal dan kenyamanan Kereta Cepat Haramain Executive.
+                  </p>
+<!-- Amenities Pills -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-space-xs">
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0">apartment</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Bintang 5 Pelataran</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Langkah tanpa lelah</span>
+</div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0">menu_book</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Asatidzah Senior</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Bimbingan intensif 1:10</span>
+</div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0">restaurant</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Selera Nusantara</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Citarasa hangat rumah</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Price and Action Area -->
+<div class="pt-space-md border-t border-outline-variant/20 flex flex-col sm:flex-row sm:items-end justify-between gap-space-sm">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-0.5">Biaya Kontribusi Mulai</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg text-headline-lg font-normal text-secondary">Rp 43.500.000</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">/ jamaah (Quad)</span>
+</div>
+</div>
+<div class="flex items-center gap-2.5">
+<button class="px-space-md py-space-sm bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md font-semibold rounded transition-colors cursor-pointer" type="button">
+                      Konsultasi Paket
+                    </button>
+<button class="px-space-md py-space-sm bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-medium rounded transition-colors shadow-sm cursor-pointer" type="button">
+                      Lihat Rincian &amp; Jadwal
+                    </button>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- 2-COLUMN GRID FOR SUPPORTING PACKAGES -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Card 1: Safwa Itikaf 9 Hari -->
+<article class="package-card flex flex-col justify-between bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300" data-duration="9" data-price="36800000" data-tier="under-40">
+<div class="relative w-full h-52 overflow-hidden">
+<img class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" data-alt="Quiet pre-dawn atmosphere in Medina with soft warm lantern lights reflecting on smooth pale marble floors, calm silhouettes of worshippers in silent contemplation, warm neutral tones, peaceful and dignified spiritual sanctuary." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZVGj5B2Bw-qvGgQ-jW5bnrNRUt8yIy6rMyVlFleDxDgp3ZNCj_Ues0ZTc02I-rh903LP12gl-2UV3HNrSswVhl1p_OJhFHd0YH8z5foxfFJDR-YPSQEPOzNFVYxI9nf2ICiDN7NVuwLeR_huShqdbwNm-xCUL-8YVwMcklLKfox3hHsvYokrjy4Y15znNZAHteAEKNcIY5T_j8R_UYuAPVQ2ylymrLW68AbKDLMl_Paecq9QFdUQI"/>
+<div class="absolute top-3 left-3">
+<span class="px-2.5 py-1 rounded bg-surface/90 backdrop-blur font-label-sm text-label-sm text-primary font-medium shadow-sm">
+                    Fokus Kekhusyukan Ibadah
+                  </span>
+</div>
+</div>
+<div class="p-space-md flex-1 flex flex-col justify-between space-y-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span>9 Hari 8 Malam</span>
+<span>•</span>
+<span>Grup Intim 16 Jamaah</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary font-normal">
+                    Safwa Itikaf — 9 Hari
+                  </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                    Dirancang bagi Anda yang memprioritaskan kelapangan waktu berdiam di Raudhah dan memperbanyak thawaf sunnah tanpa jadwal ziarah yang padat.
+                  </p>
+<div class="flex items-center gap-4 text-on-surface-variant font-label-sm text-label-sm pt-2">
+<span class="inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">location_city</span> Hotel 50m Haram</span>
+<span class="inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">menu_book</span> Kajian Tazkiyatun Nafs</span>
+</div>
+</div>
+<div class="pt-space-sm border-t border-outline-variant/20 flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Mulai dari</span>
+<span class="font-headline-sm text-headline-sm text-secondary font-medium">Rp 36.800.000</span>
+</div>
+<button class="px-4 py-2 bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md rounded transition-colors" type="button">
+                    Lihat Rincian Paket
+                  </button>
+</div>
+</div>
+</article>
+<!-- Card 2: Barakah Syawal 16 Hari -->
+<article class="package-card flex flex-col justify-between bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300" data-duration="16" data-price="48000000" data-tier="40-50">
+<div class="relative w-full h-52 overflow-hidden">
+<img class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" data-alt="Scenic historical mountain foothills near Taif with calm mist, date palm gardens under soft morning glow, peaceful open horizons, warm desert earth tones and gentle sun rays reflecting on antique stone architecture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA91XsbWpim2itVNo7zPK25dWXGrvZZkqUqEMO0bOzV-2OVvBRawRl1h7Xj4dgKw3khLEmBI_fZRNuNJRZyKQxENkw4rsK5T_QxBTqMlD4M3l71lFHm9F4NU2Yfdmbm1_N4n3MUKxEjonxh3FaohMYjx_bu7URQa9sNymYfMa91PNUevB1ZcyZaYKFW0-d18gXQ_0BmP3RQyFai3SHNhMSdYPgPFf-yM2-JiyfVHg9KlrPMDCgkzwuw"/>
+<div class="absolute top-3 left-3">
+<span class="px-2.5 py-1 rounded bg-surface/90 backdrop-blur font-label-sm text-label-sm text-primary font-medium shadow-sm">
+                    Napak Tilas &amp; Sirah Mendalam
+                  </span>
+</div>
+</div>
+<div class="p-space-md flex-1 flex flex-col justify-between space-y-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span>16 Hari 15 Malam</span>
+<span>•</span>
+<span>Maksimal 20 Jamaah</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary font-normal">
+                    Barakah Syawal — 16 Hari
+                  </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                    Pengalaman ziarah historis menyeluruh menyusuri jejak perjuangan Rasulullah di Taif, lembah Badar, dan majelis sirah interaktif bersama asatidzah mukim.
+                  </p>
+<div class="flex items-center gap-4 text-on-surface-variant font-label-sm text-label-sm pt-2">
+<span class="inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">train</span> Kereta Haramain Express</span>
+<span class="inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">terrain</span> Ekskursi Penuh Taif</span>
+</div>
+</div>
+<div class="pt-space-sm border-t border-outline-variant/20 flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Mulai dari</span>
+<span class="font-headline-sm text-headline-sm text-secondary font-medium">Rp 48.000.000</span>
+</div>
+<button class="px-4 py-2 bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md rounded transition-colors" type="button">
+                    Lihat Rincian Paket
+                  </button>
+</div>
+</div>
+</article>
+<!-- Card 3: Al-Haramain Nisfu 10 Hari -->
+<article class="package-card flex flex-col justify-between bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300" data-duration="10" data-price="39500000" data-tier="under-40">
+<div class="relative w-full h-52 overflow-hidden">
+<img class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" data-alt="Quiet and grand interior arcade of an elegant sanctuary with polished marble arches, warm golden sunlight creating gentle shadows, minimal crowd, architectural clarity and serene ambience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiYnGeHbx8W7ObzEBSI9-TT2l0_3r4NB529Q4oUWbilcEubO3pfGCPb3cauDWFV70Qrt-brMaGZGrZNu05BTKJMfuT-8aFokIwhp528LL0rUB6vz0wefm-RZl_cwui93XT8n5prfcFdPtqsOLarma40LvsjUZgkdJkoAlwEjQA8psecuKt1EoZnJBdLHqFwG-x3u3tcpJYnLQ27ZPo2wBKqaLHZtyFO03tzW32o_DF0sG-v8uJIAut"/>
+<div class="absolute top-3 left-3">
+<span class="px-2.5 py-1 rounded bg-surface/90 backdrop-blur font-label-sm text-label-sm text-primary font-medium shadow-sm">
+                    Pasangan &amp; Profesional
+                  </span>
+</div>
+</div>
+<div class="p-space-md flex-1 flex flex-col justify-between space-y-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span>10 Hari 9 Malam</span>
+<span>•</span>
+<span>Grup 18 Jamaah</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary font-normal">
+                    Al-Haramain Nisfu — 10 Hari
+                  </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                    Kombinasi efisiensi waktu dan kenyamanan prima untuk pasangan atau profesional yang mendambakan pemulihan batin di sela kesibukan tahunan.
+                  </p>
+<div class="flex items-center gap-4 text-on-surface-variant font-label-sm text-label-sm pt-2">
+<span class="inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">hotel</span> Dar Al Taqwa &amp; Raffles</span>
+<span class="inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">flight_takeoff</span> Garuda Indonesia Direct</span>
+</div>
+</div>
+<div class="pt-space-sm border-t border-outline-variant/20 flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Mulai dari</span>
+<span class="font-headline-sm text-headline-sm text-secondary font-medium">Rp 39.500.000</span>
+</div>
+<button class="px-4 py-2 bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md rounded transition-colors" type="button">
+                    Lihat Rincian Paket
+                  </button>
+</div>
+</div>
+</article>
+<!-- Card 4: Ramadhan Lailatul Qadr 14 Hari -->
+<article class="package-card flex flex-col justify-between bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300" data-duration="14" data-price="56000000" data-tier="above-50">
+<div class="relative w-full h-52 overflow-hidden">
+<img class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" data-alt="Dusk falling over tranquil Medina streets with warm amber street lamps, quiet contemplation before iftar, deep indigo evening sky, glowing geometric mashrabiya windows, dignified and solemn spiritual mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfYEVCFdsZID07n1dP_Yri3clOL8i3hdSB18AlALoKcBuQFHwHPApHHXSjhfU5Uln5Hsw6nBY4_naorC0Hk2cxJsGTy-YIDqY2QTB804bE35VQU6rHvishE1ZZC3H1VrQJqzWNKK3Oi6hc_X-LVXIAXhea4RBoZmejHddITq_uFJ1I_W9QpvPwAM_yFtTx93DD1pTLNlI_mbVIM5cnMCkhTfkxYzEZN_c3gM6WO-DARdZfy9pGf_DR"/>
+<div class="absolute top-3 left-3">
+<span class="px-2.5 py-1 rounded bg-surface/90 backdrop-blur font-label-sm text-label-sm text-primary font-medium shadow-sm">
+                    10 Malam Terakhir
+                  </span>
+</div>
+</div>
+<div class="p-space-md flex-1 flex flex-col justify-between space-y-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span>14 Hari 13 Malam</span>
+<span>•</span>
+<span>Maksimal 18 Jamaah</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary font-normal">
+                    Ramadhan Lailatul Qadr — 14 Hari
+                  </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                    Menghidupkan malam-malam pengampunan di pelataran Ka'bah. Dilengkapi pendampingan qiyamul lail berjamaah, hidangan sahur teratur, dan lokasi hotel tanpa desakan masa.
+                  </p>
+<div class="flex items-center gap-4 text-on-surface-variant font-label-sm text-label-sm pt-2">
+<span class="inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">dark_mode</span> Qiyamul Lail Terbimbing</span>
+<span class="inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">local_dining</span> Sahur &amp; Iftar Terpadu</span>
+</div>
+</div>
+<div class="pt-space-sm border-t border-outline-variant/20 flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Mulai dari</span>
+<span class="font-headline-sm text-headline-sm text-secondary font-medium">Rp 56.000.000</span>
+</div>
+<button class="px-4 py-2 bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md rounded transition-colors" type="button">
+                    Lihat Rincian Paket
+                  </button>
+</div>
+</div>
+</article>
+</div>
+<!-- Empty State (Hidden by default, shown when filters match nothing) -->
+<div class="hidden p-space-lg text-center bg-surface-container rounded-xl" id="no-results">
+<span class="material-symbols-outlined text-outline text-[40px] mb-2">search_off</span>
+<h4 class="font-headline-sm text-headline-sm text-tertiary">Tidak Ada Paket yang Sesuai</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 max-w-md mx-auto">
+              Silakan sesuaikan pilihan durasi atau rentang biaya pada panel sebelah kiri, atau hubungi konsultan kami untuk keberangkatan khusus.
+            </p>
+</div>
+</main>
+</div>
+</div>
+</section>
+<!-- Section 3: Jaminan Kenyamanan & Bimbingan Keluarga -->
+<section class="w-full bg-surface-container py-space-xl">
+<div class="max-w-7xl mx-auto px-margin lg:px-gutter-desktop">
+<div class="text-center max-w-2xl mx-auto mb-space-lg">
+<p class="font-label-md text-label-md text-secondary font-semibold mb-1">Integritas Pelayanan</p>
+<h2 class="font-headline-lg text-headline-lg text-primary font-normal">
+          Pondasi Kenyamanan Keluarga Anda
+        </h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter-desktop">
+<!-- Pillar 1 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="space-y-space-xs">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-primary mb-space-xs">
+<span class="material-symbols-outlined text-[26px]">receipt_long</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-tertiary font-medium">
+              Transparansi Fasilitas Tanpa Biaya Tersembunyi
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Seluruh rincian biaya meliputi visa, tiket penerbangan langsung berjadwal pasti, hotel pelataran, asuransi komprehensif, dan konsumsi penuh disajikan gamblang sejak awal.
+            </p>
+</div>
+<div class="mt-space-md pt-space-xs border-t border-outline-variant/20">
+<span class="font-label-sm text-label-sm text-primary font-semibold">Akad Sesuai Syariat &amp; Regulasi</span>
+</div>
+</div>
+<!-- Pillar 2 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="space-y-space-xs">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-primary mb-space-xs">
+<span class="material-symbols-outlined text-[26px]">menu_book</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-tertiary font-medium">
+              Bimbingan Manasik Sebelum &amp; Selama di Tanah Suci
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Tiga kali tatap muka manasik intensif di Jakarta sebelum keberangkatan, dilanjutkan ta'lim harian di Madinah dan Makkah untuk menjaga kedalaman penghayatan doa.
+            </p>
+</div>
+<div class="mt-space-md pt-space-xs border-t border-outline-variant/20">
+<span class="font-label-sm text-label-sm text-primary font-semibold">Muthawwif Alumnus Timur Tengah</span>
+</div>
+</div>
+<!-- Pillar 3 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="space-y-space-xs">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-primary mb-space-xs">
+<span class="material-symbols-outlined text-[26px]">medical_services</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-tertiary font-medium">
+              Klinik &amp; Dokter Pendamping Terpadu
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Dokter pendamping medis senantiasa mendampingi rombongan untuk memantau kesehatan jamaah lansia, penanganan cuaca ekstrem, dan ketersediaan obat esensial.
+            </p>
+</div>
+<div class="mt-space-md pt-space-xs border-t border-outline-variant/20">
+<span class="font-label-sm text-label-sm text-primary font-semibold">Siaga 24 Jam di Setiap Kota</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Logic for Client-Side Filtering -->
+<script>
+    (function() {
+      let currentDuration = 'all';
+      let currentTier = 'all';
+
+      const durationRadios = document.querySelectorAll('input[name="filter-duration"]');
+      const tierChips = document.querySelectorAll('.tier-chip');
+      const seasonPills = document.querySelectorAll('.season-pill');
+      const resetBtn = document.getElementById('reset-filter-btn');
+      const tierIndicator = document.getElementById('tier-indicator');
+      const packageCards = document.querySelectorAll('.package-card');
+      const noResultsBox = document.getElementById('no-results');
+
+      function filterPackages() {
+        let visibleCount = 0;
+
+        packageCards.forEach(card => {
+          const duration = card.getAttribute('data-duration');
+          const tier = card.getAttribute('data-tier');
+
+          let matchDuration = false;
+          if (currentDuration === 'all') {
+            matchDuration = true;
+          } else if (currentDuration === '9' && duration === '9') {
+            matchDuration = true;
+          } else if (currentDuration === '12' && (duration === '12' || duration === '10')) {
+            matchDuration = true;
+          } else if (currentDuration === '16' && (duration === '16' || duration === '14')) {
+            matchDuration = true;
+          }
+
+          let matchTier = false;
+          if (currentTier === 'all' || currentTier === tier) {
+            matchTier = true;
+          }
+
+          if (matchDuration && matchTier) {
+            card.classList.remove('hidden');
+            visibleCount++;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+        if (visibleCount === 0) {
+          noResultsBox.classList.remove('hidden');
+        } else {
+          noResultsBox.classList.add('hidden');
+        }
+      }
+
+      durationRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          currentDuration = this.value;
+          filterPackages();
+        });
+      });
+
+      tierChips.forEach(chip => {
+        chip.addEventListener('click', function() {
+          tierChips.forEach(c => {
+            c.classList.remove('bg-surface', 'text-primary', 'font-medium', 'shadow-sm');
+            c.classList.add('bg-surface-container-lowest', 'text-on-surface-variant');
+          });
+          this.classList.remove('bg-surface-container-lowest', 'text-on-surface-variant');
+          this.classList.add('bg-surface', 'text-primary', 'font-medium', 'shadow-sm');
+
+          currentTier = this.getAttribute('data-tier');
+          tierIndicator.textContent = this.textContent.trim();
+          filterPackages();
+        });
+      });
+
+      seasonPills.forEach(pill => {
+        pill.addEventListener('click', function() {
+          seasonPills.forEach(p => {
+            p.classList.remove('bg-surface', 'text-primary', 'font-medium');
+            p.classList.add('bg-surface-container-lowest', 'text-on-surface-variant');
+          });
+          this.classList.remove('bg-surface-container-lowest', 'text-on-surface-variant');
+          this.classList.add('bg-surface', 'text-primary', 'font-medium');
+        });
+      });
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+          currentDuration = 'all';
+          currentTier = 'all';
+
+          document.querySelector('input[name="filter-duration"][value="all"]').checked = true;
+
+          tierChips.forEach((c, idx) => {
+            if (idx === 0) {
+              c.classList.add('bg-surface', 'text-primary', 'font-medium', 'shadow-sm');
+              c.classList.remove('bg-surface-container-lowest', 'text-on-surface-variant');
+            } else {
+              c.classList.remove('bg-surface', 'text-primary', 'font-medium', 'shadow-sm');
+              c.classList.add('bg-surface-container-lowest', 'text-on-surface-variant');
+            }
+          });
+          tierIndicator.textContent = 'Semua Tier';
+
+          seasonPills.forEach((p, idx) => {
+            if (idx === 0) {
+              p.classList.add('bg-surface', 'text-primary', 'font-medium');
+              p.classList.remove('bg-surface-container-lowest', 'text-on-surface-variant');
+            } else {
+              p.classList.remove('bg-surface', 'text-primary', 'font-medium');
+              p.classList.add('bg-surface-container-lowest', 'text-on-surface-variant');
+            }
+          });
+
+          filterPackages();
+        });
+      }
+    })();
+  </script>
+</div>
+</main>
+<footer class="w-full bg-surface-container-low text-on-surface pt-space-xl pb-space-lg">
+<div class="max-w-7xl mx-auto px-margin lg:px-gutter-desktop">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-gutter-desktop pb-space-xl">
+<div class="lg:col-span-4 flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm mb-space-xs">
+<img alt="Sakinah Journeys Logo" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VuQGvU91PHDFmDbauU2iB8_oENqMhMtEa9DDjtdHRPg3GHxWkjNefN1YZ31VuksocXlaino-yhBhj1N5ISWzYEUBv5DWGAfRXsGT9Z3pl8mwiYlcYF24IH92_nrXvI65XkBG2qEA9UrKFz-Zk5AkN9QfgzUX8i364qto55vpNgoH8IMrulQZ3rCYOWWCR5BgRK14IbB5J3IuWXqrrN6qTkHIe8C_at4rHSxIASu4szz4y8C8bE_ZndgbQ"/>
+<span class="font-headline-sm text-headline-sm text-primary">Sakinah Journeys</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm">Menghadirkan perjalanan ibadah ke Tanah Suci yang penuh kesantunan, kedalaman bimbingan spiritual, serta kenyamanan yang menenteramkan keluarga.</p>
+<div class="mt-space-sm p-space-sm rounded bg-surface-container border border-outline-variant/40">
+<p class="font-label-sm text-label-sm text-primary font-semibold mb-1">Izin Resmi Kemenag RI</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">PPIU No. U.412 Tahun 2021 — Akreditasi A</p>
+</div>
+</div>
+<div class="lg:col-span-3 flex flex-col gap-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-tertiary mb-space-xs">Peta Situs</h3>
+<ul class="flex flex-col gap-space-xs">
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="beranda" href="#">Beranda Utama</a>
+</li>
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="paket-ibadah" href="#">Paket Umroh Reguler &amp; Eksekutif</a>
+</li>
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="bimbingan-dan-manasik" href="#">Kurikulum Bimbingan &amp; Manasik</a>
+</li>
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="cerita-jamaah" href="#">Catatan Perjalanan &amp; Testimoni</a>
+</li>
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="tentang-kami" href="#">Tentang Kami &amp; Asatidzah</a>
+</li>
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="jadwalkan-konsultasi" href="#">Layanan Janji Temu Tatap Muka</a>
+</li>
+</ul>
+</div>
+<div class="lg:col-span-5 flex flex-col gap-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-tertiary mb-space-xs">Kantor Pelayanan &amp; Griya Konsultasi</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Griya Sakinah, Jalan Brawijaya Raya No. 18, Kebayoran Baru, Jakarta Selatan, 12160</p>
+<div class="flex flex-col gap-1 text-on-surface-variant font-body-sm text-body-sm mt-space-xs">
+<p>
+<span class="font-semibold text-tertiary">Surel:</span> salam@sakinahjourneys.id</p>
+<p>
+<span class="font-semibold text-tertiary">Telepon:</span> +62 21 7892 0110 / +62 811 8892 011</p>
+</div>
+<div class="mt-space-sm pt-space-sm border-t border-outline-variant/40">
+<p class="font-label-sm text-label-sm text-tertiary font-semibold mb-1">Komitmen Pendampingan Keluarga</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Rasio pembimbing 1:15 jamaah demi memastikan kekhusyukan doa, perhatian lansia, dan kenyamanan ibadah setiap anggota keluarga.</p>
+</div>
+</div>
+</div>
+<div class="pt-space-md border-t border-outline-variant/40 flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-label-sm text-label-sm">
+<p>© 2025 PT Sakinah Harmoni Mulia. Hak Cipta Dilindungi Undang-Undang.</p>
+<div class="flex items-center gap-space-md">
+<a class="hover:text-primary transition-colors" data-path="kebijakan-privasi" href="#">Kebijakan Privasi</a>
+<span class="text-outline-variant">•</span>
+<a class="hover:text-primary transition-colors" data-path="syarat-dan-ketentuan" href="#">Syarat &amp; Ketentuan</a>
+<span class="text-outline-variant">•</span>
+<a class="hover:text-primary transition-colors" data-path="maklumat-pelayanan" href="#">Maklumat Pelayanan</a>
+</div>
+</div>
+</div>
+</footer>
+</body>
+</html>

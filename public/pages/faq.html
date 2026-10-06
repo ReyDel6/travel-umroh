@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style>
+<script src="https://cdn.tailwindcss.com">
+</script>
+<script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"tertiary-container":"#5b5149","tertiary-fixed-dim":"#d2c4ba","error":"#ba1a1a","on-error-container":"#93000a","on-tertiary-fixed":"#211a14","inverse-on-surface":"#fbeee6","primary":"#00443f","inverse-primary":"#97d2ca","outline-variant":"#bfc8c6","tertiary":"#433a33","on-surface-variant":"#404947","on-surface":"#201b16","on-secondary":"#ffffff","inverse-surface":"#362f2a","surface-container-lowest":"#ffffff","on-secondary-container":"#785804","surface-tint":"#2d6861","on-tertiary-fixed-variant":"#4e453d","on-error":"#ffffff","background":"#fff8f5","on-background":"#201b16","primary-container":"#1f5c56","surface-container-low":"#fef1e9","error-container":"#ffdad6","surface-container":"#f8ece3","secondary-fixed":"#ffdea0","on-secondary-fixed-variant":"#5c4300","on-primary-fixed":"#00201d","tertiary-fixed":"#efe0d5","on-primary":"#ffffff","on-primary-fixed-variant":"#0d4f4a","surface-bright":"#fff8f5","surface-container-highest":"#ece0d8","surface-dim":"#e4d8d0","surface-variant":"#ece0d8","on-tertiary-container":"#d2c4ba","primary-fixed":"#b2eee6","outline":"#707977","secondary-container":"#fdd177","surface":"#fff8f5","secondary":"#795905","primary-fixed-dim":"#97d2ca","on-secondary-fixed":"#261900","secondary-fixed-dim":"#ebc168","surface-container-high":"#f2e6de","on-tertiary":"#ffffff","on-primary-container":"#97d2ca"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"margin":"1.5rem","gutter":"1.5rem","space-lg":"2.25rem","space-xs":"0.375rem","gutter-desktop":"2.5rem","margin-desktop":"4.5rem","space-sm":"0.75rem","space-md":"1.25rem","space-xl":"4rem"},"fontFamily":{"display-md-mobile":["Playfair Display"],"display-lg":["Playfair Display"],"headline-lg":["Playfair Display"],"display-lg-mobile":["Playfair Display"],"body-md":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"headline-md":["Playfair Display"],"display-md":["Playfair Display"],"body-lg":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"headline-sm":["Playfair Display"]},"fontSize":{"display-md-mobile":["30px",{"lineHeight":"38px","letterSpacing":"0em","fontWeight":"400"}],"display-lg":["56px",{"lineHeight":"68px","letterSpacing":"-0.015em","fontWeight":"400"}],"headline-lg":["32px",{"lineHeight":"42px","letterSpacing":"0em","fontWeight":"500"}],"display-lg-mobile":["38px",{"lineHeight":"48px","letterSpacing":"-0.01em","fontWeight":"400"}],"body-md":["16px",{"lineHeight":"26px","letterSpacing":"0.01em","fontWeight":"400"}],"label-md":["13px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"500"}],"body-sm":["14px",{"lineHeight":"22px","letterSpacing":"0.015em","fontWeight":"400"}],"headline-md":["24px",{"lineHeight":"34px","letterSpacing":"0.005em","fontWeight":"500"}],"display-md":["42px",{"lineHeight":"52px","letterSpacing":"-0.01em","fontWeight":"400"}],"body-lg":["18px",{"lineHeight":"30px","letterSpacing":"0.01em","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"16px","letterSpacing":"0.06em","fontWeight":"600"}],"headline-sm":["20px",{"lineHeight":"28px","letterSpacing":"0.01em","fontWeight":"600"}]}}}};</script>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<header class="fixed top-0 left-0 w-full z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(43,37,32,0.04)]">
+<div class="h-20 w-full max-w-7xl mx-auto px-margin lg:px-gutter-desktop flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md shrink-0">
+<img alt="Sakinah Journeys Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VuQGvU91PHDFmDbauU2iB8_oENqMhMtEa9DDjtdHRPg3GHxWkjNefN1YZ31VuksocXlaino-yhBhj1N5ISWzYEUBv5DWGAfRXsGT9Z3pl8mwiYlcYF24IH92_nrXvI65XkBG2qEA9UrKFz-Zk5AkN9QfgzUX8i364qto55vpNgoH8IMrulQZ3rCYOWWCR5BgRK14IbB5J3IuWXqrrN6qTkHIe8C_at4rHSxIASu4szz4y8C8bE_ZndgbQ"/>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary tracking-normal">Sakinah Journeys</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Perjalanan Spiritual yang Teduh</span>
+</div>
+</div>
+<nav class="hidden xl:flex items-center gap-space-lg" data-active-classes="text-primary font-semibold">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1" data-path="beranda" href="#">Beranda</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1" data-path="paket-ibadah" href="#">Paket Ibadah</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1" data-path="bimbingan-dan-manasik" href="#">Bimbingan &amp; Manasik</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1" data-path="cerita-jamaah" href="#">Cerita Jamaah</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1" data-path="tentang-kami" href="#">Tentang Kami</a>
+</nav>
+<div class="flex items-center gap-space-md shrink-0">
+<div class="hidden md:flex flex-col text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Layanan Concierge</span>
+<span class="font-body-sm text-body-sm font-medium text-tertiary">+62 21 7892 0110</span>
+</div>
+<a class="hidden sm:inline-flex items-center justify-center px-space-md py-space-sm bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md rounded hover:bg-secondary-fixed-dim transition-colors" data-path="jadwalkan-konsultasi" href="#">Jadwalkan Konsultasi</a>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<main class="w-full pt-20 bg-surface min-h-[calc(100vh-5rem)]">
+<div class="flex flex-col w-full">
+<div class="w-full max-w-7xl mx-auto px-margin lg:px-margin-desktop py-space-lg lg:py-space-xl">
+<!-- Breadcrumb -->
+<nav aria-label="Breadcrumb" class="flex items-center gap-2 mb-space-md text-on-surface-variant font-label-md text-label-md">
+<a class="hover:text-primary transition-colors" href="#">Beranda</a>
+<span class="text-surface-dim font-light">/</span>
+<span class="text-tertiary font-medium">Bantuan &amp; FAQ</span>
+</nav>
+<!-- Header Section -->
+<header class="max-w-3xl mb-space-xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-surface-container-high text-primary font-label-sm text-label-sm mb-space-sm">
+<span>Pusat Informasi Jamaah</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg lg:font-display-md lg:text-display-md text-primary tracking-normal mb-space-sm">
+        Pertanyaan yang Sering Diajukan
+      </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+        Jawaban seputar persiapan fisik, bimbingan manasik, fasilitas pendampingan lansia, serta transparansi biaya ibadah Anda sekeluarga.
+      </p>
+</header>
+<!-- Main Content Area: Left-aligned, Focused Single Column -->
+<div class="max-w-[820px]">
+<!-- Filter Category Pills -->
+<div class="flex items-center gap-2 overflow-x-auto pb-4 mb-space-lg no-scrollbar" id="faq-filter-group">
+<button class="faq-filter-btn px-4 py-2 rounded font-label-md text-label-md transition-colors bg-primary text-on-primary" data-filter="all" type="button">
+          Semua
+        </button>
+<button class="faq-filter-btn px-4 py-2 rounded font-label-md text-label-md transition-colors bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-filter="biaya" type="button">
+          Pendaftaran &amp; Biaya
+        </button>
+<button class="faq-filter-btn px-4 py-2 rounded font-label-md text-label-md transition-colors bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-filter="kesehatan" type="button">
+          Kesehatan &amp; Lansia
+        </button>
+<button class="faq-filter-btn px-4 py-2 rounded font-label-md text-label-md transition-colors bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-filter="akomodasi" type="button">
+          Akomodasi &amp; Fasilitas
+        </button>
+<button class="faq-filter-btn px-4 py-2 rounded font-label-md text-label-md transition-colors bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-filter="manasik" type="button">
+          Manasik &amp; Pembimbing
+        </button>
+</div>
+<!-- FAQ Accordion List -->
+<div class="flex flex-col gap-3" id="faq-accordion-container">
+<!-- Item 1: Kesehatan & Lansia -->
+<article class="faq-item rounded bg-surface-container-low transition-all duration-200" data-category="kesehatan">
+<button aria-expanded="false" class="faq-trigger w-full py-5 px-6 flex items-start justify-between text-left gap-4" type="button">
+<span class="font-headline-sm text-headline-sm text-tertiary">
+              Bagaimana penanganan dan pendampingan khusus bagi jamaah lansia atau yang membutuhkan kursi roda?
+            </span>
+<span aria-hidden="true" class="faq-icon font-display-md-mobile text-display-md-mobile leading-none text-tertiary shrink-0 select-none ml-2 pt-0.5">+</span>
+</button>
+<div class="faq-content hidden px-6 pb-6 pt-1 font-body-md text-body-md text-on-surface-variant">
+<div class="space-y-3">
+<p>
+                Sakinah Journeys menerapkan standar rasio pendamping 1:15 jamaah dengan tim medis kontingen yang mendampingi sejak tanah air. Khusus untuk jamaah lanjut usia atau yang memiliki keterbatasan mobilitas:
+              </p>
+<ul class="list-disc pl-5 space-y-1.5 marker:text-primary">
+<li>Disediakan asisten pendorong kursi roda resmi berizin untuk tawaf dan sa'i di jalur khusus lantai 1 dan 2 Masjidil Haram.</li>
+<li>Jalur mobilitas bus hingga lobi hotel selalu mengutamakan akses landai tanpa undakan bertingkat.</li>
+<li>Pemeriksaan tekanan darah dan kondisi fisik harian oleh dokter rombongan di kamar hotel sebelum waktu rangkaian ibadah utama.</li>
+<li>Pendampingan khusus saat mengambil wudhu dan perpindahan saf shalat di Masjid Nabawi maupun Masjidil Haram.</li>
+</ul>
+</div>
+</div>
+</article>
+<!-- Item 2: Pendaftaran & Biaya -->
+<article class="faq-item rounded bg-surface-container-low transition-all duration-200" data-category="biaya">
+<button aria-expanded="false" class="faq-trigger w-full py-5 px-6 flex items-start justify-between text-left gap-4" type="button">
+<span class="font-headline-sm text-headline-sm text-tertiary">
+              Apakah ada biaya tambahan tersembunyi di luar harga paket yang tercantum?
+            </span>
+<span aria-hidden="true" class="faq-icon font-display-md-mobile text-display-md-mobile leading-none text-tertiary shrink-0 select-none ml-2 pt-0.5">+</span>
+</button>
+<div class="faq-content hidden px-6 pb-6 pt-1 font-body-md text-body-md text-on-surface-variant">
+<p class="mb-3">
+              Tidak ada. Prinsip utama kami adalah kejujuran akad dan transparansi biaya tanpa kompromi. Seluruh biaya yang tertera dalam surat penawaran resmi adalah nilai menyeluruh (all-inclusive) yang mencakup:
+            </p>
+<ul class="list-disc pl-5 space-y-1.5 marker:text-primary">
+<li>Tiket penerbangan direct tanpa transit pulang-pergi kelas ekonomi/bisnis sesuai pilihan paket.</li>
+<li>Akomodasi hotel bintang lima di pelataran ring 1 Makkah dan Madinah.</li>
+<li>Tiket kereta cepat Haramain High Speed Railway (Madinah–Makkah) kelas bisnis.</li>
+<li>Penerbitan visa umrah resmi, asuransi perjalanan internasional, dan perlengkapan ibadah premium eksklusif.</li>
+<li>Sajian konsumsi full board harian (prasmanan selera nusantara &amp; internasional) serta bimbingan manasik komprehensif.</li>
+</ul>
+<p class="mt-3 text-body-sm text-tertiary">
+              *Pengeluaran yang menjadi tanggungan pribadi hanya mencakup pembuatan paspor, vaksinasi meningitis di dinas kesehatan, serta belanja oleh-oleh pribadi.
+            </p>
+</div>
+</article>
+<!-- Item 3: Manasik & Pembimbing -->
+<article class="faq-item rounded bg-surface-container-low transition-all duration-200" data-category="manasik">
+<button aria-expanded="false" class="faq-trigger w-full py-5 px-6 flex items-start justify-between text-left gap-4" type="button">
+<span class="font-headline-sm text-headline-sm text-tertiary">
+              Bagaimana sistem dan kurikulum bimbingan manasik sebelum keberangkatan?
+            </span>
+<span aria-hidden="true" class="faq-icon font-display-md-mobile text-display-md-mobile leading-none text-tertiary shrink-0 select-none ml-2 pt-0.5">+</span>
+</button>
+<div class="faq-content hidden px-6 pb-6 pt-1 font-body-md text-body-md text-on-surface-variant">
+<p class="mb-3">
+              Bimbingan manasik dirancang secara sistematis sebanyak 3 (tiga) kali sesi tatap muka intensif di Griya Sakinah Jakarta, disertai opsi akses materi rekaman video eksklusif bagi jamaah yang berdomisili di luar kota:
+            </p>
+<div class="space-y-2.5">
+<div class="p-3 bg-surface rounded">
+<span class="font-label-md text-label-md text-primary font-semibold block mb-0.5">Sesi 1: Fiqih Ibadah &amp; Rukhsah</span>
+<span class="text-body-sm text-on-surface-variant">Memahami rukun, wajib, tata cara ihram, serta kemudahan fiqih (rukhsah) untuk wanita, lansia, dan kondisi darurat kesehatan.</span>
+</div>
+<div class="p-3 bg-surface rounded">
+<span class="font-label-md text-label-md text-primary font-semibold block mb-0.5">Sesi 2: Praktek Fisik &amp; Simulasi Tawaf-Sa'i</span>
+<span class="text-body-sm text-on-surface-variant">Simulasi mengenakan kain ihram tanpa jahitan, peragaan langkah tawaf dengan replika miniatur Ka'bah, serta manajemen kebugaran stamina.</span>
+</div>
+<div class="p-3 bg-surface rounded">
+<span class="font-label-md text-label-md text-primary font-semibold block mb-0.5">Sesi 3: Pemantapan Kalbu &amp; Adab Ziarah</span>
+<span class="text-body-sm text-on-surface-variant">Tadabbur sejarah Kota Madinah, etika di Raudhah Syarifah, serta koordinasi teknis koper dan kepabeanan bandara.</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Item 4: Akomodasi & Fasilitas -->
+<article class="faq-item rounded bg-surface-container-low transition-all duration-200" data-category="akomodasi">
+<button aria-expanded="false" class="faq-trigger w-full py-5 px-6 flex items-start justify-between text-left gap-4" type="button">
+<span class="font-headline-sm text-headline-sm text-tertiary">
+              Berapa jarak sebenarnya hotel di Madinah dan Makkah ke pelataran masjid?
+            </span>
+<span aria-hidden="true" class="faq-icon font-display-md-mobile text-display-md-mobile leading-none text-tertiary shrink-0 select-none ml-2 pt-0.5">+</span>
+</button>
+<div class="faq-content hidden px-6 pb-6 pt-1 font-body-md text-body-md text-on-surface-variant">
+<p class="mb-3">
+              Kami secara ketat hanya memilih mitra hotel Ring 1 yang berada di pelataran utama Masjid Nabawi dan Masjidil Haram untuk menjamin kemudahan jalan kaki tanpa kelelahan fisik:
+            </p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+<div class="p-4 bg-surface rounded">
+<p class="font-label-sm text-label-sm text-secondary font-semibold uppercase tracking-wider mb-1">Madinah Munawwarah</p>
+<p class="font-headline-sm text-headline-sm text-primary mb-1">The Oberoi / Dar Al Taqwa</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">0 - 50 meter dari pelataran utara gerbang wanita dan pria Masjid Nabawi.</p>
+</div>
+<div class="p-4 bg-surface rounded">
+<p class="font-label-sm text-label-sm text-secondary font-semibold uppercase tracking-wider mb-1">Makkah Al-Mukarramah</p>
+<p class="font-headline-sm text-headline-sm text-primary mb-1">Dar Al Tawhid / Raffles Makkah</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Tepat menghadap King Fahd Gate tanpa perlu menyeberang jalan raya atau menggunakan shuttle.</p>
+</div>
+</div>
+<p class="text-body-sm text-on-surface-variant">
+              Dekatnya lokasi memungkinkan jamaah untuk kembali beristirahat di kamar seusai shalat fardhu dan berwudhu kembali tanpa menghabiskan energi perjalanan.
+            </p>
+</div>
+</article>
+<!-- Item 5: Akomodasi & Fasilitas -->
+<article class="faq-item rounded bg-surface-container-low transition-all duration-200" data-category="akomodasi">
+<button aria-expanded="false" class="faq-trigger w-full py-5 px-6 flex items-start justify-between text-left gap-4" type="button">
+<span class="font-headline-sm text-headline-sm text-tertiary">
+              Apakah memungkinkan memesan kamar connecting door untuk keluarga besar?
+            </span>
+<span aria-hidden="true" class="faq-icon font-display-md-mobile text-display-md-mobile leading-none text-tertiary shrink-0 select-none ml-2 pt-0.5">+</span>
+</button>
+<div class="faq-content hidden px-6 pb-6 pt-1 font-body-md text-body-md text-on-surface-variant">
+<p>
+              Ya, fasilitas kamar dengan pintu penghubung (connecting door) dapat diatur dan diprioritaskan untuk rombongan keluarga yang membawa anak-anak atau mendampingi orang tua lansia. Mohon menginformasikan kebutuhan ini kepada Concierge kami saat tahap konfirmasi pendaftaran awal, minimal 45 hari sebelum tanggal keberangkatan, agar alokasi lantai dan tipe ranjang dapat kami kunci langsung ke pihak manajemen hotel.
+            </p>
+</div>
+</article>
+<!-- Item 6: Kesehatan & Lansia -->
+<article class="faq-item rounded bg-surface-container-low transition-all duration-200" data-category="kesehatan">
+<button aria-expanded="false" class="faq-trigger w-full py-5 px-6 flex items-start justify-between text-left gap-4" type="button">
+<span class="font-headline-sm text-headline-sm text-tertiary">
+              Bagaimana jika jamaah memiliki riwayat penyakit tertentu atau pantangan makan?
+            </span>
+<span aria-hidden="true" class="faq-icon font-display-md-mobile text-display-md-mobile leading-none text-tertiary shrink-0 select-none ml-2 pt-0.5">+</span>
+</button>
+<div class="faq-content hidden px-6 pb-6 pt-1 font-body-md text-body-md text-on-surface-variant">
+<p class="mb-3">
+              Kesehatan jamaah adalah amanah yang kami kawal dengan saksama. Tahapan penanganan riwayat kesehatan meliputi:
+            </p>
+<ul class="list-disc pl-5 space-y-1.5 marker:text-primary mb-3">
+<li>
+<strong>Skrining Pra-Keberangkatan:</strong> Wawancara rekam medis bersama dokter tim kami untuk mencatat obat rutin, riwayat alergi, hipertensi, atau diabetes.</li>
+<li>
+<strong>Penyimpanan Obat Khusus:</strong> Fasilitas pendingin khusus (cool box) disiapkan untuk penyimpanan insulin dan obat-obatan sensitif suhu selama perjalanan udara dan darat.</li>
+<li>
+<strong>Menu Rendah Gula / Rendah Garam:</strong> Kami berkoordinasi dengan katering hotel bintang lima untuk menyediakan opsi menu khusus bagi jamaah yang memerlukan pembatasan asupan tertentu.</li>
+</ul>
+</div>
+</article>
+<!-- Item 7: Pendaftaran & Biaya -->
+<article class="faq-item rounded bg-surface-container-low transition-all duration-200" data-category="biaya">
+<button aria-expanded="false" class="faq-trigger w-full py-5 px-6 flex items-start justify-between text-left gap-4" type="button">
+<span class="font-headline-sm text-headline-sm text-tertiary">
+              Apa kebijakan pembatalan atau penyesuaian jadwal jika berhalangan mendesak?
+            </span>
+<span aria-hidden="true" class="faq-icon font-display-md-mobile text-display-md-mobile leading-none text-tertiary shrink-0 select-none ml-2 pt-0.5">+</span>
+</button>
+<div class="faq-content hidden px-6 pb-6 pt-1 font-body-md text-body-md text-on-surface-variant">
+<p class="mb-2">
+              Kami menyadari musibah, sakit, atau uzur syar'i dapat terjadi di luar kendali manusia. Kebijakan kami dirancang adil dan transparan:
+            </p>
+<ul class="list-disc pl-5 space-y-1.5 marker:text-primary mb-3">
+<li>Pengalihan keberangkatan kepada anggota keluarga langsung dapat diproses tanpa penalti biaya administratif selama visa dan tiket penerbangan belum diterbitkan (issued).</li>
+<li>Apabila pembatalan terjadi karena sakit berat atau rawat inap darurat, pengembalian dana disesuaikan setelah dikurangi biaya riil yang sudah terbayarkan kepada maskapai dan hotel luar negeri.</li>
+<li>Asuransi perjalanan yang kami sertakan juga memiliki perlindungan kompensasi pembatalan darurat akibat alasan medis bersertifikat dokter spesialis.</li>
+</ul>
+</div>
+</article>
+<!-- Item 8: Manasik & Pembimbing -->
+<article class="faq-item rounded bg-surface-container-low transition-all duration-200" data-category="manasik">
+<button aria-expanded="false" class="faq-trigger w-full py-5 px-6 flex items-start justify-between text-left gap-4" type="button">
+<span class="font-headline-sm text-headline-sm text-tertiary">
+              Siapa asatidzah yang membimbing dan bagaimana kualifikasi pembimbing rombongan?
+            </span>
+<span aria-hidden="true" class="faq-icon font-display-md-mobile text-display-md-mobile leading-none text-tertiary shrink-0 select-none ml-2 pt-0.5">+</span>
+</button>
+<div class="faq-content hidden px-6 pb-6 pt-1 font-body-md text-body-md text-on-surface-variant">
+<p>
+              Seluruh rombongan Sakinah Journeys dibimbing oleh asatidzah alumni universitas Islam terkemuka di Madinah, Makkah, atau Al-Azhar Kairo yang telah memiliki sertifikasi resmi Pembimbing Ibadah Haji dan Umrah dari Kementerian Agama RI. Para pembimbing dikenal santun, mengedepankan pendekatan fiqih yang luwes, serta sabar menjawab setiap kebingungan jamaah baik di ruang manasik maupun saat pelaksanaan thawaf dan sa'i di Tanah Suci.
+            </p>
+</div>
+</article>
+</div>
+<!-- Callout Box (Minimalist, Warm & Functional) -->
+<section class="mt-space-xl p-8 rounded bg-surface-container flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="space-y-1 max-w-lg">
+<h3 class="font-headline-sm text-headline-sm text-tertiary">
+            Tidak menemukan jawaban yang Anda cari?
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Tim concierge keluarga dan asatidzah kami siap berbincang santai untuk menjelaskan setiap kebutuhan khusus ibadah Anda.
+          </p>
+</div>
+<div class="shrink-0">
+<a class="inline-flex items-center justify-center px-6 py-3 rounded bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container transition-colors shadow-sm" href="#">
+            Hubungi Layanan Concierge
+          </a>
+</div>
+</section>
+</div>
+</div>
+<!-- Inline Script for Accordion & Category Filtering -->
+<script>
+    (function() {
+      // Accordion Interaction
+      const accordionItems = document.querySelectorAll('.faq-item');
+      accordionItems.forEach(item => {
+        const trigger = item.querySelector('.faq-trigger');
+        const content = item.querySelector('.faq-content');
+        const icon = item.querySelector('.faq-icon');
+
+        trigger.addEventListener('click', () => {
+          const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+
+          // Close all other items for a calm, singular reading experience
+          accordionItems.forEach(otherItem => {
+            if (otherItem !== item) {
+              const otherTrigger = otherItem.querySelector('.faq-trigger');
+              const otherContent = otherItem.querySelector('.faq-content');
+              const otherIcon = otherItem.querySelector('.faq-icon');
+              otherTrigger.setAttribute('aria-expanded', 'false');
+              otherContent.classList.add('hidden');
+              otherIcon.textContent = '+';
+              otherItem.classList.remove('bg-surface-container');
+              otherItem.classList.add('bg-surface-container-low');
+            }
+          });
+
+          if (isOpen) {
+            trigger.setAttribute('aria-expanded', 'false');
+            content.classList.add('hidden');
+            icon.textContent = '+';
+            item.classList.remove('bg-surface-container');
+            item.classList.add('bg-surface-container-low');
+          } else {
+            trigger.setAttribute('aria-expanded', 'true');
+            content.classList.remove('hidden');
+            icon.textContent = '−';
+            item.classList.remove('bg-surface-container-low');
+            item.classList.add('bg-surface-container');
+          }
+        });
+      });
+
+      // Filter Interaction
+      const filterButtons = document.querySelectorAll('.faq-filter-btn');
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filterValue = btn.getAttribute('data-filter');
+
+          // Update active styles
+          filterButtons.forEach(b => {
+            b.classList.remove('bg-primary', 'text-on-primary');
+            b.classList.add('bg-surface-container', 'text-on-surface-variant');
+          });
+          btn.classList.remove('bg-surface-container', 'text-on-surface-variant');
+          btn.classList.add('bg-primary', 'text-on-primary');
+
+          // Filter accordion list
+          accordionItems.forEach(item => {
+            const itemCategory = item.getAttribute('data-category');
+            if (filterValue === 'all' || itemCategory === filterValue) {
+              item.classList.remove('hidden');
+            } else {
+              item.classList.add('hidden');
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</div>
+</main>
+<footer class="w-full bg-surface-container-low text-on-surface pt-space-xl pb-space-lg">
+<div class="max-w-7xl mx-auto px-margin lg:px-gutter-desktop">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-gutter-desktop pb-space-xl">
+<div class="lg:col-span-4 flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm mb-space-xs">
+<img alt="Sakinah Journeys Logo" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VuQGvU91PHDFmDbauU2iB8_oENqMhMtEa9DDjtdHRPg3GHxWkjNefN1YZ31VuksocXlaino-yhBhj1N5ISWzYEUBv5DWGAfRXsGT9Z3pl8mwiYlcYF24IH92_nrXvI65XkBG2qEA9UrKFz-Zk5AkN9QfgzUX8i364qto55vpNgoH8IMrulQZ3rCYOWWCR5BgRK14IbB5J3IuWXqrrN6qTkHIe8C_at4rHSxIASu4szz4y8C8bE_ZndgbQ"/>
+<span class="font-headline-sm text-headline-sm text-primary">Sakinah Journeys</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm">Menghadirkan perjalanan ibadah ke Tanah Suci yang penuh kesantunan, kedalaman bimbingan spiritual, serta kenyamanan yang menenteramkan keluarga.</p>
+<div class="mt-space-sm p-space-sm rounded bg-surface-container border border-outline-variant/40">
+<p class="font-label-sm text-label-sm text-primary font-semibold mb-1">Izin Resmi Kemenag RI</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">PPIU No. U.412 Tahun 2021 — Akreditasi A</p>
+</div>
+</div>
+<div class="lg:col-span-3 flex flex-col gap-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-tertiary mb-space-xs">Peta Situs</h3>
+<ul class="flex flex-col gap-space-xs">
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="beranda" href="#">Beranda Utama</a>
+</li>
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="paket-ibadah" href="#">Paket Umroh Reguler &amp; Eksekutif</a>
+</li>
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="bimbingan-dan-manasik" href="#">Kurikulum Bimbingan &amp; Manasik</a>
+</li>
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="cerita-jamaah" href="#">Catatan Perjalanan &amp; Testimoni</a>
+</li>
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="tentang-kami" href="#">Tentang Kami &amp; Asatidzah</a>
+</li>
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="jadwalkan-konsultasi" href="#">Layanan Janji Temu Tatap Muka</a>
+</li>
+</ul>
+</div>
+<div class="lg:col-span-5 flex flex-col gap-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-tertiary mb-space-xs">Kantor Pelayanan &amp; Griya Konsultasi</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Griya Sakinah, Jalan Brawijaya Raya No. 18, Kebayoran Baru, Jakarta Selatan, 12160</p>
+<div class="flex flex-col gap-1 text-on-surface-variant font-body-sm text-body-sm mt-space-xs">
+<p>
+<span class="font-semibold text-tertiary">Surel:</span> salam@sakinahjourneys.id</p>
+<p>
+<span class="font-semibold text-tertiary">Telepon:</span> +62 21 7892 0110 / +62 811 8892 011</p>
+</div>
+<div class="mt-space-sm pt-space-sm border-t border-outline-variant/40">
+<p class="font-label-sm text-label-sm text-tertiary font-semibold mb-1">Komitmen Pendampingan Keluarga</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Rasio pembimbing 1:15 jamaah demi memastikan kekhusyukan doa, perhatian lansia, dan kenyamanan ibadah setiap anggota keluarga.</p>
+</div>
+</div>
+</div>
+<div class="pt-space-md border-t border-outline-variant/40 flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-label-sm text-label-sm">
+<p>© 2025 PT Sakinah Harmoni Mulia. Hak Cipta Dilindungi Undang-Undang.</p>
+<div class="flex items-center gap-space-md">
+<a class="hover:text-primary transition-colors" data-path="kebijakan-privasi" href="#">Kebijakan Privasi</a>
+<span class="text-outline-variant">•</span>
+<a class="hover:text-primary transition-colors" data-path="syarat-dan-ketentuan" href="#">Syarat &amp; Ketentuan</a>
+<span class="text-outline-variant">•</span>
+<a class="hover:text-primary transition-colors" data-path="maklumat-pelayanan" href="#">Maklumat Pelayanan</a>
+</div>
+</div>
+</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style>
+<script src="https://cdn.tailwindcss.com">
+</script>
+<script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"tertiary-container":"#5b5149","tertiary-fixed-dim":"#d2c4ba","error":"#ba1a1a","on-error-container":"#93000a","on-tertiary-fixed":"#211a14","inverse-on-surface":"#fbeee6","primary":"#00443f","inverse-primary":"#97d2ca","outline-variant":"#bfc8c6","tertiary":"#433a33","on-surface-variant":"#404947","on-surface":"#201b16","on-secondary":"#ffffff","inverse-surface":"#362f2a","surface-container-lowest":"#ffffff","on-secondary-container":"#785804","surface-tint":"#2d6861","on-tertiary-fixed-variant":"#4e453d","on-error":"#ffffff","background":"#fff8f5","on-background":"#201b16","primary-container":"#1f5c56","surface-container-low":"#fef1e9","error-container":"#ffdad6","surface-container":"#f8ece3","secondary-fixed":"#ffdea0","on-secondary-fixed-variant":"#5c4300","on-primary-fixed":"#00201d","tertiary-fixed":"#efe0d5","on-primary":"#ffffff","on-primary-fixed-variant":"#0d4f4a","surface-bright":"#fff8f5","surface-container-highest":"#ece0d8","surface-dim":"#e4d8d0","surface-variant":"#ece0d8","on-tertiary-container":"#d2c4ba","primary-fixed":"#b2eee6","outline":"#707977","secondary-container":"#fdd177","surface":"#fff8f5","secondary":"#795905","primary-fixed-dim":"#97d2ca","on-secondary-fixed":"#261900","secondary-fixed-dim":"#ebc168","surface-container-high":"#f2e6de","on-tertiary":"#ffffff","on-primary-container":"#97d2ca"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"margin":"1.5rem","gutter":"1.5rem","space-lg":"2.25rem","space-xs":"0.375rem","gutter-desktop":"2.5rem","margin-desktop":"4.5rem","space-sm":"0.75rem","space-md":"1.25rem","space-xl":"4rem"},"fontFamily":{"display-md-mobile":["Playfair Display"],"display-lg":["Playfair Display"],"headline-lg":["Playfair Display"],"display-lg-mobile":["Playfair Display"],"body-md":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"headline-md":["Playfair Display"],"display-md":["Playfair Display"],"body-lg":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"headline-sm":["Playfair Display"]},"fontSize":{"display-md-mobile":["30px",{"lineHeight":"38px","letterSpacing":"0em","fontWeight":"400"}],"display-lg":["56px",{"lineHeight":"68px","letterSpacing":"-0.015em","fontWeight":"400"}],"headline-lg":["32px",{"lineHeight":"42px","letterSpacing":"0em","fontWeight":"500"}],"display-lg-mobile":["38px",{"lineHeight":"48px","letterSpacing":"-0.01em","fontWeight":"400"}],"body-md":["16px",{"lineHeight":"26px","letterSpacing":"0.01em","fontWeight":"400"}],"label-md":["13px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"500"}],"body-sm":["14px",{"lineHeight":"22px","letterSpacing":"0.015em","fontWeight":"400"}],"headline-md":["24px",{"lineHeight":"34px","letterSpacing":"0.005em","fontWeight":"500"}],"display-md":["42px",{"lineHeight":"52px","letterSpacing":"-0.01em","fontWeight":"400"}],"body-lg":["18px",{"lineHeight":"30px","letterSpacing":"0.01em","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"16px","letterSpacing":"0.06em","fontWeight":"600"}],"headline-sm":["20px",{"lineHeight":"28px","letterSpacing":"0.01em","fontWeight":"600"}]}}}};</script>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<header class="fixed top-0 left-0 w-full z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(43,37,32,0.04)]">
+<div class="h-20 w-full max-w-7xl mx-auto px-margin lg:px-gutter-desktop flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md shrink-0">
+<img alt="Sakinah Journeys Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VuQGvU91PHDFmDbauU2iB8_oENqMhMtEa9DDjtdHRPg3GHxWkjNefN1YZ31VuksocXlaino-yhBhj1N5ISWzYEUBv5DWGAfRXsGT9Z3pl8mwiYlcYF24IH92_nrXvI65XkBG2qEA9UrKFz-Zk5AkN9QfgzUX8i364qto55vpNgoH8IMrulQZ3rCYOWWCR5BgRK14IbB5J3IuWXqrrN6qTkHIe8C_at4rHSxIASu4szz4y8C8bE_ZndgbQ"/>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary tracking-normal">Sakinah Journeys</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Perjalanan Spiritual yang Teduh</span>
+</div>
+</div>
+<nav class="hidden xl:flex items-center gap-space-lg" data-active-classes="text-primary font-semibold">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1" data-path="beranda" href="#">Beranda</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1" data-path="paket-ibadah" href="#">Paket Ibadah</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1" data-path="bimbingan-dan-manasik" href="#">Bimbingan &amp; Manasik</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1" data-path="cerita-jamaah" href="#">Cerita Jamaah</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1" data-path="tentang-kami" href="#">Tentang Kami</a>
+</nav>
+<div class="flex items-center gap-space-md shrink-0">
+<div class="hidden md:flex flex-col text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Layanan Concierge</span>
+<span class="font-body-sm text-body-sm font-medium text-tertiary">+62 21 7892 0110</span>
+</div>
+<a class="hidden sm:inline-flex items-center justify-center px-space-md py-space-sm bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md rounded hover:bg-secondary-fixed-dim transition-colors" data-path="jadwalkan-konsultasi" href="#">Jadwalkan Konsultasi</a>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<main class="w-full pt-20 bg-surface min-h-[calc(100vh-5rem)]">
+<div class="flex flex-col w-full">
+<!-- Subtle Architectural Atmospheric Band -->
+<div class="w-full bg-surface-container-low/70 py-space-lg">
+<div class="max-w-7xl mx-auto px-margin lg:px-gutter-desktop">
+<!-- Breadcrumb -->
+<nav aria-label="Jejak Navigasi" class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md mb-space-md">
+<a class="hover:text-primary transition-colors" href="#">Beranda</a>
+<span class="text-outline-variant font-normal">/</span>
+<span class="text-primary font-medium">Kontak &amp; Griya Konsultasi</span>
+</nav>
+<!-- Editorial Header Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-end">
+<div class="lg:col-span-8 flex flex-col gap-space-xs">
+<div class="inline-flex items-center gap-2 self-start px-3 py-1 rounded bg-surface-container-high text-primary font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary">
+</span>
+            Pintu Silaturahmi &amp; Konsultasi Jamaah
+          </div>
+<h1 class="font-display-lg text-display-lg-mobile lg:text-display-lg text-primary tracking-tight leading-tight">
+            Kami Menyambut Rencana Ibadah Anda Sekeluarga
+          </h1>
+</div>
+<div class="lg:col-span-4 lg:pb-2">
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Silakan berkonsultasi mengenai kesiapan fisik lansia, rincian akomodasi pelataran terdekat, hingga penyesuaian jadwal manasik privat bersama tim asatidzah dan concierge kami.
+          </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content: Balanced Asymmetric 2-Column Section -->
+<div class="w-full py-space-xl">
+<div class="max-w-7xl mx-auto px-margin lg:px-gutter-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-start">
+<!-- KOLOM KIRI (5 Cols): Info Kontak, Griya Peta, & Catatan Pendampingan -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<!-- Rincian Kontak Utama Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-sm border-b border-surface-container-highest">
+<span class="font-label-md text-label-md text-secondary font-semibold">Griya Layanan Tamu</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Wilayah Jakarta Selatan</span>
+</div>
+<!-- Alamat -->
+<div class="flex gap-space-sm">
+<div class="w-9 h-9 rounded bg-surface-container-high flex items-center justify-center shrink-0 text-primary">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<span class="font-label-md text-label-md font-semibold text-tertiary">Alamat Kantor Griya Konsultasi</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  Griya Sakinah, Jalan Brawijaya Raya No. 18, Kebayoran Baru, Jakarta Selatan, 12160
+                </p>
+</div>
+</div>
+<!-- Jam Pelayanan -->
+<div class="flex gap-space-sm">
+<div class="w-9 h-9 rounded bg-surface-container-high flex items-center justify-center shrink-0 text-primary">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<span class="font-label-md text-label-md font-semibold text-tertiary">Waktu Pelayanan Tamu</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  Senin – Sabtu: 08.30 – 17.00 WIB
+                </p>
+<span class="font-label-sm text-label-sm text-secondary font-normal mt-0.5">
+                  Kunjungan tatap muka disarankan membuat janji temu terlebih dahulu
+                </span>
+</div>
+</div>
+<div class="h-px bg-surface-container-highest my-1">
+</div>
+<!-- Jalur Percakapan Langsung -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">
+                Jalur Komunikasi Resmi
+              </span>
+<a class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group" href="tel:+622178920110">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">call</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Telepon Griya</span>
+<span class="font-body-sm text-body-sm font-semibold text-tertiary group-hover:text-primary transition-colors">+62 21 7892 0110</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-primary-container font-medium px-2 py-0.5 bg-primary-fixed/40 rounded">Suara</span>
+</a>
+<a class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group" href="https://wa.me/628118892011" rel="noopener noreferrer" target="_blank">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">chat</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">WhatsApp Concierge Keluarga</span>
+<span class="font-body-sm text-body-sm font-semibold text-tertiary group-hover:text-primary transition-colors">+62 811 8892 011</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-medium px-2 py-0.5 bg-primary-fixed/40 rounded">Pesan Cepat</span>
+</a>
+<a class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group" href="mailto:salam@sakinahjourneys.id">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">mail</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Surat Elektronik Resmi</span>
+<span class="font-body-sm text-body-sm font-semibold text-tertiary group-hover:text-primary transition-colors">salam@sakinahjourneys.id</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-medium px-2 py-0.5 bg-secondary-fixed/50 rounded">Surel</span>
+</a>
+</div>
+</div>
+<!-- Minimalist Styled Map Box -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">Lokasi &amp; Aksesibilitas</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-emerald-600">
+</span>
+                Area Tenang &amp; Asri
+              </span>
+</div>
+<!-- Stylized Minimal Map Card -->
+<div class="relative w-full h-48 rounded-lg bg-surface-container-high overflow-hidden flex flex-col justify-between p-4">
+<!-- Geometric subtle map grid pattern -->
+<svg class="absolute inset-0 w-full h-full opacity-40" preserveaspectratio="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="60" id="street-grid" patternunits="userSpaceOnUse" width="60">
+<path d="M 60 0 L 0 0 0 60" fill="none" stroke="#bfc8c6" stroke-width="1.2">
+</path>
+<path d="M 0 30 L 60 30" fill="none" stroke="#d2c4ba" stroke-dasharray="2,2" stroke-width="0.8">
+</path>
+</pattern>
+</defs>
+<rect fill="url(#street-grid)" height="100%" width="100%">
+</rect>
+<!-- Diagonal Major Avenue -->
+<line stroke="#fff8f5" stroke-width="16" x1="-20" x2="420" y1="120" y2="40">
+</line>
+<line stroke="#707977" stroke-dasharray="4,4" stroke-width="1.5" x1="-20" x2="420" y1="120" y2="40">
+</line>
+<!-- Cross Street Brawijaya -->
+<line stroke="#fff8f5" stroke-width="18" x1="180" x2="220" y1="-10" y2="210">
+</line>
+<line stroke="#bfc8c6" stroke-width="1" x1="180" x2="220" y1="-10" y2="210">
+</line>
+</svg>
+<!-- Map Pin Landmark -->
+<div class="relative z-10 self-center my-auto flex flex-col items-center">
+<div class="px-3 py-1.5 bg-primary text-on-primary rounded shadow-md flex items-center gap-1.5 text-label-sm font-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed">
+</span>
+                  Griya Sakinah
+                </div>
+<div class="w-2 h-2 bg-primary rotate-45 -mt-1">
+</div>
+<div class="w-6 h-1.5 bg-tertiary/20 rounded-full blur-[1px] mt-1">
+</div>
+</div>
+<!-- Map Corner Tag -->
+<div class="relative z-10 flex items-center justify-between text-label-sm font-label-sm text-on-surface-variant bg-surface/90 backdrop-blur-sm px-2.5 py-1 rounded">
+<span>Kebayoran Baru, Jakarta</span>
+<span class="text-tertiary font-medium">Brawijaya Raya</span>
+</div>
+</div>
+<!-- Accessibility Note & Maps Action -->
+<div class="flex items-center gap-2 pt-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-primary">accessible</span>
+<span class="font-body-sm text-body-sm">Dilengkapi fasilitas drop-off mobil dan parkir ramah kursi roda</span>
+</div>
+<a class="mt-1 w-full py-2.5 px-4 bg-surface-container-high hover:bg-surface-container text-tertiary hover:text-primary font-label-md text-label-md rounded text-center transition-colors" href="https://maps.google.com" rel="noopener noreferrer" target="_blank">
+              Buka Petunjuk Arah Google Maps
+            </a>
+</div>
+<!-- Catatan Khidmat Pendampingan -->
+<div class="rounded-xl p-space-md bg-surface-container border-0 flex gap-space-sm items-start">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center shrink-0 text-on-primary-fixed">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-sm text-headline-sm text-primary">Kenyamanan Konsultasi Tatap Muka</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                Tersedia ruang privat santai untuk diskusi keluarga bersama asatidzah dan dokter kontingen kami, dilengkapi akses tanpa tangga ramah lansia.
+              </p>
+</div>
+</div>
+</div>
+<!-- KOLOM KANAN (7 Cols): Formulir Konsultasi Ibadah Terencana -->
+<div class="lg:col-span-7">
+<div class="bg-surface-container-lowest rounded-xl p-space-lg lg:p-space-xl shadow-sm flex flex-col gap-space-md">
+<!-- Header Form -->
+<div class="flex flex-col gap-1 pb-space-sm border-b border-surface-container-highest">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">edit_calendar</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">
+                  Formulir Permohonan Konsultasi &amp; Janji Temu
+                </h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 leading-relaxed">
+                Sampaikan kebutuhan atau pertanyaan spesifik Anda. Kami akan menghubungi kembali dalam waktu maksimal 24 jam kerja.
+              </p>
+</div>
+<!-- Form Fields -->
+<form class="flex flex-col gap-space-md pt-2" id="consultation-form" onsubmit="event.preventDefault(); showSuccessFeedback();">
+<!-- Field 1: Nama Lengkap -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md font-semibold text-tertiary flex items-center gap-1" for="full-name">
+<span>Nama Lengkap Penanggung Jawab / Jamaah</span>
+<span aria-hidden="true" class="text-error text-sm font-bold">*</span>
+</label>
+<div class="relative">
+<input class="w-full px-space-md py-space-sm rounded bg-surface font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:bg-surface-container-low transition-colors" id="full-name" name="full_name" placeholder="Contoh: H. Ahmad Subagio &amp; Keluarga" required="" type="text"/>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Nama koordinator rombongan atau anggota keluarga yang mendaftar</span>
+</div>
+<!-- Dua Kolom: WhatsApp & Surel -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Field 2: WhatsApp -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md font-semibold text-tertiary flex items-center gap-1" for="wa-number">
+<span>Nomor WhatsApp Aktif</span>
+<span aria-hidden="true" class="text-error text-sm font-bold">*</span>
+</label>
+<div class="relative">
+<input class="w-full px-space-md py-space-sm rounded bg-surface font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:bg-surface-container-low transition-colors" id="wa-number" name="whatsapp" placeholder="+62 812 3456 7890" required="" type="tel"/>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Digunakan untuk konfirmasi jadwal janji temu</span>
+</div>
+<!-- Field 3: Email -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md font-semibold text-tertiary" for="email-address">
+                    Alamat Surel (Email)
+                  </label>
+<div class="relative">
+<input class="w-full px-space-md py-space-sm rounded bg-surface font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:bg-surface-container-low transition-colors" id="email-address" name="email" placeholder="nama@domain.id" type="email"/>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Untuk pengiriman berkas dossier dan kurikulum</span>
+</div>
+</div>
+<!-- Dua Kolom: Pilihan Paket & Waktu Keberangkatan -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Field 4: Rencana Paket -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md font-semibold text-tertiary" for="package-choice">
+                    Pilihan Rencana Paket &amp; Durasi
+                  </label>
+<div class="relative">
+<select class="w-full px-space-md py-space-sm rounded bg-surface font-body-md text-body-md text-on-surface focus:outline-none focus:bg-surface-container-low transition-colors cursor-pointer appearance-none pr-10" id="package-choice" name="package_type">
+<option value="rawdha">Rawdha Khidmat (12 Hari - Ramah Lansia)</option>
+<option value="safwa">Safwa Itikaf (9 Hari)</option>
+<option value="barakah">Barakah Syawal (16 Hari)</option>
+<option value="custom">Konsultasi Rombongan Keluarga Kustom</option>
+<option value="belum_memilih">Belum Menentukan (Ingin Berdiskusi Dulu)</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Dapat disesuaikan kembali saat sesi dialog</span>
+</div>
+<!-- Field 5: Perkiraan Waktu -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md font-semibold text-tertiary" for="departure-timeline">
+                    Perkiraan Waktu Keberangkatan yang Diharapkan
+                  </label>
+<div class="relative">
+<select class="w-full px-space-md py-space-sm rounded bg-surface font-body-md text-body-md text-on-surface focus:outline-none focus:bg-surface-container-low transition-colors cursor-pointer appearance-none pr-10" id="departure-timeline" name="departure_timeline">
+<option value="awal_musim">Awal Musim (Nov - Des)</option>
+<option value="musim_sejuk">Musim Sejuk (Jan - Feb)</option>
+<option value="ramadhan">Ramadhan 1446 H</option>
+<option value="syawal">Syawal Pasca Lebaran</option>
+<option value="lainnya">Lainnya / Menyesuaikan Tanggal Khusus</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Membantu kami memeriksa kuota hotel ring 1</span>
+</div>
+</div>
+<!-- Field 6: Catatan Kebutuhan Khusus -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md font-semibold text-tertiary" for="special-requirements">
+                  Catatan Kebutuhan Khusus (Kesehatan, Kursi Roda, Kamar Keluarga)
+                </label>
+<textarea class="w-full px-space-md py-space-sm rounded bg-surface font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:bg-surface-container-low transition-colors resize-y" id="special-requirements" name="requirements" placeholder="Ceritakan kondisi kesehatan jamaah sepuh, permintaan kursi dorong muthawwif khusus, kebutuhan menu diet pantangan, atau preferensi kamar keluarga berdampingan..." rows="4">
+</textarea>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Keterbukaan informasi membantu dokter dan asatidzah menyiapkan protokol terbaik</span>
+</div>
+<!-- Privacy Notice Note -->
+<div class="p-3 bg-surface-container-low rounded flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-tertiary shrink-0">shield</span>
+<p class="font-label-sm text-label-sm leading-normal">
+                  Data keluarga Anda dijaga dengan amanat kerahasiaan penuh semata-mata demi kenyamanan dan ketenteraman ibadah.
+                </p>
+</div>
+<!-- Form Action Button (Strictly No Arrow, Teal #1F5C56 with Clean White Text) -->
+<div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<button class="w-full sm:w-auto px-space-lg py-space-sm rounded bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md transition-colors shadow-sm focus:outline-none focus:ring-0 active:translate-y-0.5" type="submit">
+                  Kirim Konsultasi
+                </button>
+<span class="font-label-sm text-label-sm text-on-surface-variant">
+                  Respons rata-rata dalam 3-4 jam kerja
+                </span>
+</div>
+<!-- Feedback Confirmation (Initially Hidden) -->
+<div class="hidden p-space-md rounded bg-primary-fixed/30 text-primary flex items-start gap-space-sm transition-all duration-300" id="form-success-alert">
+<span class="material-symbols-outlined text-[22px] shrink-0 text-primary">check_circle</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm">Terima Kasih Atas Amanat Anda</span>
+<p class="font-body-sm text-body-sm text-tertiary mt-0.5">
+                    Permohonan konsultasi telah kami terima. Concierge Sakinah Journeys akan menghubungi nomor WhatsApp Anda dalam 24 jam kerja untuk menyelaraskan jadwal tatap muka.
+                  </p>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Editorial Quiet Closing Quotation / Dignity Banner -->
+<div class="w-full bg-surface-container-high py-space-lg">
+<div class="max-w-5xl mx-auto px-margin text-center flex flex-col items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-secondary font-medium tracking-wide">
+        Prinsip Layanan Sakinah Journeys
+      </span>
+<p class="font-headline-md text-headline-md text-primary max-w-2xl italic leading-relaxed">
+        “Ibadah yang tenang bermula dari persiapan yang lapang, jujur, dan terencana dengan khidmat.”
+      </p>
+<span class="font-label-md text-label-md text-on-surface-variant mt-1">
+        Dewan Pembimbing Ibadah &amp; Manajemen Tamu Baitullah
+      </span>
+</div>
+</div>
+<!-- Interactive Logic for Clean Submission Micro-Interaction -->
+<script>
+    function showSuccessFeedback() {
+      const feedback = document.getElementById('form-success-alert');
+      if (feedback) {
+        feedback.classList.remove('hidden');
+        feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+  </script>
+</div>
+</main>
+<footer class="w-full bg-surface-container-low text-on-surface pt-space-xl pb-space-lg">
+<div class="max-w-7xl mx-auto px-margin lg:px-gutter-desktop">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-gutter-desktop pb-space-xl">
+<div class="lg:col-span-4 flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm mb-space-xs">
+<img alt="Sakinah Journeys Logo" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VuQGvU91PHDFmDbauU2iB8_oENqMhMtEa9DDjtdHRPg3GHxWkjNefN1YZ31VuksocXlaino-yhBhj1N5ISWzYEUBv5DWGAfRXsGT9Z3pl8mwiYlcYF24IH92_nrXvI65XkBG2qEA9UrKFz-Zk5AkN9QfgzUX8i364qto55vpNgoH8IMrulQZ3rCYOWWCR5BgRK14IbB5J3IuWXqrrN6qTkHIe8C_at4rHSxIASu4szz4y8C8bE_ZndgbQ"/>
+<span class="font-headline-sm text-headline-sm text-primary">Sakinah Journeys</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm">Menghadirkan perjalanan ibadah ke Tanah Suci yang penuh kesantunan, kedalaman bimbingan spiritual, serta kenyamanan yang menenteramkan keluarga.</p>
+<div class="mt-space-sm p-space-sm rounded bg-surface-container border border-outline-variant/40">
+<p class="font-label-sm text-label-sm text-primary font-semibold mb-1">Izin Resmi Kemenag RI</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">PPIU No. U.412 Tahun 2021 — Akreditasi A</p>
+</div>
+</div>
+<div class="lg:col-span-3 flex flex-col gap-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-tertiary mb-space-xs">Peta Situs</h3>
+<ul class="flex flex-col gap-space-xs">
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="beranda" href="#">Beranda Utama</a>
+</li>
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="paket-ibadah" href="#">Paket Umroh Reguler &amp; Eksekutif</a>
+</li>
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="bimbingan-dan-manasik" href="#">Kurikulum Bimbingan &amp; Manasik</a>
+</li>
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="cerita-jamaah" href="#">Catatan Perjalanan &amp; Testimoni</a>
+</li>
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="tentang-kami" href="#">Tentang Kami &amp; Asatidzah</a>
+</li>
+<li class="py-0.5">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="jadwalkan-konsultasi" href="#">Layanan Janji Temu Tatap Muka</a>
+</li>
+</ul>
+</div>
+<div class="lg:col-span-5 flex flex-col gap-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-tertiary mb-space-xs">Kantor Pelayanan &amp; Griya Konsultasi</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Griya Sakinah, Jalan Brawijaya Raya No. 18, Kebayoran Baru, Jakarta Selatan, 12160</p>
+<div class="flex flex-col gap-1 text-on-surface-variant font-body-sm text-body-sm mt-space-xs">
+<p>
+<span class="font-semibold text-tertiary">Surel:</span> salam@sakinahjourneys.id</p>
+<p>
+<span class="font-semibold text-tertiary">Telepon:</span> +62 21 7892 0110 / +62 811 8892 011</p>
+</div>
+<div class="mt-space-sm pt-space-sm border-t border-outline-variant/40">
+<p class="font-label-sm text-label-sm text-tertiary font-semibold mb-1">Komitmen Pendampingan Keluarga</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Rasio pembimbing 1:15 jamaah demi memastikan kekhusyukan doa, perhatian lansia, dan kenyamanan ibadah setiap anggota keluarga.</p>
+</div>
+</div>
+</div>
+<div class="pt-space-md border-t border-outline-variant/40 flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-label-sm text-label-sm">
+<p>© 2025 PT Sakinah Harmoni Mulia. Hak Cipta Dilindungi Undang-Undang.</p>
+<div class="flex items-center gap-space-md">
+<a class="hover:text-primary transition-colors" data-path="kebijakan-privasi" href="#">Kebijakan Privasi</a>
+<span class="text-outline-variant">•</span>
+<a class="hover:text-primary transition-colors" data-path="syarat-dan-ketentuan" href="#">Syarat &amp; Ketentuan</a>
+<span class="text-outline-variant">•</span>
+<a class="hover:text-primary transition-colors" data-path="maklumat-pelayanan" href="#">Maklumat Pelayanan</a>
+</div>
+</div>
+</div>
+</footer>
+</body>
+</html>

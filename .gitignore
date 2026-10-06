@@ -1,0 +1,15 @@
+# Kredensial lokal (jangan sekali-kali masuk repo)
+app/config.php
+
+# Dokumentasi (PRD/TECH-SPEC/DESIGN/audit) & instruksi proyek
+*.md
+*.MD
+AGENTS.MD
+
+# Folder aset desain mentah (mockup, screenshot)
+design/
+
+# Sistem / editor
+.DS_Store
+Thumbs.db
+*.log
