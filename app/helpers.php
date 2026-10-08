@@ -166,10 +166,10 @@ function excerpt(?string $text, int $length = 120): string
 function badge(string $label, string $tone = 'teal'): string
 {
     $tones = [
-        'teal'  => 'bg-[#1F5C56]/10 text-[#1F5C56]',
-        'gold'  => 'bg-[#B8923F]/15 text-[#8A6B27]',
-        'gray'  => 'bg-[#DCD5C9]/60 text-[#5C524A]',
-        'error' => 'bg-[#ba1a1a]/10 text-[#ba1a1a]',
+        'teal'  => 'bg-primary-container text-on-primary-container',
+        'gold'  => 'bg-secondary-fixed text-on-secondary-fixed-variant',
+        'gray'  => 'bg-surface-container-high text-on-surface-variant',
+        'error' => 'bg-error-container text-on-error-container',
     ];
     $cls = $tones[$tone] ?? $tones['teal'];
     return '<span class="inline-flex items-center px-2 py-0.5 rounded text-label-sm font-label-sm font-semibold ' . $cls . '">' . e($label) . '</span>';
@@ -205,10 +205,21 @@ function pagination(int $total, int $perPage, int $currentPage, string $basePath
         if ($prev !== 0 && $i > $prev + 1) {
             $out .= '<span class="min-w-9 h-9 px-1 inline-flex items-center justify-center font-label-md text-label-md text-on-surface-variant" aria-hidden="true">&hellip;</span>';
         }
-        $active = $i === $currentPage ? ' bg-[#1F5C56] text-white border-[#1F5C56]' : ' bg-white text-[#5C524A] border-[#DCD5C9] hover:border-[#1F5C56] hover:text-[#1F5C56]';
+        $active = $i === $currentPage ? ' bg-primary text-white border-primary' : ' bg-white text-on-surface-variant border-outline-variant hover:border-primary hover:text-primary';
         $out .= '<a href="' . $link($i) . '" class="min-w-9 h-9 px-3 inline-flex items-center justify-center rounded border font-label-md text-label-md transition-colors' . $active . '"' . ($i === $currentPage ? ' aria-current="page"' : '') . '>' . $i . '</a>';
         $prev = $i;
     }
     $out .= '</nav>';
     return $out;
+}
+
+/** Ubah URL lokasi Google Maps menjadi URL embed (output=embed) agar tampil di <iframe> tanpa API key. */
+function maps_embed_src(?string $url): string
+{
+    $url = (string) $url;
+    if ($url === '' || str_contains($url, '/maps/embed')) {
+        return $url;
+    }
+    $sep = str_contains($url, '?') ? '&' : '?';
+    return $url . $sep . 'output=embed';
 }

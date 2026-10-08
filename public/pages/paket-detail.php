@@ -126,12 +126,12 @@ require PUBLIC_PATH . '/partials/header.php';
         <span class="material-symbols-outlined text-[15px]">elderly</span>
         <span>Program Khusus Ramah Lansia &amp; Keluarga</span>
       </div>
-      <h1 class="font-display-lg text-display-lg text-on-surface tracking-tight leading-tight"><?= e($paket['nama']) ?></h1>
+      <h1 class="font-display-lg text-display-md-mobile sm:text-headline-lg lg:text-display-lg text-on-surface tracking-tight leading-tight"><?= e($paket['nama']) ?></h1>
       <p class="font-headline-sm text-headline-sm text-secondary font-normal italic">
         Ritme ibadah yang teduh, jeda istirahat leluasa, dan langkah yang terawat dengan santun.
       </p>
       <p class="font-body-md text-body-md text-on-surface-variant max-w-3xl pt-space-xs">
-        <?= $durasi ?> Hari <?= max(0, $durasi - 1) ?> Malam &bull; <?= e($maskapaiList ? implode(' &amp; ', array_column($maskapaiList, 'nama')) : 'Penerbangan langsung PP') ?>
+        <?= $durasi ?> Hari <?= max(0, $durasi - 1) ?> Malam &bull; <?= e($maskapaiList ? implode(' & ', array_column($maskapaiList, 'nama')) : 'Penerbangan langsung PP') ?>
         &bull; Didampingi dokter kontingen serta pembimbing ibadah berpengalaman untuk kenyamanan optimal keluarga terkasih.
       </p>
     </div>
@@ -155,7 +155,7 @@ require PUBLIC_PATH . '/partials/header.php';
       </div>
       <div class="md:col-span-5 grid grid-cols-2 md:grid-cols-1 gap-space-md h-auto md:h-[480px]">
         <?php foreach (array_slice($mosaic, 1, 3) as $m): ?>
-        <div class="h-[170px] md:h-[148px] rounded-2xl overflow-hidden relative shadow-sm group">
+        <div class="h-[170px] md:h-[148px] rounded-2xl overflow-hidden relative shadow-sm group last:col-span-2 md:last:col-span-1">
           <img alt="<?= e($m['label']) ?>" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" src="<?= e($m['src']) ?>"/>
           <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/60 via-transparent to-transparent"></div>
           <div class="absolute bottom-space-xs left-space-sm right-space-sm text-surface">
@@ -208,7 +208,7 @@ require PUBLIC_PATH . '/partials/header.php';
         </div>
         <div class="lg:w-1/4 flex flex-col items-start lg:items-end">
           <span class="font-label-sm text-label-sm text-on-surface-variant">Biaya per Jamaah</span>
-          <div class="font-display-md text-display-md text-secondary font-normal"><?= rupiah($h['harga']) ?></div>
+          <div class="font-headline-md text-headline-md sm:font-display-md sm:text-display-md text-secondary font-normal"><?= rupiah($h['harga']) ?></div>
           <span class="font-label-sm text-label-sm text-on-surface-variant">All-in tanpa pungutan tersembunyi</span>
         </div>
         <div class="lg:w-auto">

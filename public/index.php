@@ -24,6 +24,9 @@ if ($page === '404') {
 
 $profil = model('profil')->get();
 
+// Analitik traffic publik (Spec: docs/SPEC-TRAFFIC-ANALYTICS.md) — gagal tak pernah menggagalkan render.
+log_visitor();
+
 // Default meta (bisa dioverride tiap halaman)
 $metaTitle = ($profil['meta_title'] ?? APP_NAME) ?: APP_NAME;
 $metaDescription = $profil['meta_description'] ?? '';

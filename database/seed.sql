@@ -19,7 +19,7 @@ INSERT INTO profil_perusahaan (id, nama_perusahaan, tagline, tentang_kami, alama
  '+62 21 7892 0110 / +62 811 8892 011',
  'salam@sakinahjourneys.id',
  'Senin – Sabtu, 08.00 – 17.00 WIB',
- 'https://www.google.com/maps?q=Jalan+Brawijaya+Raya+No.18+Kebayoran+Baru+Jakarta+Selatan',
+ 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d459393.82405285776!2d106.3054088890625!3d-6.26506459999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698deaa1c338b7%3A0x148afa6cc196e221!2sRianSa.!5e1!3m2!1sid!2sid!4v1791356111359!5m2!1sid!2sid',
  'Sakinah Journeys — Travel Umroh Resmi & Terpercaya',
  'Paket umroh reguler dan eksekutif dengan pendampingan manasik, dokter, dan muthawwif. Izin PPIU Kemenag RI Akreditasi A.',
  'PPIU No. U.412 Tahun 2021 — Akreditasi A',

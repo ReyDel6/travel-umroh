@@ -69,6 +69,7 @@ function model(string $name): object
             'admin'     => AdminModel::class,
             'meta'      => MetaHalamanModel::class,
             'testimoni' => TestimoniModel::class,
+            'traffic'   => TrafficModel::class,
         ];
         if (!isset($map[$name])) {
             throw new RuntimeException('Model tidak dikenal: ' . $name);

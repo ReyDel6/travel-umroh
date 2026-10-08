@@ -52,7 +52,7 @@ require PUBLIC_PATH . '/partials/header.php';
         <span class="material-symbols-outlined text-[15px]">menu_book</span>
         <span> Risalah Manasik &amp; Adab Ibadah</span>
       </div>
-      <h1 class="font-display-lg text-display-lg text-on-surface tracking-tight leading-tight"><?= e($artikel['judul']) ?></h1>
+      <h1 class="font-display-lg text-display-md-mobile sm:text-headline-lg lg:text-display-lg text-on-surface tracking-tight leading-tight"><?= e($artikel['judul']) ?></h1>
       <p class="font-body-md text-body-md text-on-surface-variant max-w-3xl pt-space-xs leading-relaxed">
         <?= e(excerpt($artikel['konten'], 220)) ?>
       </p>

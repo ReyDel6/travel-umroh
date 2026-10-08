@@ -144,7 +144,7 @@ require PUBLIC_PATH . '/partials/header.php';
       <?php if (!empty($profil['maps_embed'])): ?>
       <div class="rounded-xl overflow-hidden border border-[#E4D8D0] shadow-sm h-80 lg:h-full min-h-[320px]">
         <iframe class="w-full h-full" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                src="<?= e($profil['maps_embed']) ?>" title="Peta lokasi"></iframe>
+                src="<?= e(maps_embed_src((string) $profil['maps_embed'])) ?>" title="Peta lokasi"></iframe>
       </div>
       <?php else: ?>
       <div class="rounded-xl border border-[#E4D8D0] bg-[#F2EEE6] h-80 lg:h-full min-h-[320px] flex flex-col items-center justify-center gap-space-xs text-center p-space-md">

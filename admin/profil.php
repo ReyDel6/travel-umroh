@@ -197,7 +197,7 @@ require ADMIN_PATH . '/partials/sidebar.php';
           </div>
           <div class="flex flex-col gap-1.5">
             <label class="font-label-md text-label-md font-medium text-on-surface" for="maps_embed">Embed Peta (Google Maps)</label>
-            <input class="w-full bg-surface-container-low rounded px-3 py-2 font-body-sm text-body-sm text-on-surface outline-none focus:bg-surface-container-lowest" id="maps_embed" name="maps_embed" type="text" maxlength="255" placeholder="https://www.google.com/maps/embed?pb=..." value="<?= old_value($oldProfil, 'maps_embed') ?>"/>
+            <input class="w-full bg-surface-container-low rounded px-3 py-2 font-body-sm text-body-sm text-on-surface outline-none focus:bg-surface-container-lowest" id="maps_embed" name="maps_embed" type="text" maxlength="600" placeholder="https://www.google.com/maps/embed?pb=..." value="<?= old_value($oldProfil, 'maps_embed') ?>"/>
           </div>
         </div>
 

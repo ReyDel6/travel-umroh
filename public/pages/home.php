@@ -1,367 +1,510 @@
 <?php
 if (!defined('ROOT_PATH')) { http_response_code(404); exit; } // guard: file include-only, bukan entry point
-/** Halaman Beranda — design: beranda_perjalanan_umroh_tenang_terpercaya */
-$metaTitle = ($profil['meta_title'] ?? '') ?: (APP_NAME . ' — Beranda');
-$metaDescription = ($profil['meta_description'] ?? '') ?: 'Travel umroh resmi dengan pendampingan manasik, dokter, dan muthawwif.';
-
-$paketList = model('paket')->getFeatured(3);
-$paketHero = $paketList[0] ?? null;
-$paketSekunder = array_slice($paketList, 1, 2);
+/** Halaman Beranda — design: beranda_umroh_ceria_ringan_bermakna */
+$metaTitle = ($profil['meta_title'] ?? '') ?: (APP_NAME . ' — Umroh Keluarga yang Ringan & Berkesan');
+$metaDescription = ($profil['meta_description'] ?? '') ?: 'Umroh keluarga terasa ringan dan penuh makna: grup kecil, dokter & muthawwif mendampingi, hotel dekat Masjid. Izin PPIU Kemenag RI, Akreditasi A.';
 
 meta_halaman_apply('home', $metaTitle, $metaDescription);
 
 require PUBLIC_PATH . '/partials/head.php';
 require PUBLIC_PATH . '/partials/header.php';
+
+/* ---------- Data halaman ---------- */
+$paketList    = model('paket')->getDaftarAktif();
+$jadwalList   = model('jadwal')->getMendatang(6);
+$galeriList   = model('galeri')->getPublic(null, 10);
+$artikelList  = model('artikel')->getPublish(3);
+$faqList      = array_slice(model('faq')->getPublic(), 0, 6);
+$testimoniDb  = model('testimoni')->getAktif(4);
+
+/* Contoh media placeholder (foto/video) agar halaman terasa hidup. */
+$mediaContoh = [
+    [
+        'nama' => 'Keluarga Bapak Rahmat', 'asal' => 'Medan',
+        'teks' => 'Kami berangkat bertiga, ibu 68 tahun ikut mulus. Pendampingnya perhatian, hotelnya dekat masjid, dan semua kebutuhan diurus rapi.', 'foto' => 'galeri-07.jpg', 'contoh' => true,
+    ],
+    [
+        'nama' => 'Siti & Rombongan Komplek', 'asal' => 'Makassar',
+        'teks' => 'Padat ibadah tapi tetap santai. Tiga sesi manasiknya membuat semua anggota rombongan siap dan tenang, termasuk yang pertama kali.', 'foto' => 'galeri-04.jpg', 'contoh' => true,
+    ],
+];
+
+$testimoniList = array_merge($testimoniDb, $mediaContoh);
+
+$videoContoh = [
+    ['judul' => 'Sesi manasik hangat keluarga', 'sumber' => 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4', 'poster' => 'galeri-06.jpg'],
+    ['judul' => 'Cerita jamaah Rawdha Khidmat',  'sumber' => 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',  'poster' => 'galeri-03.jpg'],
+];
+
+$waLink = 'https://wa.me/628118892011?text=' . rawurlencode('Assalamualaikum Sakinah Journeys, saya ingin berkonsultasi rencana umroh keluarga.');
+$tahunBerdiri = (int) ($profil['tahun_berdiri'] ?? 2021);
+$tahunLayanan = max(1, (int) date('Y') - $tahunBerdiri);
+$kuotaMax     = (int) max(array_column($jadwalList, 'kuota') ?: [1]);
+
+$trustItems = [
+    ['ikon' => 'verified_user',  'label' => 'Izin PPIU Resmi Kemenag'],
+    ['ikon' => 'verified',       'label' => 'Akreditasi A'],
+    ['ikon' => 'medical_services','label' => 'Dokter Pendamping'],
+    ['ikon' => 'menu_book',      'label' => 'Muthawwif Bersertifikat'],
+    ['ikon' => 'hotel',          'label' => 'Hotel Dekat Masjid'],
+    ['ikon' => 'train',          'label' => 'Kereta Cepat Haramain'],
+    ['ikon' => 'badge',          'label' => 'Visa Diurus Resmi'],
+    ['ikon' => 'water_drop',     'label' => 'Air Zam-Zam 5 Liter'],
+];
+
+$pilar = [
+    ['ikon' => 'groups_2',         'judul' => 'Grup Kecil & Intim',   'teks' => 'Maksimal ' . (int) ($profil['stat_grup_maks'] ?? 24) . ' jamaah per rombongan.'],
+    ['ikon' => 'medical_services', 'judul' => 'Dokter & Muthawwif',   'teks' => 'Pendamping kesehatan dan ibadah siaga penuh.'],
+    ['ikon' => 'hotel',            'judul' => 'Hotel Dekat Masjid',   'teks' => 'Jalan kaki santai ke shaf utama, tanpa tergesa.'],
+    ['ikon' => 'school',           'judul' => 'Manasik Menyenangkan', 'teks' => (int) ($profil['stat_sesi_manasik'] ?? 3) . ' sesi manasik hangat sebelum berangkat.'],
+];
+
+$initials = static function (array $t): string {
+    $kata = array_values(array_filter(
+        preg_split('/[\s&]+/', (string) $t['nama']) ?: [],
+        static fn($w) => !in_array(mb_strtolower(trim($w)), ['dan', 'ibu', 'bapak', 'dr.', 'dr', 'h.', 'h', 'hj.', 'hajjah', 'ust.', 'ustadz'], true) && $w !== ''
+    ));
+    $inT = isset($kata[0]) ? mb_strtoupper(mb_substr($kata[0], 0, 1)) : 'J';
+    $inAkhir = count($kata) > 1 ? mb_strtoupper(mb_substr(end($kata), 0, 1)) : '';
+    return $inT . ($inAkhir !== '' && $inAkhir !== $inT ? $inAkhir : '');
+};
 ?>
-<!-- Hero Section (Left-Aligned, Asymmetric 2-Column) -->
-<section class="w-full bg-[#F2EEE6] text-[#2B2520] pt-space-lg pb-space-xl">
-  <div class="max-w-7xl mx-auto px-margin lg:px-gutter-desktop">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg lg:gap-gutter-desktop items-center">
-      <!-- Left Column: Editorial Narrative -->
-      <div class="lg:col-span-7 flex flex-col justify-center">
-        <div class="inline-flex items-center gap-space-xs mb-space-sm">
-          <span class="w-2 h-2 rounded-full bg-[#1F5C56]"></span>
-          <span class="font-label-md text-label-md text-[#5C524A]">Pendampingan Ibadah Penuh Khidmat &amp; Kehangatan Keluarga</span>
-        </div>
-        <h1 class="font-display-lg text-display-md lg:text-display-lg text-[#2B2520] font-normal tracking-tight leading-[1.15] mb-space-md">
-          Menunaikan panggilan suci<br/>dalam ketenangan yang terjaga.
-        </h1>
-        <p class="font-body-lg text-body-lg text-[#5C524A] max-w-xl mb-space-lg leading-relaxed">
-          Kami merancang setiap etape perjalanan di Tanah Suci dengan ritme yang teduh, bimbingan manasik berjarak dekat, serta akomodasi terbaik agar Anda dan keluarga dapat beribadah tanpa tergesa.
-        </p>
+<style>
+  .anim-hero{opacity:0;animation:fadeUp .8s cubic-bezier(.22,.61,.36,1) forwards}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+  [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  [data-reveal].is-visible{opacity:1;transform:none}
+  .no-scrollbar::-webkit-scrollbar{display:none}
+  .no-scrollbar{scrollbar-width:none}
+  .marquee-track{display:flex;width:max-content;animation:marquee 30s linear infinite}
+  .marquee-track:hover{animation-play-state:paused}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .faq-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .faq-item.open .faq-body{max-height:420px}
+  @media (prefers-reduced-motion:reduce){.anim-hero,[data-reveal],.marquee-track{animation:none;opacity:1;transform:none;transition:none}}
+</style>
 
-        <div class="flex flex-wrap items-center gap-space-md mb-space-xl">
-          <a class="inline-flex items-center justify-center px-space-lg py-space-sm bg-[#B8923F] text-white font-label-md text-label-md rounded shadow-sm hover:opacity-95 transition-opacity" href="<?= url('kontak') ?>#konsultasi">Konsultasi Rencana Ibadah</a>
-          <a class="inline-flex items-center justify-center px-space-lg py-space-sm bg-transparent border border-[#1F5C56] text-[#1F5C56] font-label-md text-label-md rounded hover:bg-[#1F5C56]/5 transition-colors" href="<?= url('tentang') ?>">Pelajari Nilai Bimbingan</a>
-        </div>
+<?php /* ==================== HERO ==================== */ ?>
+<section class="relative overflow-hidden bg-gradient-to-b from-primary-container/50 via-surface to-surface text-on-surface">
+  <div aria-hidden="true" class="pointer-events-none absolute -top-24 -right-24 w-96 h-96 rounded-full bg-primary-container/40 blur-3xl"></div>
+  <div aria-hidden="true" class="pointer-events-none absolute top-40 -left-28 w-80 h-80 rounded-full bg-secondary-fixed/50 blur-3xl"></div>
 
-        <div class="pt-space-md border-t border-[#DCD5C9] grid grid-cols-1 sm:grid-cols-3 gap-space-md text-[#5C524A]">
-          <div class="flex items-start gap-space-xs">
-            <span class="material-symbols-outlined text-[#1F5C56] text-[18px] shrink-0 mt-0.5">verified_user</span>
-            <div class="flex flex-col">
-              <span class="font-label-sm text-label-sm font-semibold text-[#2B2520]">Izin Resmi Kemenag</span>
-              <span class="font-body-sm text-body-sm text-[#5C524A]"><?= trim((string) ($profil['izin_ppiu'] ?? '')) !== '' ? e($profil['izin_ppiu']) : 'PPIU berizin resmi' ?></span>
-            </div>
-          </div>
-          <div class="flex items-start gap-space-xs">
-            <span class="material-symbols-outlined text-[#1F5C56] text-[18px] shrink-0 mt-0.5">medical_services</span>
-            <div class="flex flex-col">
-              <span class="font-label-sm text-label-sm font-semibold text-[#2B2520]">Dokter &amp; Muthawwif</span>
-              <span class="font-body-sm text-body-sm text-[#5C524A]">Pendamping Khusus</span>
-            </div>
-          </div>
-          <div class="flex items-start gap-space-xs">
-            <span class="material-symbols-outlined text-[#1F5C56] text-[18px] shrink-0 mt-0.5">groups_2</span>
-            <div class="flex flex-col">
-              <span class="font-label-sm text-label-sm font-semibold text-[#2B2520]">Grup Eksklusif</span>
-              <span class="font-body-sm text-body-sm text-[#5C524A]"><?= !empty($profil['stat_grup_maks']) ? 'Maksimal ' . (int) $profil['stat_grup_maks'] . ' Jamaah' : 'Grup kecil eksklusif' ?></span>
-            </div>
-          </div>
+  <div class="relative max-w-7xl mx-auto px-margin lg:px-gutter-desktop pt-space-lg pb-space-xl grid grid-cols-1 lg:grid-cols-12 gap-space-lg lg:gap-gutter-desktop items-center">
+    <!-- Kiri: teks pendek + pencarian -->
+    <div class="lg:col-span-7 flex flex-col">
+      <div class="anim-hero" style="animation-delay:.05s">
+        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-primary-container text-primary font-label-sm text-label-sm shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-secondary"></span>
+          <?= e($profil['izin_ppiu'] ?? 'Travel Umroh Resmi Berizin') ?>
+        </span>
+      </div>
+
+      <h1 class="anim-hero font-display-lg text-display-lg-mobile sm:text-display-lg text-on-surface mt-space-md mb-space-md" style="animation-delay:.15s">
+        Umroh keluarga yang ringan, indah, dan penuh makna.
+      </h1>
+
+      <p class="anim-hero font-body-lg text-body-lg text-on-surface-variant max-w-xl mb-space-lg leading-relaxed" style="animation-delay:.25s">
+        Grup kecil yang intim, manasik menyenangkan, dokter &amp; muthawwif membersamai, dan hotel dekat Masjid. Anda dan keluarga tinggal beribadah dengan tenang.
+      </p>
+
+      <!-- Pencarian cepat paket -->
+      <form id="hero-search" class="anim-hero bg-white border border-outline-variant rounded-2xl shadow-sm p-space-sm sm:p-space-md flex flex-col sm:flex-row gap-space-sm items-stretch sm:items-center mb-space-md" style="animation-delay:.35s">
+        <label class="sr-only" for="hero-paket">Pilih paket umroh</label>
+        <select id="hero-paket" name="paket" class="flex-1 bg-transparent px-space-sm py-space-sm text-body-md text-on-surface outline-none cursor-pointer" aria-label="Pilih paket">
+          <option value="">Pilih paket umroh…</option>
+          <?php foreach ($paketList as $plOpt): ?>
+          <option value="<?= e($plOpt['slug']) ?>"><?= e($plOpt['nama']) ?> · <?= (int) $plOpt['durasi_hari'] ?> hari</option>
+          <?php endforeach; ?>
+        </select>
+        <button type="submit" class="inline-flex items-center justify-center gap-2 px-space-lg py-space-sm bg-primary text-white font-label-md text-label-md rounded-xl hover:bg-primary/90 transition-colors">
+          <span class="material-symbols-outlined text-[18px]">search</span> Lihat Paket &amp; Jadwal
+        </button>
+      </form>
+
+      <div class="anim-hero grid grid-cols-3 gap-space-sm max-w-lg" style="animation-delay:.45s">
+        <div class="bg-surface-container/70 rounded-xl p-space-sm border border-primary-container/40 text-center">
+          <span class="block font-display-md text-headline-md text-primary font-bold"><?= $tahunLayanan ?>+</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant">Tahun Berkhidmat</span>
+        </div>
+        <div class="bg-surface-container/70 rounded-xl p-space-sm border border-primary-container/40 text-center">
+          <span class="block font-display-md text-headline-md text-primary font-bold"><?= (int) ($profil['stat_grup_maks'] ?? 24) ?></span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant">Jamaah Maks / Grup</span>
+        </div>
+        <div class="bg-surface-container/70 rounded-xl p-space-sm border border-primary-container/40 text-center">
+          <span class="block font-display-md text-headline-md text-primary font-bold">1:<?= (int) ($profil['stat_rasio_pembimbing'] ?? 15) ?></span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant">Rasio Pembimbing</span>
         </div>
       </div>
 
-      <!-- Right Column: Visual Frame -->
-      <div class="lg:col-span-5 relative mt-space-md lg:mt-0">
-        <div class="relative p-2 bg-[#FAF7F2] rounded-xl shadow-md border border-[#E4D8D0]">
-          <div class="relative overflow-hidden rounded-lg aspect-[4/5] w-full">
-            <img class="w-full h-full object-cover" alt="Pendampingan jamaah keluarga di pelataran Masjid Nabawi" src="<?= upload_url('hero-utama.jpg', 'profil') ?>"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#2B2520]/80 via-transparent to-transparent"></div>
-            <div class="absolute bottom-4 left-4 right-4 text-white">
-              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-black/40 backdrop-blur-sm border border-white/10">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#B8923F]"></span>
-                <p class="font-label-sm text-label-sm italic text-[#FAF7F2]">Kehangatan pendampingan lansia di pelataran Madinah</p>
-              </div>
-            </div>
-          </div>
+      <div class="anim-hero mt-space-lg flex flex-wrap items-center gap-space-sm text-on-surface-variant font-body-sm text-body-sm" style="animation-delay:.55s">
+        <span class="flex items-center gap-1 text-secondary">
+          <span class="material-symbols-outlined text-[16px]">star</span>
+          <span class="font-semibold">4,9/5</span>
+        </span>
+        <span class="w-1 h-1 rounded-full bg-outline"></span>
+        <span>Dipercaya keluarga dari Jakarta, Surabaya, Medan, Makassar &amp; 20+ kota lain</span>
+      </div>
+    </div>
+
+    <!-- Kanan: kolase foto -->
+    <div class="lg:col-span-5 relative mt-space-lg lg:mt-0">
+      <div class="relative">
+        <img class="anim-hero w-full aspect-[4/5] object-cover rounded-2xl border border-outline-variant shadow-xl" style="animation-delay:.2s" loading="eager" decoding="async" alt="Pendampingan jamaah keluarga di pelataran Masjid Nabawi" src="<?= upload_url('hero-utama.jpg', 'profil') ?>"/>
+        <div class="anim-hero absolute -bottom-5 -left-4 sm:-left-8 w-32 sm:w-40 rounded-xl overflow-hidden border-2 border-white shadow-lg" style="animation-delay:.5s">
+          <img class="w-full aspect-square object-cover" loading="lazy" decoding="async" alt="Kebersamaan keluarga jamaah" src="<?= upload_url('galeri-05.jpg', 'galeri') ?>"/>
+        </div>
+        <div class="anim-hero absolute -top-4 -right-3 sm:-right-6 hidden sm:block w-40 rounded-xl overflow-hidden border-2 border-white shadow-lg" style="animation-delay:.65s">
+          <img class="w-full aspect-[4/3] object-cover" loading="lazy" decoding="async" alt="Suasana pelataran Masjid Nabawi" src="<?= upload_url('galeri-11.jpg', 'galeri') ?>"/>
+        </div>
+        <div class="anim-hero absolute top-6 left-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-outline-variant shadow-sm" style="animation-delay:.8s">
+          <span class="material-symbols-outlined text-secondary text-[16px]">workspace_premium</span>
+          <span class="font-label-sm text-label-sm font-semibold text-on-surface">Pembimbing &amp; Tim Medis</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Islamic Tilework Geometric Divider -->
-<div aria-hidden="true" class="w-full bg-[#F2EEE6] flex items-center justify-center py-4 overflow-hidden select-none">
-  <div class="w-full max-w-7xl mx-auto px-margin lg:px-gutter-desktop flex items-center justify-center gap-4">
-    <span class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-[#DCD5C9] to-[#1F5C56]/40"></span>
-    <svg class="w-auto h-6 text-[#1F5C56]" fill="none" viewbox="0 0 160 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M80 2L83.5 8.5L90.5 8.5L85 13L87.5 19.5L80 15.5L72.5 19.5L75 13L69.5 8.5L76.5 8.5L80 2Z" fill="#FAF7F2" stroke="#1F5C56" stroke-width="1"></path>
-      <circle cx="80" cy="12" fill="#B8923F" r="2"></circle>
-      <path d="M48 12H68" stroke="#1F5C56" stroke-dasharray="2 3" stroke-opacity="0.4" stroke-width="1"></path>
-      <path d="M92 12H112" stroke="#1F5C56" stroke-dasharray="2 3" stroke-opacity="0.4" stroke-width="1"></path>
-      <rect fill="#B8923F" fill-opacity="0.7" height="4" transform="rotate(45 44 12)" width="4" x="42" y="10"></rect>
-      <rect fill="#B8923F" fill-opacity="0.7" height="4" transform="rotate(45 116 12)" width="4" x="114" y="10"></rect>
-    </svg>
-    <span class="h-[1px] flex-1 bg-gradient-to-l from-transparent via-[#DCD5C9] to-[#1F5C56]/40"></span>
+<?php /* ==================== TRUSTBAR (marquee) ==================== */ ?>
+<div aria-hidden="true" class="w-full bg-primary text-white py-3 overflow-hidden">
+  <div class="marquee-track">
+    <?php $trustLoop = array_merge($trustItems, $trustItems); foreach ($trustLoop as $ti): ?>
+    <span class="inline-flex items-center gap-2 mx-6 font-label-md text-label-md whitespace-nowrap">
+      <span class="material-symbols-outlined text-[18px] text-secondary-fixed"><?= e($ti['ikon']) ?></span>
+      <?= e($ti['label']) ?>
+    </span>
+    <?php endforeach; ?>
   </div>
 </div>
 
-<!-- Kurasi Perjalanan Ibadah (Asymmetric Grid Section) -->
-<section class="w-full bg-[#FAF7F2] py-space-xl text-[#2B2520]">
+<?php /* ==================== PAKET UMROH (slider) ==================== */ ?>
+<section class="w-full bg-surface-container py-space-xl text-on-surface">
   <div class="max-w-7xl mx-auto px-margin lg:px-gutter-desktop">
-    <div class="max-w-2xl mb-space-xl">
-      <span class="font-label-md text-label-md text-[#1F5C56] font-medium block mb-space-xs">Rencana Perjalanan Istimewa</span>
-      <h2 class="font-headline-lg text-headline-lg text-[#2B2520] mb-space-xs">Kurasi Perjalanan Ibadah</h2>
-      <p class="font-body-md text-body-md text-[#5C524A]">Pilihan keberangkatan dengan alokasi waktu yang lapang dan fasilitas yang menjamin kenyamanan fisik serta batin.</p>
+    <div class="flex flex-wrap items-end justify-between gap-space-md mb-space-lg">
+      <div data-reveal class="max-w-xl">
+        <span class="font-label-md text-label-md text-primary font-semibold block mb-space-xs">Paket Umroh</span>
+        <h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-xs">Pilih tempo ibadah yang pas untuk keluarga Anda</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant">Semua harga sudah termasuk visa, hotel dekat Masjid, makan, dan pendampingan penuh.</p>
+      </div>
+      <div data-reveal class="flex items-center gap-2">
+        <button type="button" data-slider-prev="paket" class="w-10 h-10 rounded-full bg-white border border-outline-variant text-primary inline-flex items-center justify-center hover:bg-primary hover:text-white transition-colors" aria-label="Paket sebelumnya">
+          <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+        </button>
+        <button type="button" data-slider-next="paket" class="w-10 h-10 rounded-full bg-white border border-outline-variant text-primary inline-flex items-center justify-center hover:bg-primary hover:text-white transition-colors" aria-label="Paket berikutnya">
+          <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+        </button>
+      </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-stretch">
-      <?php if ($paketHero): ?>
-      <?php
-        $heroHarga = $paketHero['harga_min'] !== null ? rupiah($paketHero['harga_min']) : 'Hubungi kami';
-        $heroHotel = model('paket')->getHotels((int) $paketHero['id']);
-        $heroMaskapai = model('paket')->getMaskapai((int) $paketHero['id']);
-        $heroFasilitas = model('paket')->getFasilitas((int) $paketHero['id']);
-        $heroJadwal = model('jadwal')->getByPaket((int) $paketHero['id'], true);
-      ?>
-      <!-- Hero Package -->
-      <div class="lg:col-span-7 bg-[#FFFFFF] rounded-xl p-space-lg border border-[#E4D8D0] shadow-sm flex flex-col justify-between relative overflow-hidden">
-        <div>
-          <div class="flex flex-wrap items-center justify-between gap-space-xs mb-space-md">
-            <span class="px-space-sm py-1 bg-[#1F5C56]/10 text-[#1F5C56] font-label-sm text-label-sm rounded-full font-medium">
-              <?= e($heroFasilitas[0]['nama'] ?? 'Paket Unggulan') ?>
-            </span>
-            <span class="font-label-sm text-label-sm text-[#5C524A]">
-              <?= $heroJadwal ? 'Keberangkatan: ' . tanggal($heroJadwal[0]['tanggal_berangkat']) : 'Jadwal menyusul' ?>
-            </span>
-          </div>
-          <h3 class="font-headline-md text-headline-md text-[#2B2520] mb-space-xs"><?= e($paketHero['nama']) ?></h3>
-          <p class="font-body-sm text-body-sm text-[#5C524A] mb-space-lg leading-relaxed"><?= e(excerpt($paketHero['deskripsi'], 240)) ?></p>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md mb-space-lg bg-[#FAF7F2] p-space-md rounded-lg border border-[#E4D8D0]/60">
-            <div class="flex items-start gap-space-xs">
-              <span class="material-symbols-outlined text-[#1F5C56] text-[20px] shrink-0 mt-0.5">hotel</span>
-              <div>
-                <span class="font-label-sm text-label-sm font-semibold text-[#2B2520] block">Hotel Pelataran Depan</span>
-                <span class="font-body-sm text-body-sm text-[#5C524A]">
-                  <?= e($heroHotel ? implode(' &amp; ', array_slice(array_column($heroHotel, 'nama'), 0, 2)) : 'Akomodasi terbaik di kedua kota') ?>
-                </span>
-              </div>
-            </div>
-            <div class="flex items-start gap-space-xs">
-              <span class="material-symbols-outlined text-[#1F5C56] text-[20px] shrink-0 mt-0.5">flight</span>
-              <div>
-                <span class="font-label-sm text-label-sm font-semibold text-[#2B2520] block">Maskapai</span>
-                <span class="font-body-sm text-body-sm text-[#5C524A]">
-                  <?= e($heroMaskapai ? implode(' &amp; ', array_column($heroMaskapai, 'nama')) : 'Sesuai jadwal keberangkatan') ?>
-                </span>
-              </div>
-            </div>
-            <div class="flex items-start gap-space-xs">
-              <span class="material-symbols-outlined text-[#1F5C56] text-[20px] shrink-0 mt-0.5">assist_walker</span>
-              <div>
-                <span class="font-label-sm text-label-sm font-semibold text-[#2B2520] block">Durasi Perjalanan</span>
-                <span class="font-body-sm text-body-sm text-[#5C524A]"><?= (int) $paketHero['durasi_hari'] ?> hari penuh di Tanah Suci</span>
-              </div>
-            </div>
-            <div class="flex items-start gap-space-xs">
-              <span class="material-symbols-outlined text-[#1F5C56] text-[20px] shrink-0 mt-0.5">menu_book</span>
-              <div>
-                <span class="font-label-sm text-label-sm font-semibold text-[#2B2520] block">Fasilitas Lengkap</span>
-                <span class="font-body-sm text-body-sm text-[#5C524A]"><?= count($heroFasilitas) ?> item fasilitas tercantum</span>
-              </div>
-            </div>
-          </div>
+    <?php if ($paketList): ?>
+    <div data-slider="paket" class="flex gap-space-md overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth pb-2">
+      <?php foreach ($paketList as $pk): ?>
+      <?php $pkHarga = $pk['harga_min'] !== null ? 'Mulai ' . rupiah($pk['harga_min']) : 'Hubungi kami'; ?>
+      <a href="<?= url('paket/' . $pk['slug']) ?>" class="group shrink-0 w-[300px] snap-start bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 flex flex-col" data-reveal>
+        <div class="relative overflow-hidden aspect-[4/3]">
+          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" alt="<?= e($pk['nama']) ?>" src="<?= upload_url($pk['thumbnail'], 'paket') ?>"/>
+          <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm text-primary font-label-sm text-label-sm font-semibold border border-primary-container"><?= (int) $pk['durasi_hari'] ?> Hari</span>
         </div>
-
-        <div class="pt-space-md border-t border-[#E4D8D0] flex flex-col sm:flex-row sm:items-center justify-between gap-space-md mt-space-md">
-          <div>
-            <span class="font-label-sm text-label-sm text-[#5C524A] block">Investasi Ibadah</span>
-            <div class="inline-flex items-baseline gap-1.5 px-3 py-1 bg-[#FAF7F2] rounded border border-[#B8923F]">
-              <span class="font-display-md text-headline-sm text-[#B8923F] font-bold">Mulai dari <?= $heroHarga ?></span>
-              <span class="font-label-sm text-label-sm text-[#5C524A]">/ jamaah</span>
-            </div>
-          </div>
-          <a class="inline-flex items-center justify-center px-space-md py-space-sm bg-[#1F5C56] text-white font-label-md text-label-md rounded hover:bg-[#1F5C56]/90 transition-colors" href="<?= url('paket/' . $paketHero['slug']) ?>">
-            Rincian &amp; Jadwal Keberangkatan
-          </a>
-        </div>
-      </div>
-      <?php else: ?>
-      <div class="lg:col-span-7 bg-[#FFFFFF] rounded-xl p-space-lg border border-[#E4D8D0] shadow-sm flex flex-col items-center justify-center text-center gap-space-sm min-h-[280px]">
-        <span class="material-symbols-outlined text-[#1F5C56] text-[40px]">luggage</span>
-        <h3 class="font-headline-md text-headline-md text-[#2B2520]">Paket Unggulan Sedang Disiapkan</h3>
-        <p class="font-body-sm text-body-sm text-[#5C524A] max-w-md">Tim kami sedang menyusun pilihan keberangkatan terbaik. Silakan konsultasikan rencana perjalanan Anda lebih dulu.</p>
-        <a class="inline-flex items-center justify-center px-space-md py-space-sm mt-space-xs bg-[#1F5C56] text-white font-label-md text-label-md rounded hover:bg-[#1F5C56]/90 transition-colors" href="<?= url('kontak') ?>">
-          Konsultasi Perjalanan
-        </a>
-      </div>
-      <?php endif; ?>
-
-      <!-- Secondary Packages -->
-      <div class="lg:col-span-5 flex flex-col gap-space-lg">
-        <?php foreach ($paketSekunder as $p): ?>
-        <div class="bg-[#FFFFFF] rounded-xl p-space-md lg:p-space-lg border border-[#E4D8D0] shadow-sm flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between gap-space-xs mb-space-xs">
-              <span class="px-2.5 py-0.5 bg-[#FAF7F2] text-[#1F5C56] border border-[#1F5C56]/20 font-label-sm text-label-sm rounded-full">
-                <?= (int) $p['durasi_hari'] ?> Hari
-              </span>
-              <span class="font-label-sm text-label-sm text-[#5C524A]">
-                <?= $p['jadwal_terdekat'] ? 'Berangkat ' . tanggal($p['jadwal_terdekat']) : 'Jadwal menyusul' ?>
-              </span>
-            </div>
-            <h4 class="font-headline-sm text-headline-sm text-[#2B2520] mb-1"><?= e($p['nama']) ?></h4>
-            <p class="font-body-sm text-body-sm text-[#5C524A] mb-space-md"><?= e(excerpt($p['deskripsi'], 150)) ?></p>
-          </div>
-          <div class="pt-space-sm border-t border-[#E4D8D0]/60 flex items-center justify-between gap-space-sm">
+        <div class="flex flex-col flex-1 p-space-md">
+          <h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-xs"><?= e($pk['nama']) ?></h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md line-clamp-2"><?= e(excerpt($pk['deskripsi'], 130)) ?></p>
+          <div class="mt-auto pt-space-sm border-t border-outline-variant flex items-end justify-between gap-space-xs">
             <div>
-              <span class="font-label-sm text-label-sm text-[#5C524A] block">Tarif Paket</span>
-              <span class="font-headline-sm text-headline-sm text-[#B8923F] font-medium">
-                <?= $p['harga_min'] !== null ? 'Mulai dari ' . rupiah($p['harga_min']) : 'Hubungi kami' ?>
-              </span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant block"><?= $pkHarga ?></span>
+              <span class="font-label-sm text-label-sm font-semibold text-secondary">/ jamaah</span>
             </div>
-            <a class="inline-flex items-center justify-center px-space-sm py-1.5 border border-[#1F5C56] text-[#1F5C56] font-label-sm text-label-sm rounded hover:bg-[#1F5C56]/5 transition-colors" href="<?= url('paket/' . $p['slug']) ?>">
-              Lihat Jadwal
-            </a>
+            <span class="inline-flex items-center gap-1 font-label-sm text-label-sm font-semibold text-primary">
+              Detail <span class="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+            </span>
           </div>
         </div>
-        <?php endforeach; ?>
-      </div>
+      </a>
+      <?php endforeach; ?>
     </div>
 
-    <div class="mt-space-lg flex justify-center">
-      <a class="inline-flex items-center justify-center px-space-md py-space-sm border border-[#1F5C56] text-[#1F5C56] font-label-md text-label-md rounded hover:bg-[#1F5C56] hover:text-white transition-colors" href="<?= url('paket') ?>">
-        Lihat Semua Paket Ibadah
+    <div data-reveal class="mt-space-md text-center">
+      <a class="inline-flex items-center gap-2 px-space-md py-space-sm bg-primary text-white font-label-md text-label-md rounded-xl hover:bg-primary/90 transition-colors" href="<?= url('paket') ?>">
+        Semua Paket Umroh <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
       </a>
     </div>
+    <?php else: ?>
+    <p class="font-body-md text-body-md text-on-surface-variant bg-white border border-outline-variant rounded-2xl p-space-md">Paket umroh sedang disusun. Silakan konsultasikan rencana perjalanan Anda lebih dulu.</p>
+    <?php endif; ?>
   </div>
 </section>
 
-<!-- Editorial Atmospheric Interlude Photo -->
-<section class="w-full bg-[#FAF7F2] pb-space-xl">
+<?php /* ==================== MENGAPA SAKINAH (4 pilar) ==================== */ ?>
+<section class="w-full bg-surface py-space-xl text-on-surface">
   <div class="max-w-7xl mx-auto px-margin lg:px-gutter-desktop">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
-      <div class="lg:col-span-4 flex flex-col justify-center">
-        <span class="font-label-sm text-label-sm text-[#1F5C56] mb-1">Pijakan Kebijaksanaan</span>
-        <h3 class="font-headline-md text-headline-md text-[#2B2520] mb-space-xs">Ibadah yang berjarak dekat dengan keteduhan hati.</h3>
-        <p class="font-body-sm text-body-sm text-[#5C524A] leading-relaxed mb-space-sm">Setiap pemilihan hotel didasarkan pada aksesibilitas jalan datar menuju shaf utama, meminimalkan eskalator padat dan waktu antre yang melelahkan.</p>
-        <div class="flex items-center gap-space-xs text-[#1F5C56] font-label-sm text-label-sm">
-          <span class="material-symbols-outlined text-[18px]">near_me</span>
-          <span>Jarak tempuh rata-rata di bawah 150 meter ke pintu masjid</span>
-        </div>
+    <div class="text-center max-w-xl mx-auto mb-space-lg" data-reveal>
+      <span class="font-label-md text-label-md text-primary font-semibold block mb-space-xs">Kenapa Sakinah Journeys</span>
+      <h2 class="font-headline-lg text-headline-lg text-on-surface">Kebutuhan keluarga diurus, Anda tinggal beribadah</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+      <?php foreach ($pilar as $pi): ?>
+      <div class="bg-surface-container/70 rounded-2xl p-space-md border border-primary-container/40 text-center flex flex-col items-center" data-reveal>
+        <span class="w-14 h-14 rounded-full bg-primary-container text-primary flex items-center justify-center mb-space-sm">
+          <span class="material-symbols-outlined text-[28px]"><?= e($pi['ikon']) ?></span>
+        </span>
+        <h3 class="font-headline-sm text-headline-sm text-on-surface mb-1"><?= e($pi['judul']) ?></h3>
+        <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"><?= e($pi['teks']) ?></p>
       </div>
-      <div class="lg:col-span-8">
-        <div class="rounded-xl overflow-hidden border border-[#E4D8D0] shadow-sm aspect-[16/8] relative">
-          <img class="w-full h-full object-cover" alt="Pemandangan pelataran suci dari griya penginapan Madinah" src="<?= upload_url('interlude-hotel.jpg', 'galeri') ?>"/>
-          <div class="absolute bottom-3 left-4 bg-[#FAF7F2]/90 backdrop-blur-sm px-3 py-1.5 rounded text-[#2B2520] text-label-sm font-label-sm border border-[#E4D8D0]">
-            Pemandangan pelataran suci dari griya penginapan Madinah
-          </div>
-        </div>
-      </div>
+      <?php endforeach; ?>
+    </div>
+    <div data-reveal class="mt-space-lg bg-secondary-fixed/60 rounded-2xl px-space-md py-space-md text-center flex flex-wrap items-center justify-center gap-x-space-lg gap-y-2 text-on-secondary-fixed border border-secondary-fixed-dim/50">
+      <span class="inline-flex items-center gap-2 font-label-md text-label-md"><span class="material-symbols-outlined text-[18px] text-on-secondary-fixed-variant">schedule</span> 3 sesi manasik sebelum berangkat</span>
+      <span class="inline-flex items-center gap-2 font-label-md text-label-md"><span class="material-symbols-outlined text-[18px] text-on-secondary-fixed-variant">wheelchair_pickup</span> Pendampingan khusus jamaah lansia</span>
+      <span class="inline-flex items-center gap-2 font-label-md text-label-md"><span class="material-symbols-outlined text-[18px] text-on-secondary-fixed-variant">support_agent</span> Konsultasi 1×1 bersama pembimbing</span>
     </div>
   </div>
 </section>
 
-<!-- Jadwal Keberangkatan Terdekat -->
-<section class="w-full bg-[#F2EEE6] py-space-xl text-[#2B2520]">
+<?php /* ==================== JADWAL KEBERANGKATAN ==================== */ ?>
+<section class="w-full bg-surface-container py-space-xl text-on-surface">
   <div class="max-w-7xl mx-auto px-margin lg:px-gutter-desktop">
-    <div class="max-w-2xl mb-space-lg">
-      <span class="font-label-md text-label-md text-[#1F5C56] font-medium block mb-space-xs">Ketersediaan Kursi</span>
-      <h2 class="font-headline-lg text-headline-lg text-[#2B2520] mb-space-xs">Jadwal Keberangkatan Terdekat</h2>
-      <p class="font-body-md text-body-md text-[#5C524A]">Semua jadwal di bawah ini masih dibuka dan terhubung langsung ke halaman paketnya masing-masing.</p>
+    <div class="flex flex-wrap items-end justify-between gap-space-md mb-space-lg">
+      <div class="max-w-xl" data-reveal>
+        <span class="font-label-md text-label-md text-primary font-semibold block mb-space-xs">Jadwal Keberangkatan</span>
+        <h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-xs">Keberangkatan terdekat yang masih dibuka</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant">Klik jadwal di bawah untuk melihat rincian dan sisa kursi tiap paket.</p>
+      </div>
+      <a data-reveal class="inline-flex items-center gap-1 font-label-md text-label-md font-semibold text-primary" href="<?= url('paket') ?>">Lihat semua paket <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
     </div>
 
-    <?php $jadwalList = model('jadwal')->getMendatang(6); ?>
     <?php if ($jadwalList): ?>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-md">
       <?php foreach ($jadwalList as $j): ?>
-      <a href="<?= url('paket/' . $j['slug_paket']) ?>" class="bg-white rounded-lg border border-[#E4D8D0] p-space-md hover:border-[#1F5C56] transition-colors flex flex-col gap-2">
-        <div class="flex items-center justify-between">
-          <span class="font-label-sm text-label-sm font-semibold text-[#2B2520]"><?= tanggal($j['tanggal_berangkat'], 'long') ?></span>
+      <?php
+        $sisa = (int) $j['kuota'];
+        $pct = (int) round($sisa / max(1, $kuotaMax) * 100);
+        $warna = $pct >= 40 ? 'bg-primary' : ($pct >= 20 ? 'bg-secondary' : 'bg-error');
+        $bijiWarna = $pct >= 40 ? 'text-primary border-primary-container bg-primary-container/40' : ($pct >= 20 ? 'text-secondary border-secondary-fixed-dim bg-secondary-fixed/50' : 'text-error border-error-container bg-error-container');
+      ?>
+      <a href="<?= url('paket/' . $j['slug_paket']) ?>" class="bg-white rounded-2xl border border-outline-variant p-space-md shadow-sm hover:shadow-md hover:border-primary transition-all flex flex-col gap-space-sm group" data-reveal>
+        <div class="flex items-center justify-between gap-2">
+          <span class="inline-flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface-variant">
+            <span class="material-symbols-outlined text-[16px] text-primary">event</span>
+            <?= tanggal($j['tanggal_berangkat'], 'long') ?>
+          </span>
           <?= badge(ucfirst($j['status']), $j['status'] === 'dibuka' ? 'teal' : 'gray') ?>
         </div>
-        <span class="font-headline-sm text-headline-sm text-[#1F5C56]"><?= e($j['nama_paket']) ?></span>
-        <span class="font-body-sm text-body-sm text-[#5C524A]">Kuota tersisa <?= (int) $j['kuota'] ?> jamaah</span>
+        <h3 class="font-headline-sm text-headline-sm text-primary"><?= e($j['nama_paket']) ?></h3>
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-label-sm text-label-sm text-on-surface-variant">Sisa kursi</span>
+            <span class="font-label-sm text-label-sm font-bold px-2 py-0.5 rounded-full border <?= $bijiWarna ?>"><?= $sisa ?> kursi</span>
+          </div>
+          <div class="h-2 rounded-full bg-surface-container-high overflow-hidden">
+            <div class="h-full <?= $warna ?> rounded-full" style="width:<?= $pct ?>%"></div>
+          </div>
+        </div>
+        <span class="inline-flex items-center gap-1 font-label-sm text-label-sm font-semibold text-primary mt-auto">
+          Rincian paket <span class="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+        </span>
       </a>
       <?php endforeach; ?>
     </div>
     <?php else: ?>
-    <p class="font-body-md text-body-md text-[#5C524A] bg-white border border-[#E4D8D0] rounded-lg p-space-md">Jadwal keberangkatan berikutnya sedang kami susun. Silakan kirim konsultasi agar kami kabari lebih dulu.</p>
+    <p class="font-body-md text-body-md text-on-surface-variant bg-white border border-outline-variant rounded-2xl p-space-md">Jadwal keberangkatan terdekat sedang disusun. Kirim konsultasi agar kami kabari lebih dulu.</p>
     <?php endif; ?>
   </div>
 </section>
 
-<!-- Testimoni -->
-<section class="w-full bg-[#FAF7F2] py-space-xl text-[#2B2520]">
-  <?php $testimoniList = model('testimoni')->getAktif(2); ?>
+<?php /* ==================== TESTIMONI (karusel + video) ==================== */ ?>
+<section class="w-full bg-surface py-space-xl text-on-surface overflow-hidden">
   <div class="max-w-7xl mx-auto px-margin lg:px-gutter-desktop">
-    <div class="text-center max-w-xl mx-auto mb-space-xl">
-      <span class="font-label-sm text-label-sm text-[#1F5C56] block mb-space-xs">Kesaksian Jamaah</span>
-      <h2 class="font-headline-lg text-headline-lg text-[#2B2520]">Ketenangan dalam Kenangan Mereka</h2>
+    <div class="text-center max-w-xl mx-auto mb-space-lg" data-reveal>
+      <span class="font-label-md text-label-md text-primary font-semibold block mb-space-xs">Kesaksian Jamaah</span>
+      <h2 class="font-headline-lg text-headline-lg text-on-surface">Cerita senang keluarga yang sudah berangkat</h2>
     </div>
+
+    <!-- Kartu video -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md mb-space-lg" data-reveal>
+      <?php foreach ($videoContoh as $vc): ?>
+      <button type="button" data-video-open data-video-src="<?= e($vc['sumber']) ?>" class="group relative rounded-2xl overflow-hidden aspect-video border border-outline-variant shadow-sm text-left">
+        <img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" alt="Video: <?= e($vc['judul']) ?>" src="<?= upload_url($vc['poster'], 'galeri') ?>"/>
+        <span class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></span>
+        <span class="absolute inset-0 flex items-center justify-center">
+          <span class="w-14 h-14 rounded-full bg-white/90 backdrop-blur-sm text-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-[30px]">play_arrow</span>
+          </span>
+        </span>
+        <span class="absolute bottom-3 left-4 right-4 text-white">
+          <span class="block font-headline-sm text-headline-sm"><?= e($vc['judul']) ?></span>
+          <span class="font-label-sm text-label-sm text-white/80">Contoh video · <?= e(trim((string)($profil['nama_perusahaan'] ?? '')) ?: 'Sakinah Journeys') ?></span>
+        </span>
+      </button>
+      <?php endforeach; ?>
+    </div>
+
+    <!-- Karusel ulasan -->
     <?php if ($testimoniList): ?>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg lg:gap-gutter-desktop">
-      <?php foreach ($testimoniList as $t): ?>
-      <?php
-        $kata = array_values(array_filter(
-            preg_split('/[\s&]+/', (string) $t['nama']) ?: [],
-            static fn($w) => !in_array(mb_strtolower(trim($w)), ['dan', 'ibu', 'bapak', 'dr.', 'dr', 'h.', 'h', 'hj.', 'hajjah', 'ust.', 'ustadz'], true) && $w !== ''
-        ));
-        $inT = isset($kata[0]) ? mb_strtoupper(mb_substr($kata[0], 0, 1)) : 'J';
-        $inAkhir = count($kata) > 1 ? mb_strtoupper(mb_substr(end($kata), 0, 1)) : '';
-        $inisial = $inT . ($inAkhir !== '' && $inAkhir !== $inT ? $inAkhir : '');
-      ?>
-      <div class="bg-[#FAF7F2] p-space-lg rounded-xl border border-[#E4D8D0] flex flex-col justify-between shadow-sm relative">
-        <span class="font-display-lg text-display-md text-[#1F5C56]/20 leading-none absolute top-4 right-6 select-none font-serif">&ldquo;</span>
-        <p class="font-body-lg text-body-lg text-[#2B2520] italic mb-space-lg leading-relaxed relative z-10">&ldquo;<?= e($t['teks']) ?>&rdquo;</p>
-        <div class="flex items-center gap-space-sm pt-space-sm border-t border-[#E4D8D0]">
-          <div class="w-10 h-10 rounded-full bg-[#1F5C56]/10 flex items-center justify-center text-[#1F5C56] font-semibold text-label-md"><?= e($inisial) ?></div>
-          <div class="flex flex-col">
-            <span class="font-label-md text-label-md font-semibold text-[#2B2520]"><?= e($t['nama']) ?></span>
-            <span class="font-body-sm text-body-sm text-[#5C524A]"><?= trim((string) ($t['asal_kota'] ?? '')) !== '' ? 'Jamaah dari ' . e($t['asal_kota']) : 'Jamaah Sakinah Journeys' ?></span>
+    <div class="flex items-center gap-2 mb-space-md justify-center" data-reveal>
+      <button type="button" data-slider-prev="testimoni" class="w-10 h-10 rounded-full bg-white border border-outline-variant text-primary inline-flex items-center justify-center hover:bg-primary hover:text-white transition-colors" aria-label="Ulasan sebelumnya">
+        <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+      </button>
+      <button type="button" data-slider-next="testimoni" class="w-10 h-10 rounded-full bg-white border border-outline-variant text-primary inline-flex items-center justify-center hover:bg-primary hover:text-white transition-colors" aria-label="Ulasan berikutnya">
+        <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+      </button>
+    </div>
+    <div data-slider="testimoni" class="flex gap-space-md overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth">
+      <?php foreach ($testimoniList as $ts): ?>
+      <?php $foto = !empty($ts['foto']) ? upload_url($ts['foto'], 'galeri') : ''; ?>
+      <figure class="shrink-0 snap-start w-full sm:w-[420px] bg-surface-container/70 rounded-2xl border border-primary-container/40 p-space-md flex flex-col gap-space-sm shadow-sm" data-reveal>
+        <div class="flex items-center justify-between gap-2">
+          <span class="inline-flex items-center gap-0.5 text-secondary">
+            <?php for ($b = 1; $b <= 5; $b++): ?><span class="material-symbols-outlined text-[18px]">star</span><?php endfor; ?>
+          </span>
+          <?php if (!empty($ts['contoh'])): ?>
+          <span class="font-label-sm text-label-sm text-on-surface-variant bg-white border border-outline-variant rounded-full px-2 py-0.5">Contoh ulasan</span>
+          <?php endif; ?>
+        </div>
+        <blockquote class="font-body-md text-body-md text-on-surface italic leading-relaxed">&ldquo;<?= e(excerpt($ts['teks'], 220)) ?>&rdquo;</blockquote>
+        <figcaption class="flex items-center gap-space-sm mt-auto pt-space-sm border-t border-primary-container/40">
+          <span class="w-10 h-10 rounded-full overflow-hidden bg-primary-container text-primary flex items-center justify-center font-label-md font-bold shrink-0">
+            <?php if ($foto !== ''): ?><img class="w-full h-full object-cover" loading="lazy" decoding="async" alt="<?= e($ts['nama']) ?>" src="<?= $foto ?>"/><?php else: ?><?= e($initials($ts)) ?><?php endif; ?>
+          </span>
+          <div>
+            <span class="block font-label-md text-label-md font-semibold text-on-surface"><?= e($ts['nama']) ?></span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant"><?= !empty($ts['asal_kota']) ? e($ts['asal_kota']) : 'Jamaah Sakinah Journeys' ?></span>
           </div>
+        </figcaption>
+      </figure>
+      <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+  </div>
+</section>
+
+<?php /* ==================== GALERI (slider kompak) ==================== */ ?>
+<section class="w-full bg-surface-container py-space-xl text-on-surface overflow-hidden">
+  <div class="max-w-7xl mx-auto px-margin lg:px-gutter-desktop">
+    <div class="flex flex-wrap items-end justify-between gap-space-md mb-space-lg">
+      <div class="max-w-xl" data-reveal>
+        <span class="font-label-md text-label-md text-primary font-semibold block mb-space-xs">Galeri Perjalanan</span>
+        <h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-xs">Momen tenang yang membekas</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant">Cuplikan suasana pendampingan dan kebersamaan di Tanah Suci.</p>
+      </div>
+      <div class="flex items-center gap-2" data-reveal>
+        <button type="button" data-slider-prev="galeri" class="w-10 h-10 rounded-full bg-white border border-outline-variant text-primary inline-flex items-center justify-center hover:bg-primary hover:text-white transition-colors" aria-label="Galeri sebelumnya">
+          <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+        </button>
+        <button type="button" data-slider-next="galeri" class="w-10 h-10 rounded-full bg-white border border-outline-variant text-primary inline-flex items-center justify-center hover:bg-primary hover:text-white transition-colors" aria-label="Galeri berikutnya">
+          <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+        </button>
+      </div>
+    </div>
+
+    <?php if ($galeriList): ?>
+    <div data-slider="galeri" class="flex gap-space-md overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth pb-2">
+      <?php foreach ($galeriList as $gl): ?>
+      <button type="button" data-lightbox-open data-lightbox-img="<?= upload_url($gl['gambar'], 'galeri') ?>" data-lightbox-caption="<?= e($gl['judul']) ?>" class="group shrink-0 snap-start w-[260px] rounded-2xl overflow-hidden border border-outline-variant shadow-sm relative aspect-[4/3] text-left" data-reveal>
+        <img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" alt="<?= e($gl['judul']) ?>" src="<?= upload_url($gl['gambar'], 'galeri') ?>"/>
+        <span class="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent opacity-90"></span>
+        <span class="absolute bottom-3 left-3 right-3 text-white font-body-sm text-body-sm leading-snug"><?= e($gl['judul']) ?></span>
+      </button>
+      <?php endforeach; ?>
+    </div>
+    <?php else: ?>
+    <p class="font-body-md text-body-md text-on-surface-variant bg-white border border-outline-variant rounded-2xl p-space-md">Galeri perjalanan sedang dikumpulkan.</p>
+    <?php endif; ?>
+  </div>
+</section>
+
+<?php /* ==================== ARTIKEL (inspirasi) ==================== */ ?>
+<section class="w-full bg-surface py-space-xl text-on-surface">
+  <div class="max-w-7xl mx-auto px-margin lg:px-gutter-desktop">
+    <div class="flex flex-wrap items-end justify-between gap-space-md mb-space-lg">
+      <div class="max-w-xl" data-reveal>
+        <span class="font-label-md text-label-md text-primary font-semibold block mb-space-xs">Inspirasi &amp; Panduan</span>
+        <h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-xs">Bekal batin sebelum berangkat</h2>
+      </div>
+      <a data-reveal class="inline-flex items-center gap-1 font-label-md text-label-md font-semibold text-primary" href="<?= url('artikel') ?>">Semua artikel <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+    </div>
+
+    <?php if ($artikelList): ?>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+      <?php foreach ($artikelList as $ar): ?>
+      <a href="<?= url('artikel/' . $ar['slug']) ?>" class="group bg-surface-container/70 rounded-2xl border border-primary-container/40 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col" data-reveal>
+        <div class="aspect-[16/9] overflow-hidden">
+          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" alt="<?= e($ar['judul']) ?>" src="<?= upload_url($ar['thumbnail'], 'artikel') ?>"/>
+        </div>
+        <div class="p-space-md flex flex-col flex-1">
+          <span class="font-label-sm text-label-sm text-on-surface-variant mb-1"><?= tanggal($ar['created_at']) ?></span>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface leading-snug mb-space-xs line-clamp-2"><?= e($ar['judul']) ?></h3>
+          <span class="inline-flex items-center gap-1 font-label-sm text-label-sm font-semibold text-primary mt-auto">Baca <span class="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span></span>
+        </div>
+      </a>
+      <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+  </div>
+</section>
+
+<?php /* ==================== FAQ ==================== */ ?>
+<section class="w-full bg-surface-container py-space-xl text-on-surface">
+  <div class="max-w-4xl mx-auto px-margin lg:px-gutter-desktop">
+    <div class="text-center max-w-xl mx-auto mb-space-lg" data-reveal>
+      <span class="font-label-md text-label-md text-primary font-semibold block mb-space-xs">Tanya Jawab</span>
+      <h2 class="font-headline-lg text-headline-lg text-on-surface">Yang sering ditanyakan keluarga</h2>
+    </div>
+
+    <?php if ($faqList): ?>
+    <div class="flex flex-col gap-space-sm">
+      <?php foreach ($faqList as $fi => $fq): ?>
+      <div class="faq-item <?= $fi === 0 ? 'open' : '' ?> bg-white rounded-xl border border-outline-variant overflow-hidden" data-faq-item data-reveal>
+        <button type="button" data-faq-toggle class="w-full flex items-center justify-between gap-4 px-space-md py-space-sm text-left" aria-expanded="<?= $fi === 0 ? 'true' : 'false' ?>">
+          <span class="font-headline-sm text-headline-sm text-on-surface"><?= e($fq['pertanyaan']) ?></span>
+          <span class="shrink-0 w-8 h-8 rounded-full bg-surface-container text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[20px] transition-transform"><?= $fi === 0 ? 'remove' : 'add' ?></span>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p class="px-space-md pb-space-md font-body-md text-body-md text-on-surface-variant leading-relaxed"><?= e($fq['jawaban']) ?></p>
         </div>
       </div>
       <?php endforeach; ?>
     </div>
-    <?php else: ?>
-    <div class="bg-[#FAF7F2] p-space-lg rounded-xl border border-dashed border-[#DCD5C9] flex flex-col items-center justify-center text-center gap-space-xs min-h-[180px]">
-      <span class="material-symbols-outlined text-[#1F5C56] text-[36px]">forum</span>
-      <span class="font-headline-sm text-headline-sm text-[#2B2520]">Kesaksian Segera Hadir</span>
-      <span class="font-body-sm text-body-sm text-[#5C524A] max-w-md">Cerita pengalaman jamaah akan kami tampilkan setelah data testimoni tersedia.</span>
+    <div data-reveal class="mt-space-md text-center">
+      <a class="inline-flex items-center gap-1 font-label-md text-label-md font-semibold text-primary" href="<?= url('faq') ?>">Pertanyaan lainnya <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
     </div>
     <?php endif; ?>
   </div>
 </section>
 
-<!-- CTA Konsultasi -->
-<section class="w-full bg-[#F2EEE6] pb-space-xl pt-space-sm" id="konsultasi">
+<?php /* ==================== CTA KONSULTASI ==================== */ ?>
+<section class="w-full bg-surface pb-space-xl pt-space-sm" id="konsultasi">
   <div class="max-w-7xl mx-auto px-margin lg:px-gutter-desktop">
-    <div class="bg-[#1F5C56] text-white rounded-2xl p-space-lg lg:p-space-xl shadow-xl relative overflow-hidden border border-[#2d6861]">
-      <div class="absolute -right-20 -bottom-20 w-96 h-96 rounded-full bg-white/5 pointer-events-none blur-3xl"></div>
-      <div class="absolute -left-20 -top-20 w-80 h-80 rounded-full bg-[#B8923F]/10 pointer-events-none blur-2xl"></div>
+    <div class="bg-primary text-white rounded-2xl p-space-lg lg:p-space-xl shadow-xl relative overflow-hidden border border-primary/60">
+      <div aria-hidden="true" class="absolute -right-20 -bottom-20 w-96 h-96 rounded-full bg-white/5 pointer-events-none blur-3xl"></div>
+      <div aria-hidden="true" class="absolute -left-20 -top-20 w-80 h-80 rounded-full bg-secondary-fixed/20 pointer-events-none blur-2xl"></div>
       <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-space-lg lg:gap-gutter-desktop items-center">
-        <div class="lg:col-span-6 flex flex-col">
-          <span class="font-label-md text-label-md text-[#ebc168] mb-space-xs font-medium">Konsultasi Hangat &amp; Privat</span>
-          <h3 class="font-headline-lg text-headline-lg text-white font-normal mb-space-sm leading-snug">Setiap niat suci berhak dirawat dengan seksama</h3>
-          <p class="font-body-md text-body-md text-[#d2c4ba] leading-relaxed mb-space-md max-w-lg">Diskusikan kesiapan kesehatan, preferensi kamar keluarga, atau jadwal keberangkatan bersama pembimbing kami dalam sesi privat tanpa komitmen.</p>
-          <div class="flex flex-col gap-space-xs text-[#FAF7F2] font-body-sm text-body-sm">
-            <div class="flex items-center gap-2">
-              <span class="material-symbols-outlined text-[#ebc168] text-[18px]">lock</span>
-              <span>Informasi keluarga Anda terjaga dengan amanah.</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="material-symbols-outlined text-[#ebc168] text-[18px]">support_agent</span>
-              <span>Tatap muka di Griya Sakinah atau melalui sambungan video daring.</span>
-            </div>
+        <div class="lg:col-span-6 flex flex-col gap-space-sm">
+          <span class="font-label-md text-label-md text-secondary-fixed font-semibold">Konsultasi Gratis &amp; Tanpa Komitmen</span>
+          <h3 class="font-headline-lg text-headline-lg text-white leading-snug">Rencanakan umroh keluarga dengan bantuan kami</h3>
+          <p class="font-body-md text-body-md text-white/80 leading-relaxed max-w-lg">Sampaikan jumlah keluarga, kondisi kesehatan, dan rencana bulan berangkat. Tim kami akan menyarankan paket yang paling nyaman.</p>
+          <div class="flex flex-col gap-space-xs text-white/90 font-body-sm text-body-sm">
+            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-fixed text-[18px]">schedule</span><span><?= e($profil['jam_operasional'] ?? 'Senin – Sabtu, 08.00 – 17.00 WIB') ?></span></div>
+            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-fixed text-[18px]">call</span><span><?= e(trim((string)($profil['telepon'] ?? '')) ?: '+62 811 8892 011') ?></span></div>
+            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-fixed text-[18px]">email</span><span><?= e($profil['email'] ?? '') ?></span></div>
           </div>
         </div>
 
-        <div class="lg:col-span-6 bg-[#FAF7F2] text-[#2B2520] p-space-md lg:p-space-lg rounded-xl shadow-md border border-[#DCD5C9]">
+        <div class="lg:col-span-6 bg-white text-on-surface p-space-md lg:p-space-lg rounded-2xl shadow-md border border-outline-variant">
           <form class="flex flex-col gap-space-sm" method="post" action="<?= url('kontak') ?>">
             <?= csrf_field() ?>
             <input type="hidden" name="aksi" value="kirim_inquiry"/>
             <div>
-              <label class="block font-label-md text-label-md text-[#2B2520] font-medium mb-1" for="nama_lengkap">Nama Lengkap</label>
-              <input class="w-full px-space-md py-space-sm bg-white border border-[#DCD5C9] rounded text-body-sm text-[#2B2520] placeholder-[#707977] focus:outline-none focus:border-[#1F5C56] transition-colors" id="nama_lengkap" name="nama" placeholder="Contoh: Hendra Pratama" required="" type="text"/>
+              <label class="block font-label-md text-label-md text-on-surface font-semibold mb-1" for="nama_lengkap">Nama Lengkap</label>
+              <input class="w-full px-space-md py-space-sm bg-surface-container border border-outline-variant rounded-xl text-body-sm text-on-surface placeholder-on-surface-variant focus:outline-none focus:border-primary transition-colors" id="nama_lengkap" name="nama" placeholder="Contoh: Hendra Pratama" required="" type="text"/>
             </div>
             <div>
-              <label class="block font-label-md text-label-md text-[#2B2520] font-medium mb-1" for="nomor_wa">Nomor WhatsApp / Surel</label>
-              <input class="w-full px-space-md py-space-sm bg-white border border-[#DCD5C9] rounded text-body-sm text-[#2B2520] placeholder-[#707977] focus:outline-none focus:border-[#1F5C56] transition-colors" id="nomor_wa" name="kontak" placeholder="Contoh: 0812 3456 7890" required="" type="text"/>
+              <label class="block font-label-md text-label-md text-on-surface font-semibold mb-1" for="nomor_wa">Nomor WhatsApp / Surel</label>
+              <input class="w-full px-space-md py-space-sm bg-surface-container border border-outline-variant rounded-xl text-body-sm text-on-surface placeholder-on-surface-variant focus:outline-none focus:border-primary transition-colors" id="nomor_wa" name="kontak" placeholder="Contoh: 0812 3456 7890" required="" type="text"/>
             </div>
             <div>
-              <label class="block font-label-md text-label-md text-[#2B2520] font-medium mb-1" for="pilihan_paket">Paket yang Diminati</label>
-              <select class="w-full px-space-md py-space-sm bg-white border border-[#DCD5C9] rounded text-body-sm text-[#2B2520] focus:outline-none focus:border-[#1F5C56] transition-colors" id="pilihan_paket" name="paket_id">
+              <label class="block font-label-md text-label-md text-on-surface font-semibold mb-1" for="pilihan_paket">Paket yang Diminati</label>
+              <select class="w-full px-space-md py-space-sm bg-surface-container border border-outline-variant rounded-xl text-body-sm text-on-surface focus:outline-none focus:border-primary transition-colors" id="pilihan_paket" name="paket_id">
                 <option value="">Belum menentukan — minta rekomendasi</option>
                 <?php foreach (model('paket')->getAllAktif() as $pl): ?>
                 <option value="<?= (int) $pl['id'] ?>"><?= e($pl['nama']) ?></option>
@@ -369,10 +512,10 @@ require PUBLIC_PATH . '/partials/header.php';
               </select>
             </div>
             <div>
-              <label class="block font-label-md text-label-md text-[#2B2520] font-medium mb-1" for="pesan_konsultasi">Catatan Kebutuhan</label>
-              <textarea class="w-full px-space-md py-space-sm bg-white border border-[#DCD5C9] rounded text-body-sm text-[#2B2520] placeholder-[#707977] focus:outline-none focus:border-[#1F5C56] transition-colors" id="pesan_konsultasi" name="pesan" rows="3" placeholder="Contoh: rencana berangkat bersama ibu usia 73 tahun, ingin kamar triple."></textarea>
+              <label class="block font-label-md text-label-md text-on-surface font-semibold mb-1" for="pesan_konsultasi">Catatan Kebutuhan</label>
+              <textarea class="w-full px-space-md py-space-sm bg-surface-container border border-outline-variant rounded-xl text-body-sm text-on-surface placeholder-on-surface-variant focus:outline-none focus:border-primary transition-colors" id="pesan_konsultasi" name="pesan" rows="3" placeholder="Contoh: rencana berangkat bersama ibu usia 73 tahun, ingin kamar triple."></textarea>
             </div>
-            <button class="w-full mt-space-xs py-space-sm px-space-lg bg-[#B8923F] text-white font-label-md text-label-md rounded shadow-sm hover:opacity-95 transition-opacity" type="submit">
+            <button class="w-full mt-space-xs py-space-sm px-space-lg bg-primary text-white font-label-md text-label-md rounded-xl shadow-sm hover:bg-primary/90 transition-colors" type="submit">
               Jadwalkan Konsultasi Keluarga
             </button>
           </form>
@@ -381,4 +524,152 @@ require PUBLIC_PATH . '/partials/header.php';
     </div>
   </div>
 </section>
+
+<?php /* ==================== MODAL & TOMBOL WA ==================== */ ?>
+
+<div id="video-modal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4 bg-black/70" role="dialog" aria-modal="true" aria-label="Pemutar video">
+  <button type="button" data-modal-close="video-modal" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/15 text-white flex items-center justify-center hover:bg-white/25 transition-colors" aria-label="Tutup video">
+    <span class="material-symbols-outlined">close</span>
+  </button>
+  <video id="video-player" class="max-h-[80vh] max-w-full rounded-xl bg-black shadow-2xl" controls="" playsinline=""></video>
+</div>
+
+<div id="lightbox-modal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4 bg-black/80" role="dialog" aria-modal="true" aria-label="Lihat galeri">
+  <button type="button" data-modal-close="lightbox-modal" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/15 text-white flex items-center justify-center hover:bg-white/25 transition-colors" aria-label="Tutup galeri">
+    <span class="material-symbols-outlined">close</span>
+  </button>
+  <figure class="max-w-4xl w-full">
+    <img id="lightbox-img" class="max-h-[75vh] w-full object-contain rounded-xl shadow-2xl" alt="Galeri"/>
+    <figcaption id="lightbox-caption" class="mt-3 text-center text-white font-body-md text-body-md"></figcaption>
+  </figure>
+</div>
+
+<a href="<?= e($waLink) ?>" target="_blank" rel="noopener" aria-label="Konsultasi via WhatsApp" class="fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full bg-[#25D366] text-white shadow-lg flex items-center justify-center hover:scale-105 transition-transform">
+  <svg viewBox="0 0 32 32" class="w-7 h-7 fill-current" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.7.9 3.6 1.4 5.6 1.4C24.6 28.8 28 23.4 28 17 28 9.4 22.6 3 16 3zm0 23c-1.8 0-3.5-.5-5-1.4l-.4-.2-4.8 1 1-4.7-.2-.4c-1-1.5-1.6-3.3-1.6-5.3C5 9.9 9.9 5 16 5c6 0 11 4.9 11 11-.1 6-5.1 10-11 10zm5-7.5c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.8 1.1-.2.2-.3.2-.6.1-1.7-.8-2.8-1.4-3.9-3.2-.3-.5.3-.5.8-1.6.1-.2 0-.4 0-.5-.1-.2-.8-1.8-.9-2-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.1 3.1 1.3 3.3c.2.2 2.2 3.4 5.4 4.8 2.6 1.1 3.2.9 3.8.8 1.1-.2 1.7-.8 2-1.6.2-.7.3-1.4.2-1.6-.1-.1-.3-.2-.6-.4z"/></svg>
+</a>
+
+<script>
+(function () {
+  'use strict';
+  var t = document.documentElement;
+  t.style.opacity = '1';
+
+  /* Reveal saat scroll */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add('is-visible');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('[data-reveal]').forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
+  /* Slider horizontal: dua tombol per grup */
+  var sliders = {};
+  document.querySelectorAll('[data-slider]').forEach(function (wrap) {
+    var id = wrap.getAttribute('data-slider');
+    sliders[id] = wrap;
+    function scrollBy(dir) {
+      var card = wrap.querySelector(':scope > *');
+      var step = card ? card.getBoundingClientRect().width + 16 : 300;
+      wrap.scrollBy({ left: dir * step, behavior: 'smooth' });
+    }
+    document.querySelectorAll('[data-slider-prev="' + id + '"]').forEach(function (b) { b.addEventListener('click', function () { scrollBy(-1); }); });
+    document.querySelectorAll('[data-slider-next="' + id + '"]').forEach(function (b) { b.addEventListener('click', function () { scrollBy(1); }); });
+  });
+
+  /* Pencarian hero: arahkan ke detail paket */
+  var heroSearch = document.getElementById('hero-search');
+  if (heroSearch) {
+    heroSearch.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var sel = document.getElementById('hero-paket');
+      if (sel && sel.value) {
+        window.location.href = '<?= url('') ?>' + 'paket/' + encodeURIComponent(sel.value);
+      } else {
+        window.location.hash = 'konsultasi';
+      }
+    });
+  }
+
+  /* Modal video */
+  var videoModal = document.getElementById('video-modal');
+  var videoPlayer = document.getElementById('video-player');
+  document.querySelectorAll('[data-video-open]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      videoPlayer.src = btn.getAttribute('data-video-src');
+      videoModal.classList.remove('hidden');
+      videoModal.classList.add('flex');
+      videoPlayer.play();
+    });
+  });
+
+  /* Lightbox galeri */
+  var lbModal = document.getElementById('lightbox-modal');
+  var lbImg = document.getElementById('lightbox-img');
+  var lbCap = document.getElementById('lightbox-caption');
+  document.querySelectorAll('[data-lightbox-open]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      lbImg.src = btn.getAttribute('data-lightbox-img');
+      lbImg.alt = btn.getAttribute('data-lightbox-caption') || '';
+      lbCap.textContent = btn.getAttribute('data-lightbox-caption') || '';
+      lbModal.classList.remove('hidden');
+      lbModal.classList.add('flex');
+    });
+  });
+
+  /* Tutup modal */
+  document.querySelectorAll('[data-modal-close]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var m = document.getElementById(btn.getAttribute('data-modal-close'));
+      if (!m) return;
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+      if (m === videoModal) { videoPlayer.pause(); videoPlayer.removeAttribute('src'); videoPlayer.load(); }
+    });
+  });
+  [videoModal, lbModal].forEach(function (m) {
+    if (!m) return;
+    m.addEventListener('click', function (ev) {
+      if (ev.target === m) {
+        m.classList.add('hidden');
+        m.classList.remove('flex');
+        if (m === videoModal) { videoPlayer.pause(); videoPlayer.removeAttribute('src'); videoPlayer.load(); }
+      }
+    });
+  });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key !== 'Escape') return;
+    [videoModal, lbModal].forEach(function (m) {
+      if (!m) return;
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+      if (m === videoModal) { videoPlayer.pause(); videoPlayer.removeAttribute('src'); videoPlayer.load(); }
+    });
+  });
+
+  /* Accordion FAQ */
+  document.querySelectorAll('[data-faq-toggle]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = btn.closest('[data-faq-item]');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('[data-faq-item].open').forEach(function (o) {
+        if (o !== item) {
+          o.classList.remove('open');
+          o.querySelector('[data-faq-toggle]').setAttribute('aria-expanded', 'false');
+          o.querySelector('.material-symbols-outlined').textContent = 'add';
+        }
+      });
+      item.classList.toggle('open', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      item.querySelector('.material-symbols-outlined').textContent = !isOpen ? 'remove' : 'add';
+    });
+  });
+})();
+</script>
 <?php require PUBLIC_PATH . '/partials/footer.php'; ?>

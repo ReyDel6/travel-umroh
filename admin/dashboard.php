@@ -21,6 +21,20 @@ foreach ($pakets as $p) {
 $inquiryTerbaru = array_slice(model('inquiry')->getAll('baru'), 0, 5);
 $jadwalTerdekat = model('jadwal')->getMendatang(5);
 
+// Analitik traffic: data untuk rentang 7 & 30 hari + log 10 terakhir (Spec traffic analytics).
+$trafficModel = model('traffic');
+$trafficRanges = [];
+foreach ([7, 30] as $range) {
+    $trafficRanges[$range] = [
+        'totals'  => $trafficModel->getTotals($range),
+        'daily'   => $trafficModel->getDailyChart($range),
+        'browser' => $trafficModel->getBrowserStats($range),
+        'country' => $trafficModel->getCountryStats($range),
+    ];
+}
+$trafficRecent = $trafficModel->getRecentLogs(10);
+$trafficJson = json_encode($trafficRanges, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+
 require ADMIN_PATH . '/partials/head.php';
 require ADMIN_PATH . '/partials/sidebar.php';
 ?>
@@ -89,7 +103,98 @@ require ADMIN_PATH . '/partials/sidebar.php';
       </div>
     </section>
 
-    <!-- Section 2: Fast Actions -->
+    <!-- Section 1.5: Analitik Traffic Pengunjung -->
+    <section class="bg-surface-container-lowest rounded shadow-sm overflow-hidden">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 px-3 py-2.5 bg-surface-container-low">
+        <div class="flex items-center gap-2 min-w-0">
+          <span class="material-symbols-outlined text-[18px] text-primary shrink-0">monitoring</span>
+          <span class="font-headline-sm text-headline-sm text-primary">Analitik Traffic Pengunjung</span>
+        </div>
+        <div class="flex items-center gap-1 bg-surface-container-high rounded-lg p-1 self-start shrink-0" id="rangePills" role="tablist" aria-label="Rentang laporan">
+          <button class="range-pill px-3 py-1.5 rounded-md font-label-sm text-label-sm text-on-surface-variant transition-colors cursor-pointer" data-range="7" role="tab" type="button">7 Hari</button>
+          <button class="range-pill px-3 py-1.5 rounded-md font-label-sm text-label-sm text-on-surface-variant transition-colors cursor-pointer" data-range="30" role="tab" type="button" aria-selected="true">30 Hari</button>
+        </div>
+      </div>
+
+      <div class="p-4 flex flex-col gap-5">
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+          <div class="flex items-baseline gap-1.5">
+            <span class="font-label-sm text-label-sm text-on-surface-variant">Total Hits</span>
+            <span class="font-headline-lg text-headline-lg font-bold text-primary tracking-tight tabular-nums" id="statHits">0</span>
+          </div>
+          <div class="flex items-baseline gap-1.5">
+            <span class="font-label-sm text-label-sm text-on-surface-variant">Pengunjung Unik</span>
+            <span class="font-headline-lg text-headline-lg font-bold text-secondary tracking-tight tabular-nums" id="statUniq">0</span>
+          </div>
+          <span class="font-label-sm text-label-sm text-on-surface-variant" id="statRangeLabel"></span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div>
+            <span class="font-label-md text-label-md font-semibold text-on-surface block mb-2">Kunjungan Harian</span>
+            <div class="h-64 relative">
+              <canvas id="chartTrend" role="img" aria-label="Grafik kunjungan harian"></canvas>
+            </div>
+          </div>
+          <div>
+            <span class="font-label-md text-label-md font-semibold text-on-surface block mb-2">Pangsa Browser</span>
+            <div class="flex flex-col sm:flex-row items-center gap-5">
+              <div class="h-56 w-56 shrink-0 relative">
+                <canvas id="chartBrowser" role="img" aria-label="Diagram pangsa browser"></canvas>
+              </div>
+              <ul class="w-full flex flex-col gap-2" id="browserLegend"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 border-t border-outline-variant/20 pt-5">
+          <div>
+            <span class="font-label-md text-label-md font-semibold text-on-surface block mb-2">Negara Asal Pengunjung</span>
+            <div class="flex flex-col gap-1" id="countryList"></div>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-label-md text-label-md font-semibold text-on-surface">Kunjungan Publik Terakhir</span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant">IP disamarkan</span>
+            </div>
+            <div class="w-full overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm tracking-normal select-none">
+                    <th class="py-2 px-2.5 font-semibold whitespace-nowrap" scope="col">IP</th>
+                    <th class="py-2 px-2.5 font-semibold whitespace-nowrap" scope="col">Negara</th>
+                    <th class="py-2 px-2.5 font-semibold whitespace-nowrap" scope="col">Browser</th>
+                    <th class="py-2 px-2.5 font-semibold whitespace-nowrap" scope="col">OS</th>
+                    <th class="py-2 px-2.5 font-semibold whitespace-nowrap" scope="col">Halaman</th>
+                    <th class="py-2 px-2.5 font-semibold whitespace-nowrap" scope="col">Waktu</th>
+                  </tr>
+                </thead>
+                <tbody class="text-on-surface font-body-sm text-body-sm">
+                  <?php if (!$trafficRecent): ?>
+                  <tr><td class="py-5 px-2.5 text-center text-on-surface-variant" colspan="6">Belum ada kunjungan tercatat.</td></tr>
+                  <?php endif; ?>
+                  <?php foreach ($trafficRecent as $row): ?>
+                  <tr class="border-t border-surface-container">
+                    <td class="py-2 px-2.5 font-label-md text-label-md tabular-nums text-primary-container whitespace-nowrap"><?= e(mask_ip($row['ip_address'])) ?></td>
+                    <td class="py-2 px-2.5 whitespace-nowrap">
+                      <span class="inline-flex items-center gap-1.5">
+                        <span class="font-label-sm text-label-sm font-bold text-primary-container bg-surface-container rounded px-1.5 py-0.5"><?= e($row['country_code']) ?></span>
+                        <span class="text-on-surface-variant"><?= e($row['country_name']) ?></span>
+                      </span>
+                    </td>
+                    <td class="py-2 px-2.5 whitespace-nowrap"><?= e($row['browser']) ?></td>
+                    <td class="py-2 px-2.5 whitespace-nowrap"><?= e($row['os']) ?></td>
+                    <td class="py-2 px-2.5 max-w-[200px]"><span class="block truncate" title="<?= e($row['page_url']) ?>"><?= e($row['page_url']) ?></span></td>
+                    <td class="py-2 px-2.5 whitespace-nowrap text-on-surface-variant"><?= e(tanggal($row['visited_at']) . ' · ' . date('H:i', strtotime($row['visited_at']))) ?></td>
+                  </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <section class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 bg-surface-container-lowest p-3 rounded shadow-sm">
       <div class="flex flex-wrap items-center gap-2.5 flex-1 min-w-0">
         <span class="font-label-md text-label-md text-on-surface-variant">Akses Cepat</span>
@@ -245,4 +350,130 @@ require ADMIN_PATH . '/partials/sidebar.php';
     </section>
   </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+(function () {
+  var SERIES = <?= $trafficJson !== '' ? $trafficJson : '{}' ?>;
+  var COLORS = { 'Chrome': '#1F5C56', 'Safari': '#B8923F', 'Edge': '#2D6861', 'Firefox': '#795905', 'Other': '#97D2CA' };
+  var BULAN = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function fmtTgl(iso) {
+    var p = iso.split('-');
+    return parseInt(p[2], 10) + ' ' + (BULAN[parseInt(p[1], 10) - 1] || p[1]);
+  }
+
+  var ctxTrend = document.getElementById('chartTrend');
+  var ctxBrowser = document.getElementById('chartBrowser');
+  var dayChart = null, brChart = null;
+
+  function makeCharts() {
+    if (!ctxTrend || !window.Chart) return;
+    dayChart = new Chart(ctxTrend, {
+      type: 'bar',
+      data: {
+        labels: [],
+        datasets: [
+          { label: 'Total Hits', data: [], backgroundColor: '#1F5C56', borderRadius: 3, maxBarThickness: 22 },
+          { label: 'IP Unik', data: [], backgroundColor: '#B8923F', borderRadius: 3, maxBarThickness: 22 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8, font: { family: 'Plus Jakarta Sans', size: 11 } } } },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { family: 'Plus Jakarta Sans', size: 10, weight: 500 }, color: '#5C524A', maxRotation: 0, autoSkip: true, maxTicksLimit: 12 } },
+          y: { beginAtZero: true, ticks: { precision: 0, font: { family: 'Plus Jakarta Sans', size: 10 }, color: '#5C524A' }, border: { display: false } }
+        }
+      }
+    });
+    brChart = new Chart(ctxBrowser, {
+      type: 'doughnut',
+      data: { labels: [], datasets: [{ data: [], backgroundColor: [], borderWidth: 2, borderColor: '#FFFFFF' }] },
+      options: {
+        responsive: true, maintainAspectRatio: false, cutout: '62%',
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (c) { return ' ' + c.label + ': ' + c.parsed + '%'; } } } }
+      }
+    });
+  }
+
+  function render(range) {
+    var d = SERIES[String(range)] || { totals: { total_hits: 0, unique_visitors: 0 }, daily: [], browser: [], country: [] };
+    var hits = d.totals.total_hits || 0, uniq = d.totals.unique_visitors || 0;
+    var hitsEl = document.getElementById('statHits'); if (hitsEl) hitsEl.textContent = hits.toLocaleString('id-ID');
+    var uniqEl = document.getElementById('statUniq'); if (uniqEl) uniqEl.textContent = uniq.toLocaleString('id-ID');
+    var lbl = document.getElementById('statRangeLabel'); if (lbl) lbl.textContent = '— ' + range + ' hari terakhir';
+
+    if (dayChart) {
+      dayChart.data.labels = (d.daily || []).map(function (r) { return fmtTgl(r.tgl); });
+      dayChart.data.datasets[0].data = (d.daily || []).map(function (r) { return r.total_hits; });
+      dayChart.data.datasets[1].data = (d.daily || []).map(function (r) { return r.unique_ip; });
+      dayChart.update();
+    }
+
+    var brItems = (d.browser || []).map(function (b) { return { label: b.browser, value: parseFloat(b.persentase), hit: b.jumlah, color: COLORS[b.browser] || COLORS['Other'] }; });
+    if (brChart) {
+      brChart.data.labels = brItems.map(function (b) { return b.label; });
+      brChart.data.datasets[0].data = brItems.map(function (b) { return b.value; });
+      brChart.data.datasets[0].backgroundColor = brItems.map(function (b) { return b.color; });
+      brChart.update();
+    }
+    var legend = document.getElementById('browserLegend');
+    if (legend) {
+      legend.innerHTML = brItems.length
+        ? brItems.map(function (b) {
+            return '<li class="flex items-center justify-between gap-3 min-w-0"><span class="flex items-center gap-2 min-w-0">'
+              + '<span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:' + b.color + '"></span>'
+              + '<span class="font-body-sm text-body-sm text-on-surface truncate">' + esc(b.label) + '</span></span>'
+              + '<span class="font-label-sm text-label-sm text-on-surface-variant tabular-nums shrink-0">' + b.value + '% · ' + b.hit + '</span></li>';
+          }).join('')
+        : '<li class="font-body-sm text-body-sm text-on-surface-variant py-2">Belum ada data browser.</li>';
+    }
+
+    var countryEl = document.getElementById('countryList');
+    if (countryEl) {
+      var rows = (d.country || []);
+      countryEl.innerHTML = rows.length
+        ? rows.map(function (c) {
+            var pct = hits > 0 ? Math.round(c.jumlah / hits * 100) : 0;
+            return '<div class="flex items-center justify-between gap-3 py-1.5">'
+              + '<div class="flex items-center gap-3 min-w-0 w-40 sm:w-56 shrink-0">'
+              + '<span class="w-7 h-7 shrink-0 inline-flex items-center justify-center rounded bg-surface-container font-label-sm text-label-sm font-semibold text-primary-container">' + esc(c.country_code) + '</span>'
+              + '<span class="font-body-sm text-body-sm text-on-surface truncate" title="' + esc(c.country_name) + '">' + esc(c.country_name) + '</span></div>'
+              + '<div class="flex items-center gap-2 flex-1 min-w-0">'
+              + '<div class="flex-1 h-1.5 bg-surface-container rounded-full overflow-hidden"><div class="h-full bg-[#1F5C56] rounded-full" style="width:' + Math.max(pct, 2) + '%"></div></div>'
+              + '<span class="font-label-sm text-label-sm text-on-surface-variant tabular-nums w-12 text-right">' + pct + '%</span></div></div>';
+          }).join('')
+        : '<p class="font-body-sm text-body-sm text-on-surface-variant py-2">Belum ada data pengunjung untuk rentang ini.</p>';
+    }
+  }
+
+  function activePill(btn) {
+    [].forEach.call(document.querySelectorAll('.range-pill'), function (b) {
+      var on = b === btn;
+      b.classList.toggle('bg-white', on);
+      b.classList.toggle('shadow-sm', on);
+      b.classList.toggle('text-primary', on);
+      b.classList.toggle('font-semibold', on);
+      b.classList.toggle('text-on-surface-variant', !on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+  }
+  [].forEach.call(document.querySelectorAll('.range-pill'), function (btn) {
+    btn.addEventListener('click', function () {
+      activePill(btn);
+      render(parseInt(btn.getAttribute('data-range'), 10));
+    });
+  });
+
+  makeCharts();
+  var initBtn = document.querySelector('.range-pill[data-range="30"]');
+  activePill(initBtn);
+  render(30);
+})();
+</script>
 <?php require ADMIN_PATH . '/partials/footer.php'; ?>

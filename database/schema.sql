@@ -27,7 +27,8 @@ DROP TABLE IF EXISTS admin;
 DROP TABLE IF EXISTS testimoni;
 DROP TABLE IF EXISTS paket_itinerary;
 DROP TABLE IF EXISTS meta_halaman;
-SET FOREIGN_KEY_CHECKS = 1;
+DROP TABLE IF EXISTS visitor_daily_stats;
+DROP TABLE IF EXISTS visitor_logs;
 
 CREATE TABLE admin (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -45,7 +46,7 @@ CREATE TABLE profil_perusahaan (
     telepon VARCHAR(60),
     email VARCHAR(100),
     jam_operasional VARCHAR(150),
-    maps_embed VARCHAR(255),
+    maps_embed TEXT,
     meta_title VARCHAR(160),
     meta_description VARCHAR(255),
     izin_ppiu VARCHAR(150),
@@ -198,3 +199,32 @@ CREATE TABLE inquiry (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (paket_id) REFERENCES paket_umroh(id) ON DELETE SET NULL
 ) ENGINE=InnoDB;
+
+-- ---------- Analitik Traffic (Spec: docs/SPEC-TRAFFIC-ANALYTICS.md) ----------
+CREATE TABLE visitor_logs (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    ip_address VARCHAR(45) NOT NULL,
+    user_agent VARCHAR(255) NULL,
+    browser VARCHAR(50) NOT NULL DEFAULT 'Other',
+    os VARCHAR(50) NOT NULL DEFAULT 'Other',
+    country_code VARCHAR(3) NOT NULL DEFAULT 'ID',
+    country_name VARCHAR(100) NOT NULL DEFAULT 'Indonesia',
+    page_url VARCHAR(255) NOT NULL,
+    referer VARCHAR(255) NULL,
+    visited_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_visited_at (visited_at),
+    INDEX idx_ip_date (ip_address, visited_at),
+    INDEX idx_browser (browser),
+    INDEX idx_country (country_code)
+) ENGINE=InnoDB;
+
+CREATE TABLE visitor_daily_stats (
+    tanggal DATE PRIMARY KEY,
+    total_hits INT UNSIGNED NOT NULL DEFAULT 0,
+    unique_visitors INT UNSIGNED NOT NULL DEFAULT 0,
+    top_country_code VARCHAR(3) NULL,
+    top_browser VARCHAR(50) NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+SET FOREIGN_KEY_CHECKS = 1;

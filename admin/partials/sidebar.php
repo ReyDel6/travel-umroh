@@ -38,7 +38,7 @@ $menuGroups = [
     ],
 ];
 ?>
-<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] overflow-y-auto">
+<aside id="adminSidebar" class="fixed left-0 top-0 h-full w-64 -translate-x-full lg:translate-x-0 bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] overflow-y-auto transition-transform duration-300 ease-in-out">
   <div class="flex flex-col">
     <a class="h-16 px-6 flex items-center gap-3 bg-surface-container" href="<?= url('admin/dashboard.php') ?>">
       <div class="w-7 h-7 bg-primary flex items-center justify-center rounded">
@@ -77,10 +77,14 @@ $menuGroups = [
     </div>
   </div>
 </aside>
-<div class="pl-64">
-  <header class="fixed top-0 left-64 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-8">
-    <div class="flex items-center gap-4 w-96">
-      <form class="w-full flex items-center gap-2 px-3 py-1.5 bg-surface-container-lowest rounded shadow-[0_1px_8px_rgba(0,0,0,0.02)]" method="get" action="<?= url('admin/paket/index.php') ?>">
+<div id="sidebarBackdrop" class="fixed inset-0 z-30 bg-black/30 hidden lg:hidden"></div>
+<div class="pl-0 lg:pl-64">
+  <header class="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between gap-4 px-4 lg:px-8">
+    <div class="flex items-center justify-between gap-4 flex-1 min-w-0">
+      <button type="button" id="btnSidebar" aria-label="Buka menu navigasi" aria-expanded="false" class="lg:hidden w-9 h-9 shrink-0 rounded border border-outline-variant/60 flex items-center justify-center text-primary">
+        <span class="material-symbols-outlined text-[20px]">menu</span>
+      </button>
+      <form class="w-full max-w-96 flex items-center gap-2 px-3 py-1.5 bg-surface-container-lowest rounded shadow-[0_1px_8px_rgba(0,0,0,0.02)]" method="get" action="<?= url('admin/paket/index.php') ?>">
         <span class="material-symbols-outlined text-outline text-[18px]">search</span>
         <input class="w-full bg-transparent border-0 outline-none font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none"
                placeholder="Cari paket..." type="text" name="cari" value="<?= e($_GET['cari'] ?? '') ?>"/>
@@ -92,7 +96,7 @@ $menuGroups = [
       </a>
       <div class="h-5 w-px bg-surface-variant"></div>
       <div class="flex items-center gap-3">
-        <div class="flex flex-col text-right">
+        <div class="flex flex-col text-right hidden sm:flex">
           <span class="font-label-md text-label-md text-on-surface font-semibold leading-tight"><?= e($_SESSION['admin_username'] ?? 'Admin') ?></span>
           <span class="font-label-sm text-label-sm text-on-surface-variant leading-tight">Staf Operasional</span>
         </div>
@@ -105,4 +109,17 @@ $menuGroups = [
       </div>
     </div>
   </header>
-  <main class="relative pt-16 bg-surface w-full px-8 pb-12">
+  <main class="relative pt-16 bg-surface w-full px-4 lg:px-8 pb-12">
+  <script>
+  (function () {
+    var btn = document.getElementById('btnSidebar');
+    var aside = document.getElementById('adminSidebar');
+    var backdrop = document.getElementById('sidebarBackdrop');
+    if (!btn || !aside || !backdrop) return;
+    function open() { aside.classList.add('translate-x-0'); aside.classList.remove('-translate-x-full'); backdrop.classList.remove('hidden'); btn.setAttribute('aria-expanded', 'true'); }
+    function close() { aside.classList.remove('translate-x-0'); aside.classList.add('-translate-x-full'); backdrop.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false'); }
+    btn.addEventListener('click', function () { aside.classList.contains('-translate-x-full') ? open() : close(); });
+    backdrop.addEventListener('click', close);
+    window.addEventListener('resize', function () { if (window.innerWidth >= 1024) close(); });
+  })();
+  </script>

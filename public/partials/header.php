@@ -46,7 +46,7 @@ $navItems = [
     </nav>
 
     <div class="flex items-center gap-space-md shrink-0">
-      <div class="hidden md:flex flex-col text-right">
+      <div class="hidden xl:flex flex-col text-right">
         <span class="font-label-sm text-label-sm text-on-surface-variant">Layanan Concierge</span>
         <span class="font-body-sm text-body-sm font-medium text-tertiary"><?= e($profil['telepon'] ?? '-') ?></span>
       </div>
@@ -58,7 +58,7 @@ $navItems = [
   </div>
 
   <!-- Menu mobile -->
-  <div id="mobileMenu" class="hidden xl:hidden bg-surface border-t border-outline-variant/50">
+  <div id="mobileMenu" class="hidden xl:hidden bg-surface border-t border-outline-variant/50 max-h-[calc(100vh-5rem)] overflow-y-auto">
     <div class="max-w-7xl mx-auto px-margin py-space-sm flex flex-col">
       <?php foreach ($navItems as $item): ?>
         <?php $isActive = $item['key'] === $activeGroup; ?>

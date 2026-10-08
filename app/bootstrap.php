@@ -24,9 +24,9 @@ set_exception_handler(static function (Throwable $e): void {
     }
     echo '<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
         . '<title>' . htmlspecialchars($judul, ENT_QUOTES, 'UTF-8') . '</title>'
-        . '<style>body{font-family:system-ui,-apple-system,sans-serif;background:#F2EEE6;color:#2B2520;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0}'
-        . 'main{max-width:32rem;padding:2rem;text-align:center}h1{font-size:1.5rem;color:#1F5C56}p{line-height:1.6;color:#5C524A}'
-        . 'a{display:inline-block;margin-top:1rem;padding:.6rem 1.25rem;background:#1F5C56;color:#FAF7F2;text-decoration:none;border-radius:.25rem}</style></head>'
+        . '<style>body{font-family:system-ui,-apple-system,sans-serif;background:#f0fdf4;color:#0f172a;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0}'
+        . 'main{max-width:32rem;padding:2rem;text-align:center}h1{font-size:1.5rem;color:#059669}p{line-height:1.6;color:#475569}'
+        . 'a{display:inline-block;margin-top:1rem;padding:.6rem 1.25rem;background:#059669;color:#ffffff;text-decoration:none;border-radius:.25rem}</style></head>'
         . '<body><main><h1>' . htmlspecialchars($judul, ENT_QUOTES, 'UTF-8') . '</h1><p>' . htmlspecialchars($pesan, ENT_QUOTES, 'UTF-8') . '</p>'
         . '<a href="' . htmlspecialchars($tujuan, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($tombol, ENT_QUOTES, 'UTF-8') . '</a></main></body></html>';
     exit;
@@ -35,6 +35,7 @@ set_exception_handler(static function (Throwable $e): void {
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/db.php';
 require_once __DIR__ . '/helpers.php';
+require_once __DIR__ . '/helpers/analytics.php';
 require_once __DIR__ . '/upload.php';
 require_once __DIR__ . '/validation.php';
 
@@ -51,3 +52,4 @@ require_once __DIR__ . '/models/ProfilModel.php';
 require_once __DIR__ . '/models/AdminModel.php';
 require_once __DIR__ . '/models/MetaHalamanModel.php';
 require_once __DIR__ . '/models/TestimoniModel.php';
+require_once __DIR__ . '/models/TrafficModel.php';

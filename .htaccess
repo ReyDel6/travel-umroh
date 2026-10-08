@@ -1,8 +1,16 @@
 # ============================================================
-# Routing URL readable (Apache, docroot = root proyek)
+# Routing URL readable (Apache/LiteSpeed, docroot = root proyek)
 # Mod_rewrite harus aktif (a2enmod rewrite / AllowOverride All)
 # ============================================================
 RewriteEngine On
+
+# --- Halaman depan (harus sebelum pass-through folder docroot) ---
+RewriteRule ^$ public/index.php?page=home [L,QSA]
+
+# --- URL cantik public website ---
+RewriteRule ^paket/([a-zA-Z0-9\-]+)/?$ public/index.php?page=paket-detail&slug=$1 [L,QSA]
+RewriteRule ^artikel/([a-zA-Z0-9\-]+)/?$ public/index.php?page=artikel-detail&slug=$1 [L,QSA]
+RewriteRule ^(galeri|faq|kontak|tentang|paket|artikel)/?$ public/index.php?page=$1 [L,QSA]
 
 # --- Blokir akses publik ke file internal (sebelum pass-through) ---
 RewriteRule ^(app|database|docs|design)/ - [R=404,L]
@@ -11,16 +19,10 @@ RewriteRule ^admin/.*\.html$ - [R=404,L]
 RewriteRule ^public/(pages|partials)/ - [R=404,L]
 RewriteRule ^(router\.php|AGENTS\.MD)$ - [R=404,L]
 
-# Lewati file & folder yang benar-benar ada (aset, admin, dll)
+# --- Lewati file & folder yang benar-benar ada (aset, admin, dll) ---
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# URL cantik public website -> front controller
-RewriteRule ^paket/([a-zA-Z0-9\-]+)/?$ public/index.php?page=paket-detail&slug=$1 [L,QSA]
-RewriteRule ^artikel/([a-zA-Z0-9\-]+)/?$ public/index.php?page=artikel-detail&slug=$1 [L,QSA]
-RewriteRule ^(galeri|faq|kontak|tentang|paket|artikel)/?$ public/index.php?page=$1 [L,QSA]
-RewriteRule ^$ public/index.php?page=home [L,QSA]
-
-# Selain itu -> halaman 404 (status 404 di-set di public/index.php)
+# --- Selain itu -> halaman 404 (status 404 di-set di public/index.php) ---
 RewriteRule ^(.*)$ public/index.php?page=404 [L,QSA]

@@ -9,7 +9,7 @@ $flashNow = flash_get();
   <div class="h-8"></div>
 </div>
 <?php if ($flashNow): ?>
-<div id="flashBox" class="fixed bottom-4 right-4 z-[60] max-w-sm">
+<div id="flashBox" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 z-[60] sm:max-w-sm">
   <div class="<?= $flashNow['type'] === 'error' ? 'bg-error text-on-error' : 'bg-primary-container text-on-primary' ?> font-body-sm text-body-sm px-space-md py-space-sm rounded shadow-lg flex items-start gap-2">
     <span class="material-symbols-outlined text-[18px] mt-0.5"><?= $flashNow['type'] === 'error' ? 'error' : 'check_circle' ?></span>
     <span><?= e($flashNow['message']) ?></span>

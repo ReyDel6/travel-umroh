@@ -215,7 +215,7 @@ require PUBLIC_PATH . '/partials/header.php';
           <?php if (!empty($profil['maps_embed'])): ?>
           <div class="relative w-full h-48 rounded-lg overflow-hidden">
             <iframe class="w-full h-full" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                    src="<?= e($profil['maps_embed']) ?>" title="Peta lokasi Griya Sakinah"></iframe>
+                    src="<?= e(maps_embed_src((string) $profil['maps_embed'])) ?>" title="Peta lokasi Griya Sakinah"></iframe>
           </div>
           <?php else: ?>
           <div class="relative w-full h-48 rounded-lg bg-surface-container-high overflow-hidden flex items-center justify-center">

@@ -68,7 +68,7 @@ $navFooter = [
 </footer>
 <?php $flashNow = flash_get(); ?>
 <?php if ($flashNow): ?>
-<div id="flashBox" class="fixed bottom-4 right-4 z-50 max-w-sm">
+<div id="flashBox" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 z-50 sm:max-w-sm">
   <div class="bg-primary-container text-on-primary font-body-sm text-body-sm px-space-md py-space-sm rounded shadow-lg flex items-start gap-2">
     <span class="material-symbols-outlined text-[18px] mt-0.5"><?= ($flashNow['type'] ?? 'success') === 'error' ? 'error' : 'check_circle' ?></span>
     <span><?= e($flashNow['message']) ?></span>

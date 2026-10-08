@@ -96,10 +96,14 @@ require PUBLIC_PATH . '/partials/header.php';
     <div class="flex flex-col lg:flex-row gap-gutter-desktop items-start">
       <aside class="w-full lg:w-72 shrink-0 lg:sticky lg:top-28 space-y-space-md">
         <div class="p-space-md rounded-xl bg-surface-container-low shadow-sm space-y-space-md">
-          <div class="flex items-center justify-between pb-space-xs border-b border-outline-variant/20">
-            <span class="font-headline-sm text-headline-sm text-primary font-medium">Saring Perjalanan</span>
-            <button class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer" id="reset-filter-btn" type="button">Atur Ulang</button>
-          </div>
+          <details id="filterAccordion" class="lg:open group">
+            <summary class="flex items-center justify-between pb-space-xs border-b border-outline-variant/20 list-none cursor-pointer">
+              <span class="font-headline-sm text-headline-sm text-primary font-medium">Saring Perjalanan</span>
+              <span class="flex items-center gap-2">
+                <button class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer" id="reset-filter-btn" type="button">Atur Ulang</button>
+                <span aria-hidden="true" class="material-symbols-outlined text-on-surface-variant text-[20px] transition-transform group-open:rotate-180 lg:hidden">expand_more</span>
+              </span>
+            </summary>
 
           <div class="space-y-space-xs">
             <span class="font-label-md text-label-md text-tertiary font-semibold block">Durasi Manasik &amp; Ibadah</span>
@@ -158,6 +162,7 @@ require PUBLIC_PATH . '/partials/header.php';
               Konsultasikan Bersama Tim Ahli
             </a>
           </div>
+          </details>
         </div>
       </aside>
 
@@ -245,11 +250,11 @@ require PUBLIC_PATH . '/partials/header.php';
                     <span class="font-label-sm text-label-sm text-on-surface-variant">/ jamaah (Quad)</span>
                   </div>
                 </div>
-                <div class="flex items-center gap-2.5">
-                  <a class="px-space-md py-space-sm bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md font-semibold rounded transition-colors inline-flex items-center" href="<?= url('kontak') ?>#konsultasi">
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
+                  <a class="px-space-md py-space-sm bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md font-semibold rounded transition-colors inline-flex items-center justify-center" href="<?= url('kontak') ?>#konsultasi">
                     Konsultasi Paket
                   </a>
-                  <a class="px-space-md py-space-sm bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-medium rounded transition-colors shadow-sm inline-flex items-center" href="<?= url('paket/' . $f['row']['slug']) ?>">
+                  <a class="px-space-md py-space-sm bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-medium rounded transition-colors shadow-sm inline-flex items-center justify-center" href="<?= url('paket/' . $f['row']['slug']) ?>">
                     Lihat Rincian &amp; Jadwal
                   </a>
                 </div>
@@ -461,6 +466,15 @@ require PUBLIC_PATH . '/partials/header.php';
       if (tierIndicator) { tierIndicator.textContent = 'Semua Tier'; }
       apply();
     });
+  }
+
+  var filterAccordion = document.getElementById('filterAccordion');
+  if (filterAccordion) {
+    function syncAccordion() {
+      if (window.matchMedia('(min-width:1024px)').matches) { filterAccordion.open = true; }
+    }
+    syncAccordion();
+    window.addEventListener('resize', syncAccordion);
   }
 })();
 </script>
